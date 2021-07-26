@@ -1,0 +1,130 @@
+global !p
+def fix_indent(snip):
+	vim.eval('feedkeys("\<c-f>")')
+endglobal
+
+snippet init "Document Header"
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+\author{Hawo Höfer}
+\title{${1: title}}
+\maketitle
+$2
+\end{document}
+endsnippet
+
+snippet graph "Graphic Figure" b
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=${1:relwidth}\textwidth]{${2:path}}
+	\caption{${3:caption}}
+	\label{${4:label}}
+\end{figure}
+$5
+endsnippet
+
+snippet #tw "textwidth" Ai 
+\textwidth
+endsnippet
+
+snippet #s "Section Header" Ab
+\section{$1}
+$2
+endsnippet
+
+snippet #Ss "Subsection Header" Ab
+\subsection{$1}
+$2
+endsnippet
+
+snippet #SSs "Subsubsection Header" Ab
+\subsubsection{$1}
+$2
+endsnippet
+
+snippet #p "Paragraph Header" Ai
+\paragraph{$1} $2
+endsnippet
+
+snippet env "Environment" b
+\begin{$1}[${2:option}]
+${3:content}
+\end{$1}
+$4
+endsnippet
+
+snippet #imz "Itemize" b
+\begin{itemize}
+	\item $1
+\end{itemize}
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #it "item" Ab
+\item 
+endsnippet
+
+
+snippet #tab "tabularx" b
+\begin{tabularx}{${1:width}\textwidth}{${2:alignment}}
+	${3:content}
+\end{tabularx}
+endsnippet
+
+snippet l "label"
+\label{$1} $2
+endsnippet
+
+snippet r "reference"
+\ref{$1} $2
+endsnippet
+
+snippet c "citation"
+\cite{$1} $2
+endsnippet
+
+snippet __ "subscript" Ai
+_{$1}$2
+endsnippet
+
+snippet ^^ "superscript" Ai
+^{$1}$2
+endsnippet
+
+snippet #bf "textbf" Ai
+\textbf{$1} $2
+endsnippet
+
+snippet mb "mathbf"
+\mathbf{$1} $2
+endsnippet
+
+snippet #mr "mathrm"
+\mathrm{$1} $2
+endsnippet
+
+snippet #cp "clearpage"
+\clearpage
+endsnippet
+
+snippet #comptbl "comparison table"
+\begin{tabularx}{\textwidth}{X X}
+  \toprule
+  \textbf{Vorteile} & \textbf{Nachteile} \\\\
+  \midrule
+  \begin{enumerate}[label={+}, topsep=0pt]
+    \raggedright
+    \item ${1:positives}
+  \end{enumerate}
+  &
+  \begin{enumerate}[label={--}, topsep=0pt]
+    \raggedright
+    \item ${2:negatives}
+  \end{enumerate}
+  \\\\
+  \bottomrule
+\end{tabularx}
+endsnippet
