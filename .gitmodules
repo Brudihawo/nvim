@@ -91,3 +91,6 @@
 [submodule "pack/editing/start/indent-blankline.nvim"]
 	path = pack/editing/start/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim
+[submodule "pack/editing/start/vimtex"]
+	path = pack/editing/start/vimtex
+	url = https://github.com/lervag/vimtex
