@@ -88,3 +88,6 @@
 [submodule "pack/editing/start/nvim-dap-ui"]
 	path = pack/editing/start/nvim-dap-ui
 	url = https://github.com/rcarriga/nvim-dap-ui
+[submodule "pack/editing/start/indent-blankline.nvim"]
+	path = pack/editing/start/indent-blankline.nvim
+	url = https://github.com/lukas-reineke/indent-blankline.nvim

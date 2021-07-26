@@ -8,7 +8,7 @@ end
 -- Normal mode Mappings
 n_key_tbl = {
 -- line highlighting and numbers
-  ['<leader>c'] = ':set cursorline!<CR>',
+  ['<leader>ct'] = ':ColorizerToggle<CR>',
   ['<leader>n'] = ':set relativenumber!<CR>',
 
 -- Buffer management
@@ -30,11 +30,15 @@ n_key_tbl = {
   ['<A-L>'] = ':vertical resize +3<CR>',
 
 -- Quickfix lists
-  ['<C-Q>'] = ':call ToggleQFlist(0)<CR>',
-  ['<leader>cn'] = ':cnext<CR>',
-  ['<leader>cp'] = ':cprev<CR>',
-  ['<leader>ln'] = ':lnext<CR>',
-  ['<leader>lp'] = ':lprev<CR>',
+  ['coc'] = ':copen<CR>',
+  ['coq'] = ':cclose<CR>',
+  ['col'] = ':lopen<CR>',
+  ['coq'] = ':lclose<CR>',
+  ['<A-n>'] = ':cnext<CR>',
+  ['<A-p>'] = ':cprev<CR>',
+  ['con'] = ':lnext<CR>',
+  ['cop'] = ':lprev<CR>',
+
 
 -- Vimspector
   ['<leader>vba'] = '<Plug>VimspectorBalloonEval',
@@ -68,7 +72,7 @@ n_key_tbl = {
   ['tds'] = '<cmd>Telescope lsp_document_symbols<cr>',
   ['tdd'] = '<cmd>Telescope lsp_document_diagnostics<cr>',
   ['tkm'] = '<cmd>Telescope keymaps<cr>',
-  ['tcc'] = '<cmd>Telescope find_files cwd=~/dotfiles/nvim<cr>',
+  ['tcc'] = ':lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
 
 -- Git
   ['gst'] = ':GitGutterSignsToggle<cr>',
