@@ -1,0 +1,90 @@
+[submodule "pack/editing/start/barbar.nvim"]
+	path = pack/editing/start/barbar.nvim
+	url = https://github.com/romgrk/barbar.nvim
+[submodule "pack/editing/start/gruvbox.nvim"]
+	path = pack/editing/start/gruvbox.nvim
+	url = https://github.com/npxbr/gruvbox.nvim
+[submodule "pack/editing/start/hop.nvim"]
+	path = pack/editing/start/hop.nvim
+	url = https://github.com/phaazon/hop.nvim
+[submodule "pack/editing/start/lsp-colors.nvim"]
+	path = pack/editing/start/lsp-colors.nvim
+	url = https://github.com/folke/lsp-colors.nvim
+[submodule "pack/editing/start/lspsaga.nvim"]
+	path = pack/editing/start/lspsaga.nvim
+	url = https://github.com/glepnir/lspsaga.nvim
+[submodule "pack/editing/start/lualine.nvim"]
+	path = pack/editing/start/lualine.nvim
+	url = https://github.com/hoob3rt/lualine.nvim
+[submodule "pack/editing/start/lush.nvim"]
+	path = pack/editing/start/lush.nvim
+	url = https://github.com/rktjmp/lush.nvim
+[submodule "pack/editing/start/markdown-preview.nvim"]
+	path = pack/editing/start/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim
+[submodule "pack/editing/start/minimap.vim"]
+	path = pack/editing/start/minimap.vim
+	url = https://github.com/wfxr/minimap.vim
+[submodule "pack/editing/start/neoscroll.nvim"]
+	path = pack/editing/start/neoscroll.nvim
+	url = https://github.com/karb94/neoscroll.nvim
+[submodule "pack/editing/start/nvim-colorizer.lua"]
+	path = pack/editing/start/nvim-colorizer.lua
+	url = https://github.com/norcalli/nvim-colorizer.lua
+[submodule "pack/editing/start/nvim-compe"]
+	path = pack/editing/start/nvim-compe
+	url = https://github.com/hrsh7th/nvim-compe
+[submodule "pack/editing/start/nvim-lspconfig"]
+	path = pack/editing/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "pack/editing/start/nvim-treesitter"]
+	path = pack/editing/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "pack/editing/start/nvim-web-devicons"]
+	path = pack/editing/start/nvim-web-devicons
+	url = https://github.com/kyazdani42/nvim-web-devicons
+[submodule "pack/editing/start/plenary.nvim"]
+	path = pack/editing/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "pack/editing/start/popup.nvim"]
+	path = pack/editing/start/popup.nvim
+	url = https://github.com/nvim-lua/popup.nvim
+[submodule "pack/editing/start/telescope.nvim"]
+	path = pack/editing/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule "pack/editing/start/telescope-fzf-writer.nvim"]
+	path = pack/editing/start/telescope-fzf-writer.nvim
+	url = https://github.com/nvim-telescope/telescope-fzf-writer.nvim
+[submodule "pack/editing/start/telescope-fzf-native.nvim"]
+	path = pack/editing/start/telescope-fzf-native.nvim
+	url = https://github.com/nvim-telescope/telescope-fzf-native.nvim
+[submodule "pack/editing/start/telescope-ultisnips.nvim"]
+	path = pack/editing/start/telescope-ultisnips.nvim
+	url = https://github.com/fhill2/telescope-ultisnips.nvim
+[submodule "pack/editing/start/ultisnips"]
+	path = pack/editing/start/ultisnips
+	url = https://github.com/sirver/ultisnips
+[submodule "pack/editing/start/vim-cmake"]
+	path = pack/editing/start/vim-cmake
+	url = https://github.com/vhdirk/vim-cmake
+[submodule "pack/editing/start/vim-commentary"]
+	path = pack/editing/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "pack/editing/start/vim-fugitive"]
+	path = pack/editing/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "pack/editing/start/vim-repeat"]
+	path = pack/editing/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "pack/editing/start/vim-surround"]
+	path = pack/editing/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "pack/editing/start/nvim-dap"]
+	path = pack/editing/start/nvim-dap
+	url = https://github.com/mfussenegger/nvim-dap
+[submodule "pack/editing/start/nvim-dap-virtual-text"]
+	path = pack/editing/start/nvim-dap-virtual-text
+	url = https://github.com/theHamsta/nvim-dap-virtual-text
+[submodule "pack/editing/start/nvim-dap-ui"]
+	path = pack/editing/start/nvim-dap-ui
+	url = https://github.com/rcarriga/nvim-dap-ui
