@@ -1,5 +1,18 @@
 local dap = require('dap')
 
+-- Utility function
+local function splitstr(input, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t = {}
+  for elem in string.gmatch(input, "([^"..sep.."]+)") do
+    table.insert(t, elem)
+  end
+  print(vim.inspect(t))
+  return t
+end
+
 -- Rust, C, C++
 dap.adapters.cppdbg = {
   type = 'executable',
@@ -14,6 +27,8 @@ dap.configurations.cpp = {
     program = function() 
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
+    MiMode = 'gdb',
+    miDebuggerPath = 'gdb',
     cwd = '${workspaceFolder}',
     stopOnEntry = true,
   },
@@ -23,10 +38,16 @@ dap.configurations.cpp = {
     request = 'launch',
     MiMode = 'gdb',
     miDebuggerServerAdress = 'localhost:1234',
-    miDebuggerPath = '/usr/bin/gdb',
+    miDebuggerPath = 'gdb',
     cwd = '${workspaceFolder}',
     program = function() 
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      return vim.fn.input('Path to Executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    args = function() 
+      local args = vim.fn.input('Arguments: ', '','file')
+      args = splitstr(args)
+      print(vim.inspect(args))
+      return args
     end,
   },
 }
@@ -59,4 +80,46 @@ dap.configurations.python = {
   end,
 }
 
+-- DAP-UI
 
+require("dapui").setup({
+  icons = {
+    expanded = "▾",
+    collapsed = "▸"
+  },
+  mappings = {
+    -- Use a table to apply multiple mappings
+    expand = {"<CR>", "<2-LeftMouse>"},
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+  },
+  sidebar = {
+    open_on_start = true,
+    elements = {
+      -- You can change the order of elements in the sidebar
+      "scopes",
+      "breakpoints",
+      "stacks",
+      "watches"
+    },
+    width = 40,
+    position = "left" -- Can be "left" or "right"
+  },
+  tray = {
+    open_on_start = true,
+    elements = {
+      "repl"
+    },
+    height = 10,
+    position = "bottom" -- Can be "bottom" or "top"
+  },
+  floating = {
+    max_height = nil, -- These can be integers or a float between 0 and 1.
+    max_width = nil   -- Floats will be treated as percentage of your screen.
+  }
+})
+
+vim.g.dap_virtual_text = true
+vim.fn.sign_define('DapBreakpoint', { text ='🛑' })

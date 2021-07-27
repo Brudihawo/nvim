@@ -1,4 +1,6 @@
+
 require("lspconfig").pylsp.setup{
+  -- on_attach = require('lsp_signature').on_attach("pylsp"),
   settings = {
     pylsp = {
       configurationSources = { "flake8" },
@@ -60,6 +62,7 @@ require("lspconfig").texlab.setup{
 }
 
 require("lspconfig").ccls.setup{
+  -- on_attach = require('lsp_signature').on_attach("ccls"),
   init_options = {
     index = {
       threads = 0;
@@ -79,6 +82,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         underline=true;
     }
 )
+
+
+local saga = require('lspsaga')
+saga.init_lsp_saga {
+  max_preview_lines = 20,
+  finder_action_keys = {
+    open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
+  },
+}
 
 require('compe').setup {
   enabled = true;
@@ -130,3 +142,4 @@ return {
           "Result: " .. vim.inspect(result))
   end
 }
+

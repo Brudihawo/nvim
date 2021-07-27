@@ -94,3 +94,12 @@
 [submodule "pack/editing/start/vimtex"]
 	path = pack/editing/start/vimtex
 	url = https://github.com/lervag/vimtex
+[submodule "pack/editing/start/playground"]
+	path = pack/editing/start/playground
+	url = https://github.com/nvim-treesitter/playground
+[submodule "pack/editing/start/lsp_signature.nvim"]
+	path = pack/editing/start/lsp_signature.nvim
+	url = https://github.com/ray-x/lsp_signature.nvim
+[submodule "pack/editing/start/vim-gitgutter"]
+	path = pack/editing/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter

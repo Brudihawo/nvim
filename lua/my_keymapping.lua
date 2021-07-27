@@ -33,16 +33,21 @@ n_key_tbl = {
   ['coc'] = ':copen<CR>',
   ['coq'] = ':cclose<CR>',
   ['col'] = ':lopen<CR>',
-  ['coq'] = ':lclose<CR>',
+  ['coL'] = ':lclose<CR>',
   ['<A-n>'] = ':cnext<CR>',
   ['<A-p>'] = ':cprev<CR>',
   ['con'] = ':lnext<CR>',
   ['cop'] = ':lprev<CR>',
 
-
--- Vimspector
-  ['<leader>vba'] = '<Plug>VimspectorBalloonEval',
-  ['<leader>vsr'] = '<Plug>VimspectorReset',
+-- Debugger
+  ['<F2>'] = '<cmd>lua require("dap").toggle_breakpoint()<cr>',
+  ['<F4>'] = '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<cr>:lua require("dapui").close()<cr>',
+  ['<F5>'] = '<cmd>lua require("dap").continue()<cr>',
+  ['<F6>'] = '<cmd>lua require("dap").run()<cr>',
+  ['<F8>'] = '<cmd>lua require("dap").step_into()<cr>',
+  ['<F9>'] = '<cmd>lua require("dap").step_over()<cr>',
+  ['<F10>'] = '<cmd>lua require("dap").step_out()<cr>',
+	['<F11>'] = '<cmd>lua require("dap").run_to_cursor()<cr>',
 
 -- Tagbar
   ['<leader>bo'] = ':Tagbar<CR> ', -- Bar open
@@ -52,27 +57,28 @@ n_key_tbl = {
   ['gD'] = ':lua vim.lsp.buf.declaration()<cr>',
   ['gd'] = ':lua vim.lsp.buf.definition()<cr>',
   ['<leader>rn'] = ':Lspsaga rename<CR>',
+  ['<A-d>'] = '<cmd>Lspsaga preview_definition<CR>',
 
   ['Lf'] = ':lua vim.lsp.buf.formatting()<CR>',
+  ['Llf'] = '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>',
   ['Ldn'] = ':lua vim.lsp.buf.diagnostic.goto_next()<CR>',
   ['Ldp'] = ':lua vim.lsp.buf.diagnostic.goto_prev()<CR>',
   ['Ldl'] = ':lua vim.lsp.diagnostic.set_loclist()<CR>',
   ['Lld'] = ':Lspsaga show_line_diagnostics<CR>',
   ['Lcd'] = ':Lspsaga show_cursor_diagnostics<CR>',
   ['Lsd'] = ':Lspsaga hover_doc<CR>',
-  ['Lsh'] = ':lua require(\'lspsaga.signaturehelp\').signature_help()<CR>',
-  ['Lpd'] = ':Lspsaga preview_definition<CR>',
+  ['Lsh'] = ':lua require("lspsaga.signaturehelp").signature_help()<CR>',
 
 -- Fuzzy Finding
   ['<C-p>'] = ':lua require(\'telescope\').extensions.fzf_writer.files()<cr>',
   ['<C-g>'] = ':lua require(\'telescope\').extensions.fzf_writer.staged_grep()<cr>',
   ['<C-b>'] = '<cmd>Telescope buffers<cr> ',
-  ['tht'] = '<cmd>Telescope help_tags<cr>',
-  ['tgs'] = '<cmd>Telescope grep_string<cr>',
-  ['tds'] = '<cmd>Telescope lsp_document_symbols<cr>',
+  ['thh'] = '<cmd>Telescope help_tags<cr>',
+  ['tjj'] = '<cmd>Telescope lsp_document_symbols<cr>',
   ['tdd'] = '<cmd>Telescope lsp_document_diagnostics<cr>',
   ['tkm'] = '<cmd>Telescope keymaps<cr>',
-  ['tcc'] = ':lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
+  ['tee'] = ':lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
+  ['tkk'] = '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<cr>',
 
 -- Git
   ['gst'] = ':GitGutterSignsToggle<cr>',
@@ -81,9 +87,9 @@ n_key_tbl = {
   ['gph'] = ':GitGutterPreviewHunk<cr>',
 
 -- Hop.nvim 
-  ['Hl'] = ':HopLine<cr>',
+  ['HH'] = ':HopWord<cr>',
   ['Hc'] = ':HopChar1<cr>',
-  ['Hw'] = ':HopWord<cr>',
+  ['Hl'] = ':HopLine<cr>',
   ['Hp'] = ':HopPattern<cr>',
 
 -- Buffer Picking (via Barbar)
@@ -99,20 +105,14 @@ i_key_tbl = {
   ['<A-Enter>'] = '<Down><Enter>',
 
 -- Open Signature Help
-  ['M-h'] = '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>',
-}
-
--- Ex mode Mappings
-x_key_tbl = {
--- Vimspector Shortcuts
-  ['<leader>vba'] = '<Plug>VimspectorBalloonEval',
-  ['<leader>vsr'] = '<Plug>VimspectorReset',
+  ['<A-h>'] = '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>',
+  ['<A-d>'] = '<cmd>Lspsaga preview_definition<CR>',
 }
 
 -- Actually settings the keymaps
 set_km("n", n_key_tbl, true, false)
 set_km("i", i_key_tbl, true, false)
-set_km("x", x_key_tbl, true, false)
+-- set_km("x", x_key_tbl, true, false)
 
 return {
   normal = n_key_tbl,

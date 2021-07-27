@@ -45,7 +45,7 @@ require('lualine').setup {
   options= {
     theme = 'gruvbox',
     section_separators = "",
-    component_separators = "|",
+    component_separators = "│",
   },
    sections = {
      lualine_a = {{'mode', lower=false}}, 
@@ -73,3 +73,4 @@ require('colorizer').setup {
 
 vim.g.indent_blankline_enabled = true
 vim.g.indent_blankline_use_treesitter = true
+vim.g.indent_blankline_char = '│'

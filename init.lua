@@ -40,6 +40,12 @@ vim.o.colorcolumn = "80"
 vim.o.updatetime = 800
 
 -- VimTeX
+vim.g.vimtex_quickfix_open_on_warning = false
+vim.g.vimtex_quickfix_ignore_filters = {
+  ".*Overfull \\hbox.*",
+  ".*Underfull \\hbox.*",
+}
+
 vim.g.vimtex_compiler_name = 'nvr'
 vim.g.vimtex_compiler_method = 'latexmk'
 vim.g.vimtex_view_general_viewer = 'zathura'
@@ -64,12 +70,6 @@ vim.g.vimtex_compiler_latexmk = {
      '-synctex=1',
      '-interaction=nonstopmode',
   },
-}
-
-
-vim.g.vimtex_quickfix_ignore_filters = {
- 'Overfull \\hbox',
- 'Underfull \\hbox',
 }
 
 -- Vim-cmake
@@ -107,15 +107,33 @@ end
 
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "python", "c", "cpp", "bibtex", "json", "bash", "lua", "rust" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "python", "c", "cpp", "bibtex", "json", "bash", "lua", "rust", "comment" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
     disable = {},  -- list of language that will be disabled
   },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25,
+    persis_queries = false,
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    }
+  }
 }
 
-require('hop').setup { keys="asdfghjklöä", term_seq_bias=0.5 }
+require('hop').setup { keys="asdfjklögh", term_seq_bias=0.5 }
 
 require('my_telescope_config')
 require('my_lsp_config')
