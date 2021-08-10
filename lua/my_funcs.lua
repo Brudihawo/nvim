@@ -5,10 +5,13 @@ end
 
 M = {}
 
-M.goto_other = function()
+M.goto_c_h = function()
   local uri = vim.uri_from_bufnr(0)
-  if string.ends(uri, "\.c") then
-  end
+  if string.ends(uri, ".c") then
+    print(uri:sub(1,-1) .. "h")
+    elseif string.ends(uri, ".h") then
+      print(uri:sub(1,-1) .. "c")
+    end
 end
 
-re
+return M

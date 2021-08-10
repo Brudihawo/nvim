@@ -12,6 +12,8 @@ vim.o.display = 'lastline'
 -- search
 vim.o.hlsearch = true
 vim.o.smartcase = true
+-- vim.o.spelllang=de,en
+vim.g.gruvbox_guisp_fallback = 'red'
 
 -- highlighting and Readability
 vim.o.syntax = 'on'
@@ -105,38 +107,12 @@ for key, value in pairs(surround_pairs) do
   end
 end
 
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "python", "c", "cpp", "bibtex", "json", "bash", "lua", "rust", "comment" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "javascript" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {},  -- list of language that will be disabled
-  },
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25,
-    persis_queries = false,
-    keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
-    }
-  }
+require('hop').setup {
+  keys="asdfghjklö",
+  perm_method = require'hop.perm'.TrieBacktrackFilling,
 }
-
-require('hop').setup { keys="asdfjklögh", term_seq_bias=0.5 }
-
 require('my_telescope_config')
+require('my_treesitter_config')
 require('my_lsp_config')
 require('my_debugging')
 require('my_ui_visuals')
-

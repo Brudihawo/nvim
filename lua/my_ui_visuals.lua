@@ -38,22 +38,23 @@ require('neoscroll').setup {
     hide_cursor = true,          -- Hide cursor while scrolling
     stop_eof = true,             -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-    cursor_scrolls_alone = true  -- The cursor will keep on scrolling even if the window cannot scroll further
+    cursor_scrolls_alone = true,  -- The cursor will keep on scrolling even if the window cannot scroll further
+    easing_function = 'sine'
 }
 
 require('lualine').setup {
   options= {
-    theme = 'gruvbox',
+    theme = 'gruvbox_material',
     section_separators = "",
     component_separators = "│",
   },
    sections = {
-     lualine_a = {{'mode', lower=false}}, 
+     lualine_a = {{'mode', lower=false}},
      lualine_b = {'branch'},
-     lualine_c = {'filename', 'progress', 'diff'},
-     lualine_x = {'filetype'}, 
-     lualine_y = {'encoding'}, 
-     lualine_z = {{'diagnostics', sources={'nvim_lsp'}}}, 
+     lualine_c = {'filename', 'diff'},
+     lualine_x = {'encoding'},
+     lualine_y = {'filetype', {'diagnostics', sources={'nvim_lsp'}}},
+     lualine_z = {'location', 'progress'},
    },
   extensions = {
     'quickfix',
@@ -70,7 +71,19 @@ require('colorizer').setup {
   }
 }
 
-
 vim.g.indent_blankline_enabled = true
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_char = '│'
+
+-- LSPSaga Highlighting
+vim.cmd("highlight LspSagaDefPreviewBorder guifg='#ebdbb2'")
+vim.cmd("highlight clear LspFloatWinBorder")
+vim.cmd("highlight link LspFloatWinBorder LspSagaDefPreviewBorder")
+vim.cmd("highlight LspSagaRenameBorder guifg='#d79921'")
+vim.cmd("highlight CompeDocumentationBorder guifg='#689d6a'")
+
+vim.cmd("highlight trailws guibg='#fb4934'")
+vim.cmd("match trailws /\\s\\+$/")
+
+-- vim.cmd("highlight longline guibg='#fabd2f' guifg='#282828'")
+-- vim.cmd("match longline /.\\%>80v/")

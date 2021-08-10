@@ -17,7 +17,7 @@ require("lspconfig").pylsp.setup{
         black = {
           enabled = true,
           args = {
-            '-l', '79'
+            '-l', '80'
           }
         },
         flake8 = {
@@ -108,9 +108,9 @@ require('compe').setup {
     path = true;
     nvim_lsp = true;
     nvim_lua = true;
-    ultisnips = true;
     buffer = true;
     calc = true;
+    omni = true;
   };
   documentation = {
     winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",

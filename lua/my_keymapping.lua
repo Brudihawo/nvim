@@ -21,7 +21,8 @@ n_key_tbl = {
   ['<leader>dgk'] = ':diffget //3<CR>',
 
 -- Format line breaks for text sections
-  ['<A-Enter>'] = 'g$a<Enter><Esc>',
+  ['<A-Enter>'] = '^g$a<Enter><Esc>',
+  ['dAW'] = ':%s/\\s\\+$//g<CR>',
 
 -- Resizing
   ['<A-J>'] = ':resize +3<CR>',
@@ -56,8 +57,8 @@ n_key_tbl = {
 -- LSP
   ['gD'] = ':lua vim.lsp.buf.declaration()<cr>',
   ['gd'] = ':lua vim.lsp.buf.definition()<cr>',
-  ['<leader>rn'] = ':Lspsaga rename<CR>',
-  ['<A-d>'] = '<cmd>Lspsaga preview_definition<CR>',
+  ['Lrn'] = ':Lspsaga rename<CR>',
+  ['<A-d>'] = '<cmd>lua require("lspsaga.provider").preview_definition()<CR>',
 
   ['Lf'] = ':lua vim.lsp.buf.formatting()<CR>',
   ['Llf'] = '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>',
@@ -77,7 +78,8 @@ n_key_tbl = {
   ['tjj'] = '<cmd>Telescope lsp_document_symbols<cr>',
   ['tdd'] = '<cmd>Telescope lsp_document_diagnostics<cr>',
   ['tkm'] = '<cmd>Telescope keymaps<cr>',
-  ['tee'] = ':lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
+  ['tee'] = '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
+  ['tgs'] = '<cmd>lua require("telescope.builtin").grep_string()<CR>',
   ['tkk'] = '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<cr>',
 
 -- Git
@@ -86,7 +88,7 @@ n_key_tbl = {
   ['gsh'] = ':GitGutterStageHunk<cr>',
   ['gph'] = ':GitGutterPreviewHunk<cr>',
 
--- Hop.nvim 
+-- Hop.nvim
   ['HH'] = ':HopWord<cr>',
   ['Hc'] = ':HopChar1<cr>',
   ['Hl'] = ':HopLine<cr>',
@@ -97,6 +99,9 @@ n_key_tbl = {
 
 -- Toggle Minimap
   ['<leader>mt'] = ':MinimapToggle<CR>',
+
+-- Vimtex
+  ['<A-t>'] = '<cmd>VimtexTocToggle<CR>',
 }
 
 -- Insert mode Mappings
@@ -107,6 +112,11 @@ i_key_tbl = {
 -- Open Signature Help
   ['<A-h>'] = '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>',
   ['<A-d>'] = '<cmd>Lspsaga preview_definition<CR>',
+
+-- Go to end of line
+  ['<C-l>'] = '<esc>A',
+  ['<C-h>'] = '<esc>I',
+
 }
 
 -- Actually settings the keymaps
