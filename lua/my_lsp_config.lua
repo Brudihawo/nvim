@@ -105,12 +105,17 @@ require('compe').setup {
   max_kind_width = 100;
   max_menu_width = 100;
   source = {
-    path = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    buffer = true;
+    path = {priority = 4};
+    nvim_lsp = {priority = 2};
+    nvim_lua = {priority = 3};
+    spell = { filetypes = {"tex", "markdown"};
+              priority = 1;
+            };
+    omni = {priority = 5};
+    buffer = { ignored_filetypes = {"tex"};
+               priority = 6;
+             };
     calc = true;
-    omni = true;
   };
   documentation = {
     winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
