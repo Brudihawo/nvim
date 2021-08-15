@@ -106,3 +106,6 @@
 [submodule "pack/editing/start/nvim-treesitter-textobjects"]
 	path = pack/editing/start/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+[submodule "pack/editing/start/dashboard-nvim"]
+	path = pack/editing/start/dashboard-nvim
+	url = https://github.com/glepnir/dashboard-nvim
