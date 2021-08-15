@@ -82,8 +82,14 @@ vim.cmd("highlight link LspFloatWinBorder LspSagaDefPreviewBorder")
 vim.cmd("highlight LspSagaRenameBorder guifg='#d79921'")
 vim.cmd("highlight CompeDocumentationBorder guifg='#689d6a'")
 
-vim.cmd("highlight trailws guibg='#fb4934'")
-vim.cmd("match trailws /\\s\\+$/")
+-- vim.cmd("highlight trailws guibg='#fb4934'")
+-- vim.cmd("match trailws /\\s\\+$/")
 
 -- vim.cmd("highlight longline guibg='#fabd2f' guifg='#282828'")
 -- vim.cmd("match longline /.\\%>80v/")
+
+-- dashboard-nvim
+vim.g.dashboard_default_executive = 'telescope'
+
+-- listchars
+vim.o.listchars='eol:↲'

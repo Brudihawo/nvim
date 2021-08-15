@@ -29,3 +29,8 @@ vim.api.nvim_exec('autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnif
 
 vim.api.nvim_exec('autocmd Filetype tex,bib :lua require("compe").setup{ enabled = true; source = { path = true; nvim_lua = true; buffer = true; calc = true; omni = true; }; }', true)
 
+vim.api.nvim_exec("autocmd Filetype * hi trailws guibg='#fb4934'", true)
+vim.api.nvim_exec("autocmd Filetype * match trailws /\\s\\+$/", true)
+vim.api.nvim_exec('autocmd Filetype dashboard hi clear trailws', true)
+
+

@@ -11,6 +11,7 @@ vim.o.display = 'lastline'
 
 -- search
 vim.o.hlsearch = true
+vim.o.inccommand = 'split'
 vim.o.smartcase = true
 -- vim.o.spelllang=de,en
 vim.g.gruvbox_guisp_fallback = 'red'
@@ -77,7 +78,7 @@ vim.g.vimtex_compiler_latexmk = {
 -- Vim-cmake
 vim.g.cmake_generate_options ={ '-G', 'Ninja', '-B', 'build' }
 
--- Minimap 
+-- Minimap
 vim.g.minimap_git_colors = true
 vim.g.minimap_highlight_search = true
 
