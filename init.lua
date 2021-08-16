@@ -82,6 +82,43 @@ vim.g.cmake_generate_options ={ '-G', 'Ninja', '-B', 'build' }
 vim.g.minimap_git_colors = true
 vim.g.minimap_highlight_search = true
 
+-- Autocompletion
+require('compe').setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  source = {
+    path = {priority = 4};
+    nvim_lsp = {priority = 2};
+    nvim_lua = {priority = 3};
+    spell = { filetypes = {"tex", "markdown"};
+              priority = 1;
+            };
+    omni = {priority = 5};
+    buffer = { ignored_filetypes = {"tex"};
+               priority = 6;
+             };
+    calc = true;
+  };
+  documentation = {
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+    max_width = math.floor(vim.o.columns * 0.7),
+    max_height = math.floor(vim.o.lines * 0.7),
+    min_width = math.floor(vim.o.columns * 0.2),
+    min_height = math.floor(vim.o.lines * 0.2),
+  };
+}
+vim.o.completeopt = "menuone,noselect"
+
 require('my_autocommands')
 require('my_keymapping')
 
@@ -112,6 +149,7 @@ require('hop').setup {
   keys="asdfghjklö",
   perm_method = require'hop.perm'.TrieBacktrackFilling,
 }
+
 require('my_telescope_config')
 require('my_treesitter_config')
 require('my_lsp_config')
