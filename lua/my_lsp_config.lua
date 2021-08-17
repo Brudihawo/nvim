@@ -122,6 +122,39 @@ vim.api.nvim_command("sign define LspDiagnosticsSignWarning text=⚠")
 vim.api.nvim_command("sign define LspDiagnosticsSignInformation text=ⓘ")
 vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
 
+-- VimTeX
+vim.g.vimtex_quickfix_open_on_warning = false
+vim.g.vimtex_quickfix_ignore_filters = {
+  ".*Overfull \\hbox.*",
+  ".*Underfull \\hbox.*",
+}
+
+vim.g.vimtex_compiler_name = 'nvr'
+vim.g.vimtex_compiler_method = 'latexmk'
+vim.g.vimtex_view_general_viewer = 'zathura'
+vim.g.vimtex_view_method = 'zathura'
+vim.g.vimtex_compiler_latexmk_engines = {
+  ['_']                = '-lualatex',
+  ['pdflatex']         = '-pdf',
+  ['dvipdfex']         = '-pdfdvi',
+  ['lualatex']         = '-lualatex',
+  ['xelatex']          = '-xelatex',
+  ['context (pdftex)'] = '-pdf -pdflatex=texexec',
+  ['context (luatex)'] = '-pdf -pdflatex=context',
+  ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
+}
+
+vim.g.vimtex_compiler_latexmk = {
+  ['executable']   = 'latexmk',
+  ['callback']     = 1,
+  ['hooks']        = {},
+  ['options']      = {
+     '-file-line-error',
+     '-synctex=1',
+     '-interaction=nonstopmode',
+  },
+}
+
 return {
   print_response = function(err, method, result, client_id, bufnr, config)
     print("Config: " .. vim.inspect(config) .. " " ..
@@ -129,4 +162,3 @@ return {
           "Result: " .. vim.inspect(result))
   end
 }
-

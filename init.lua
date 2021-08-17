@@ -9,22 +9,8 @@ vim.o.wrap = true
 vim.o.backspace = 'indent,eol,start'
 vim.o.display = 'lastline'
 
--- search
-vim.o.hlsearch = true
-vim.o.inccommand = 'split'
-vim.o.smartcase = true
+
 -- vim.o.spelllang=de,en
-vim.g.gruvbox_guisp_fallback = 'red'
-
--- highlighting and Readability
-vim.o.syntax = 'on'
-vim.o.ruler = true
-vim.o.showcmd = true
-vim.o.autoindent = true
-vim.o.cursorline = true
-vim.o.relativenumber = true
-
-
 vim.o.confirm = true
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 200
@@ -38,44 +24,8 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 -- Markdown Preview
 vim.g.mkdp_browser = 'firefox'
 
--- Color Column
-vim.o.colorcolumn = "80"
-
 -- Updatetime
 vim.o.updatetime = 800
-
--- VimTeX
-vim.g.vimtex_quickfix_open_on_warning = false
-vim.g.vimtex_quickfix_ignore_filters = {
-  ".*Overfull \\hbox.*",
-  ".*Underfull \\hbox.*",
-}
-
-vim.g.vimtex_compiler_name = 'nvr'
-vim.g.vimtex_compiler_method = 'latexmk'
-vim.g.vimtex_view_general_viewer = 'zathura'
-vim.g.vimtex_view_method = 'zathura'
-vim.g.vimtex_compiler_latexmk_engines = {
-  ['_']                = '-lualatex',
-  ['pdflatex']         = '-pdf',
-  ['dvipdfex']         = '-pdfdvi',
-  ['lualatex']         = '-lualatex',
-  ['xelatex']          = '-xelatex',
-  ['context (pdftex)'] = '-pdf -pdflatex=texexec',
-  ['context (luatex)'] = '-pdf -pdflatex=context',
-  ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
-}
-
-vim.g.vimtex_compiler_latexmk = {
-  ['executable']   = 'latexmk',
-  ['callback']     = 1,
-  ['hooks']        = {},
-  ['options']      = {
-     '-file-line-error',
-     '-synctex=1',
-     '-interaction=nonstopmode',
-  },
-}
 
 -- Vim-cmake
 vim.g.cmake_generate_options ={ '-G', 'Ninja', '-B', 'build' }

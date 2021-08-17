@@ -8,7 +8,24 @@ vim.g.gruvbox_underline = true
 vim.g.gruvbox_italicize_strings = true
 vim.g.gruvbox_italicise_comments = true
 
+-- highlighting and Readability
+vim.o.syntax = 'on'
+vim.o.ruler = true
+vim.o.showcmd = true
+vim.o.autoindent = true
+vim.o.cursorline = true
+vim.o.relativenumber = true
+
+-- Color Column
+vim.o.colorcolumn = "80"
+
+-- search
+vim.o.hlsearch = true
+vim.o.inccommand = 'split'
+vim.o.smartcase = true
+
 -- vim.g.gruvbox_guisp_fallback = 'fg'
+vim.g.gruvbox_guisp_fallback = 'red'
 vim.g.gruvbox_hls_cursor = true
 vim.g.gruvbox_termcolors = 256
 vim.g.gruvbox_invert_selection = true
