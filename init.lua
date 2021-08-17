@@ -22,6 +22,8 @@ vim.o.ruler = true
 vim.o.showcmd = true
 vim.o.autoindent = true
 vim.o.cursorline = true
+vim.o.relativenumber = true
+
 
 vim.o.confirm = true
 vim.o.ttimeout = true
@@ -97,16 +99,14 @@ require('compe').setup {
   max_menu_width = 100;
   source = {
     path = {priority = 4};
-    nvim_lsp = {priority = 2};
-    nvim_lua = {priority = 3};
-    spell = { filetypes = {"tex", "markdown"};
-              priority = 1;
-            };
-    omni = {priority = 5};
-    buffer = { ignored_filetypes = {"tex"};
-               priority = 6;
-             };
-    calc = true;
+    nvim_lsp = {priority = 1};
+    nvim_lua = {priority = 2};
+    omni = {priority = 3};
+    buffer = {
+      ignored_filetypes = {"tex"};
+      priority = 5;
+    };
+    calc = {priority = 6};
   };
   documentation = {
     winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",

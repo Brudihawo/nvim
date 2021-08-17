@@ -1,5 +1,15 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true;
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 require("lspconfig").pylsp.setup{
+  capabilities = capabilities,
   -- on_attach = require('lsp_signature').on_attach("pylsp"),
   settings = {
     pylsp = {
@@ -10,7 +20,7 @@ require("lspconfig").pylsp.setup{
           convention = 'google'
         },
         jedi_completion = {
-          enabled = true, 
+          enabled = true,
           fuzzy = true,
           eager = true
         },
@@ -29,39 +39,44 @@ require("lspconfig").pylsp.setup{
   }
 }
 
-require("lspconfig").rls.setup{}
+require("lspconfig").rls.setup{
+  capabilities = capabilities,
+}
+
 
 require("lspconfig").texlab.setup{
-    cmd = { "texlab" },
-    filetypes = { "tex", "bib" },
-    settings = {
-      texlab = {
-        auxDirectory = ".",
-        bibtexFormatter = "texlab",
-        build = {
-          args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
-          executable = "latexmk",
-          forwardSearchAfter = false,
-          onSave = false
-        },
-        chktex = {
-          onEdit = false,
-          onOpenAndSave = false
-        },
-        diagnosticsDelay = 300,
-        formatterLineLength = 80,
-        forwardSearch = {
-          args = {}
-        },
-        latexFormatter = "latexindent",
-        latexindent = {
-          modifyLineBreaks = false
-        }
+  capabilities = capabilities,
+  cmd = { "texlab" },
+  filetypes = { "tex", "bib" },
+  settings = {
+    texlab = {
+      auxDirectory = ".",
+      bibtexFormatter = "texlab",
+      build = {
+        args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
+        executable = "latexmk",
+        forwardSearchAfter = false,
+        onSave = false
+      },
+      chktex = {
+        onEdit = false,
+        onOpenAndSave = false
+      },
+      diagnosticsDelay = 300,
+      formatterLineLength = 80,
+      forwardSearch = {
+        args = {}
+      },
+      latexFormatter = "latexindent",
+      latexindent = {
+        modifyLineBreaks = false
       }
     }
+  }
 }
 
 require("lspconfig").ccls.setup{
+  capabilities = capabilities,
   -- on_attach = require('lsp_signature').on_attach("ccls"),
   init_options = {
     index = {
@@ -74,7 +89,9 @@ require("lspconfig").ccls.setup{
   rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
 }
-require("lspconfig").cmake.setup{}
+require("lspconfig").cmake.setup{
+  capabilities = capabilities,
+}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -107,8 +124,8 @@ vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
 
 return {
   print_response = function(err, method, result, client_id, bufnr, config)
-    print("Config: " .. vim.inspect(config) .. " " .. 
-          "Method: " .. vim.inspect(method) .. " " .. 
+    print("Config: " .. vim.inspect(config) .. " " ..
+          "Method: " .. vim.inspect(method) .. " " ..
           "Result: " .. vim.inspect(result))
   end
 }
