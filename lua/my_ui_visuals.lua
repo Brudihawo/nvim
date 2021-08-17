@@ -71,9 +71,26 @@ require('colorizer').setup {
   }
 }
 
-vim.g.indent_blankline_enabled = true
-vim.g.indent_blankline_use_treesitter = true
-vim.g.indent_blankline_char = '│'
+require('indent_blankline').setup{
+  buftype_exclude = { "terminal" },
+  filetype_exclude = { "dashboard" },
+  use_treesitter = true,
+  char = '│',
+  show_current_context = true,
+  context_patterns = {
+    "compound_statement", -- C scope
+    ".*class.*",
+    ".*function.*",
+    ".*method.*",
+    ".*body.*",
+    "table", -- Lua Tables
+    "field",
+    "if.*",
+    "for.*",
+    "list_comprehension", -- Python stuff
+    ".*argument.*"
+  }
+}
 
 -- LSPSaga Highlighting
 vim.cmd("highlight LspSagaDefPreviewBorder guifg='#ebdbb2'")
