@@ -109,3 +109,15 @@
 [submodule "pack/editing/start/dashboard-nvim"]
 	path = pack/editing/start/dashboard-nvim
 	url = https://github.com/glepnir/dashboard-nvim
+[submodule "pack/editing/start/navigator.lua"]
+	path = pack/editing/start/navigator.lua
+	url = https://github.com/ray-x/navigator.lua
+[submodule "pack/editing/start/guihua.lua"]
+	path = pack/editing/start/guihua.lua
+	url = https://github.com/ray-x/guihua.lua
+[submodule "pack/editing/start/nvim-treesitter-refactor"]
+	path = pack/editing/start/nvim-treesitter-refactor
+	url = https://github.com/nvim-treesitter/nvim-treesitter-refactor
+[submodule "pack/editing/start/symbols-outline.nvim"]
+	path = pack/editing/start/symbols-outline.nvim
+	url = https://github.com/simrat39/symbols-outline.nvim
