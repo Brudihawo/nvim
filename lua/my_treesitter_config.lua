@@ -3,7 +3,6 @@ require'nvim-treesitter.configs'.setup {
   ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
-    disable = {},  -- list of language that will be disabled
   },
   playground = {
     enable = true,
@@ -31,10 +30,22 @@ require('nvim-treesitter.configs').setup {
       enable = true,
       lookahead = true,
       keymaps = {
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
+        ["aCl"] = "@class.outer",
+        ["iCl"] = "@class.inner",
+        ["aCC"] = "@comment.outer",
+        ["ai"] = "@conditional.outer",
+        ["ii"] = "@conditional.inner",
+        ["ac"] = "@call.outer",
+        ["ic"] = "@call.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["iP"] = "@parameter.inter",
+        ["aP"] = "@parameter.outer",
+        ["aS"] = "@statement.outer",
       }
     },
     move = {
@@ -56,6 +67,13 @@ require('nvim-treesitter.configs').setup {
         ["[M"] = "@function.outer",
         ["[]"] = "@class.outer",
       },
+    },
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+
+      }
     }
   }
 }
