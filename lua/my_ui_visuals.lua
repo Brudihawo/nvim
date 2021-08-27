@@ -14,6 +14,7 @@ vim.o.ruler = true
 vim.o.showcmd = true
 vim.o.autoindent = true
 vim.o.cursorline = true
+vim.o.number = true
 vim.o.relativenumber = true
 
 -- Color Column

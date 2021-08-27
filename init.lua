@@ -20,6 +20,7 @@ vim.o.pastetoggle = '<F10>'
 vim.g.UltiSnipsExpandTrigger = "<c-X>"
 vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+vim.g.UltiSnipsEditSplit = "context"
 
 -- Markdown Preview
 vim.g.mkdp_browser = 'firefox'
@@ -49,22 +50,21 @@ require('compe').setup {
   max_menu_width = 100;
   source = {
     path = {priority = 4};
-    nvim_lsp = {priority = 1};
+    nvim_lsp = {priority = 1000};
     nvim_lua = {priority = 2};
     omni = {priority = 3};
     buffer = {
       ignored_filetypes = {"tex"};
-      priority = 5;
     };
     calc = {priority = 6};
   };
   documentation = {
     winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
     border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-    max_width = math.floor(vim.o.columns * 0.7),
+    max_width = math.floor(vim.o.columns * 0.35),
     max_height = math.floor(vim.o.lines * 0.7),
-    min_width = math.floor(vim.o.columns * 0.2),
-    min_height = math.floor(vim.o.lines * 0.2),
+    min_width = 10;
+    min_height = 1;
   };
 }
 vim.o.completeopt = "menuone,noselect"
