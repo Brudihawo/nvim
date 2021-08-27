@@ -32,20 +32,7 @@ require('telescope').setup{
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   },
   extensions = {
-    fzf_writer = {
-      minimum_grep_characters = 2,
-      minimum_files_characters = 0,
-      use_highlighter = false,
-    },
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = "smart_case",
-    }
   }
 }
-
-require('telescope').load_extension('fzf_writer')
 
 require('telescope').load_extension('ultisnips')

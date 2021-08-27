@@ -71,14 +71,15 @@ n_key_tbl = {
   ['Lsh'] = ':lua require("lspsaga.signaturehelp").signature_help()<CR>',
 
 -- Fuzzy Finding
-  ['<C-p>'] = ':lua require(\'telescope\').extensions.fzf_writer.files()<cr>',
-  ['<C-g>'] = ':lua require(\'telescope\').extensions.fzf_writer.staged_grep()<cr>',
+  ['<C-p>'] = ':lua require("telescope.builtin").find_files()<cr>',
+  ['<C-g>'] = ':lua require("telescope.builtin").live_grep()<cr>',
   ['<C-b>'] = '<cmd>Telescope buffers<cr> ',
   ['thh'] = '<cmd>Telescope help_tags<cr>',
   ['tjj'] = '<cmd>Telescope lsp_document_symbols<cr>',
   ['tdd'] = '<cmd>Telescope lsp_document_diagnostics<cr>',
   ['tkm'] = '<cmd>Telescope keymaps<cr>',
   ['tee'] = '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
+  ['teg'] = '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
   ['tgs'] = '<cmd>lua require("telescope.builtin").grep_string()<CR>',
   ['tkk'] = '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<cr>',
 
