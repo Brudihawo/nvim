@@ -93,6 +93,8 @@ n_key_tbl = {
   ['Hc'] = ':HopChar1<cr>',
   ['Hl'] = ':HopLine<cr>',
   ['Hp'] = ':HopPattern<cr>',
+  ['He'] = '<cmd>lua require("hop").hint_patterns({},"\\\\([^ ][ ()\\\\[\\\\]={}/]\\\\|[^ ]$\\\\)")<cr>', -- Hop to End of words
+  ['Hw'] = '<cmd>lua require("hop").hint_patterns({},"\\\\s\\\\+")<cr>', -- Hop to Whitespace
 
 -- Buffer Picking (via Barbar)
   ['Hb'] = ':BufferPick<cr>',
