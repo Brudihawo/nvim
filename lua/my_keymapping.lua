@@ -11,6 +11,9 @@ n_key_tbl = {
   ['<leader>ct'] = ':ColorizerToggle<CR>',
   ['<leader>n'] = ':set relativenumber!<CR>',
 
+-- Decrementing Number
+  ['<C-Q>'] = '<C-x>',
+
 -- Buffer management
   ['<C-j>'] = ':BufferNext<CR>',
   ['<C-k>'] = ':BufferPrevious<CR>',
@@ -59,6 +62,7 @@ n_key_tbl = {
   ['gd'] = ':lua vim.lsp.buf.definition()<cr>',
   ['Lrn'] = ':Lspsaga rename<CR>',
   ['<A-d>'] = '<cmd>lua require("lspsaga.provider").preview_definition()<CR>',
+  ['Lsr'] = '<cmd> lua vim.lsp.buf.references()<CR>',
 
   ['Lf'] = ':lua vim.lsp.buf.formatting()<CR>',
   ['Llf'] = '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>',
@@ -105,6 +109,7 @@ n_key_tbl = {
 
 -- Vimtex
   ['<A-t>'] = '<cmd>VimtexTocToggle<CR>',
+
 }
 
 -- Insert mode Mappings

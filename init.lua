@@ -75,6 +75,7 @@ require('my_keymapping')
 -- Extend text objects
 surround_pairs = {
   [':'] = ':',
+  [';'] = ';',
   ['.'] = '.',
   [','] = ',',
   ['/'] = '/',
@@ -96,7 +97,7 @@ for key, value in pairs(surround_pairs) do
 end
 
 require('hop').setup {
-  keys="asdfghjklö",
+  keys="asdfghjklöwertzuio",
   perm_method = require'hop.perm'.TrieBacktrackFilling,
 }
 
