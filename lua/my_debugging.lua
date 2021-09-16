@@ -24,7 +24,7 @@ dap.configurations.cpp = {
     name = 'Launch file',
     type = 'cpptools',
     request = 'launch',
-    program = function() 
+    program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
     MiMode = 'gdb',
@@ -40,10 +40,10 @@ dap.configurations.cpp = {
     miDebuggerServerAdress = 'localhost:1234',
     miDebuggerPath = 'gdb',
     cwd = '${workspaceFolder}',
-    program = function() 
+    program = function()
       return vim.fn.input('Path to Executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
-    args = function() 
+    args = function()
       local args = vim.fn.input('Arguments: ', '','file')
       args = splitstr(args)
       print(vim.inspect(args))
@@ -68,7 +68,7 @@ dap.configurations.python = {
   name = 'Launch File',
 
   program = '${file}',
-  pythonPath = function() 
+  pythonPath = function()
     local cwd = vim.fn.getcwd()
     if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
       return cwd .. '/venv/bin/python'

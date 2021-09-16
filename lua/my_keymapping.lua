@@ -5,11 +5,12 @@ local function set_km(mode, keytbl, nrm, slnt)
   end
 end
 
+-- Leader Key
+vim.g.mapleader=" "
 -- Normal mode Mappings
 n_key_tbl = {
 -- line highlighting and numbers
   ['<leader>ct'] = ':ColorizerToggle<CR>',
-  ['<leader>n'] = ':set relativenumber!<CR>',
 
 -- Decrementing Number
   ['<C-Q>'] = '<C-x>',
@@ -34,14 +35,14 @@ n_key_tbl = {
   ['<A-L>'] = ':vertical resize +3<CR>',
 
 -- Quickfix lists
-  ['coc'] = ':copen<CR>',
-  ['coq'] = ':cclose<CR>',
-  ['col'] = ':lopen<CR>',
-  ['coL'] = ':lclose<CR>',
-  ['<A-n>'] = ':cnext<CR>',
-  ['<A-p>'] = ':cprev<CR>',
-  ['con'] = ':lnext<CR>',
-  ['cop'] = ':lprev<CR>',
+  ['<leader>co'] = ':copen<CR>',
+  ['<leader>cc'] = ':cclose<CR>',
+  ['<leader>lo'] = ':lopen<CR>',
+  ['<leader>cc'] = ':lclose<CR>',
+  ['<leader>cn'] = ':cnext<CR>',
+  ['<leader>cp'] = ':cprev<CR>',
+  ['<leader>ln'] = ':lnext<CR>',
+  ['<leader>lp'] = ':lprev<CR>',
 
 -- Debugger
   ['<F2>'] = '<cmd>lua require("dap").toggle_breakpoint()<cr>',
@@ -124,7 +125,6 @@ i_key_tbl = {
 -- Go to end of line
   ['<C-l>'] = '<esc>A',
   ['<C-h>'] = '<esc>I',
-
 }
 
 -- Actually settings the keymaps
