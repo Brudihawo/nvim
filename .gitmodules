@@ -121,3 +121,15 @@
 [submodule "pack/editing/start/symbols-outline.nvim"]
 	path = pack/editing/start/symbols-outline.nvim
 	url = https://github.com/simrat39/symbols-outline.nvim
+[submodule "pack/editing/start/coq_nvim"]
+	path = pack/editing/start/coq_nvim
+	url = https://github.com/ms-jpq/coq_nvim
+[submodule "pack/editing/start/nord.nvim"]
+	path = pack/editing/start/nord.nvim
+	url = https://github.com/shaunsingh/nord.nvim
+[submodule "pack/editing/start/gruvbox-material"]
+	path = pack/editing/start/gruvbox-material
+	url = https://github.com/sainnhe/gruvbox-material
+[submodule "pack/editing/start/lightspeed.nvim"]
+	path = pack/editing/start/lightspeed.nvim
+	url = https://github.com/ggandor/lightspeed.nvim

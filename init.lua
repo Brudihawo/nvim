@@ -9,7 +9,6 @@ vim.o.wrap = true
 vim.o.backspace = 'indent,eol,start'
 vim.o.display = 'lastline'
 
-
 -- vim.o.spelllang=de,en
 vim.o.confirm = true
 vim.o.ttimeout = true
@@ -36,37 +35,21 @@ vim.g.minimap_git_colors = true
 vim.g.minimap_highlight_search = true
 
 -- Autocompletion
-require('compe').setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  source = {
-    path = {priority = 4};
-    nvim_lsp = {priority = 1000};
-    nvim_lua = {priority = 2};
-    omni = {priority = 3};
-    buffer = {
-      ignored_filetypes = {"tex"};
-    };
-    calc = {priority = 6};
-  };
-  documentation = {
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-    max_width = math.floor(vim.o.columns * 0.35),
-    max_height = math.floor(vim.o.lines * 0.7),
-    min_width = 10;
-    min_height = 1;
-  };
+local coq = require('coq')
+vim.g.coq_settings = {
+  auto_start = "shut-up",
+  weights = {
+    proximity = 0.75,
+    recency = 1.5,
+  },
+  display = {
+    icons = {
+      spacing = 2,
+    }
+  }
 }
+
+vim.cmd[[COQnow -s]]
 vim.o.completeopt = "menuone,noselect"
 
 require('my_autocommands')
