@@ -1,139 +1,153 @@
--- Remappings 
-local function set_km(mode, keytbl, nrm, slnt)
-  for key, map in pairs(keytbl) do
-    vim.api.nvim_set_keymap(mode, key, map, { noremap = nrm, silent = slnt })
-  end
-end
-
 -- Leader Key
 vim.g.mapleader=" "
--- Normal mode Mappings
-n_key_tbl = {
--- line highlighting and numbers
-  ['<leader>ct'] = ':ColorizerToggle<CR>',
+vim.g.maplocalleader=" "
 
--- Decrementing Number
-  ['<C-Q>'] = '<C-x>',
+require('nest').applyKeymaps{
+  { '<leader>', {
+    { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
 
--- Buffer management
-  ['<C-j>'] = ':BufferNext<CR>',
-  ['<C-k>'] = ':BufferPrevious<CR>',
-  ['<C-x>'] = ':bdelete<CR>',
+    -- Quickfix / Locallist Open / Close
+    { 'c', {
+      { 'o', '<cmd>copen<CR>' },
+      { 'c', '<cmd>cclose<CR>' },
+    }},
+    { 'l', {
+      { 'o', '<cmd>lopen<CR>' },
+      { 'c', '<cmd>lclose<CR>' },
+    }},
 
--- Diff functionality
-  ['<leader>dgj'] = ':diffget //2<CR>',
-  ['<leader>dgk'] = ':diffget //3<CR>',
-
--- Format line breaks for text sections
-  ['<A-Enter>'] = '^g$a<Enter><Esc>',
-  ['dAW'] = ':%s/\\s\\+$//g<CR>',
-
--- Resizing
-  ['<A-J>'] = ':resize +3<CR>',
-  ['<A-K>'] = ':resize -3<CR>',
-  ['<A-H>'] = ':vertical resize -3<CR>',
-  ['<A-L>'] = ':vertical resize +3<CR>',
-
--- Quickfix lists
-  ['<leader>co'] = ':copen<CR>',
-  ['<leader>cc'] = ':cclose<CR>',
-  ['<leader>lo'] = ':lopen<CR>',
-  ['<leader>cc'] = ':lclose<CR>',
-  ['<leader>cn'] = ':cnext<CR>',
-  ['<leader>cp'] = ':cprev<CR>',
-  ['<leader>ln'] = ':lnext<CR>',
-  ['<leader>lp'] = ':lprev<CR>',
-
--- Debugger
-  ['<F2>'] = '<cmd>lua require("dap").toggle_breakpoint()<cr>',
-  ['<F4>'] = '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<cr>:lua require("dapui").close()<cr>',
-  ['<F5>'] = '<cmd>lua require("dap").continue()<cr>',
-  ['<F6>'] = '<cmd>lua require("dap").run()<cr>',
-  ['<F8>'] = '<cmd>lua require("dap").step_into()<cr>',
-  ['<F9>'] = '<cmd>lua require("dap").step_over()<cr>',
-  ['<F10>'] = '<cmd>lua require("dap").step_out()<cr>',
-	['<F11>'] = '<cmd>lua require("dap").run_to_cursor()<cr>',
+    -- Code Minimap
+    { 'mt', '<cmd>MinimapToggle<CR>' },
 
 -- Tagbar
   ['<leader>bo'] = ':Tagbar<CR> ', -- Bar open
   ['<leader>st'] = ':TagbarShowTag<CR>', -- " Show tag
+  }},
+  { '<A-', {
+    -- Resizing
+    { 'J>', '<cmd>resize +3<CR>' },
+    { 'K>', '<cmd>resize -3<CR>' },
+    { 'H>', '<cmd>vertical resize -3<CR>' },
+    { 'L>', '<cmd>vertical resize +3<CR>' },
 
--- LSP
-  ['gD'] = ':lua vim.lsp.buf.declaration()<cr>',
-  ['gd'] = ':lua vim.lsp.buf.definition()<cr>',
-  ['Lrn'] = ':Lspsaga rename<CR>',
-  ['<A-d>'] = '<cmd>lua require("lspsaga.provider").preview_definition()<CR>',
-  ['Lsr'] = '<cmd> lua vim.lsp.buf.references()<CR>',
+    { 't>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
-  ['Lf'] = ':lua vim.lsp.buf.formatting()<CR>',
-  ['Llf'] = '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>',
-  ['Ldn'] = ':lua vim.lsp.buf.diagnostic.goto_next()<CR>',
-  ['Ldp'] = ':lua vim.lsp.buf.diagnostic.goto_prev()<CR>',
-  ['Ldl'] = ':lua vim.lsp.diagnostic.set_loclist()<CR>',
-  ['Lld'] = ':Lspsaga show_line_diagnostics<CR>',
-  ['Lcd'] = ':Lspsaga show_cursor_diagnostics<CR>',
-  ['Lsd'] = ':Lspsaga hover_doc<CR>',
-  ['Lsh'] = ':lua require("lspsaga.signaturehelp").signature_help()<CR>',
+    { 'd>', '<cmd>lua require("lspsaga.provider").preview_definition()<CR>' }, -- Preview Definition with Lspsaga
 
--- Fuzzy Finding
-  ['<C-p>'] = ':lua require("telescope.builtin").find_files()<cr>',
-  ['<C-g>'] = ':lua require("telescope.builtin").live_grep()<cr>',
-  ['<C-b>'] = '<cmd>Telescope buffers<cr> ',
-  ['thh'] = '<cmd>Telescope help_tags<cr>',
-  ['tjj'] = '<cmd>Telescope lsp_document_symbols<cr>',
-  ['tdd'] = '<cmd>Telescope lsp_document_diagnostics<cr>',
-  ['tkm'] = '<cmd>Telescope keymaps<cr>',
-  ['tee'] = '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
-  ['teg'] = '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>',
-  ['tgs'] = '<cmd>lua require("telescope.builtin").grep_string()<CR>',
-  ['tkk'] = '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<cr>',
+    { 'Enter>', '^g$a<Enter><Esc>' }, -- Add line break so that it fits on screen
+  }},
 
--- Git
-  ['gst'] = ':GitGutterSignsToggle<cr>',
-  ['gtt'] = ':GitGutterToggle<cr>',
-  ['gsh'] = ':GitGutterStageHunk<cr>',
-  ['gph'] = ':GitGutterPreviewHunk<cr>',
+  { 'L', {
+    -- Lspsaga commands (might move away in future - doesnt really seem to be necessary)
+    { 'rn', '<cmd>Lspsaga rename<CR>' },
+    { 'lf', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>' },
+    { 'sh', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>' },
+    { 'sd', '<cmd>Lspsaga hover_doc<CR>' },
 
--- Hop.nvim
-  ['HH'] = ':HopWord<cr>',
-  ['Hc'] = ':HopChar1<cr>',
-  ['Hl'] = ':HopLine<cr>',
-  ['Hp'] = ':HopPattern<cr>',
-  ['He'] = '<cmd>lua require("hop").hint_patterns({},"\\\\([^ ][ ()\\\\[\\\\]={}/]\\\\|[^ ]$\\\\)")<cr>', -- Hop to End of words
-  ['Hw'] = '<cmd>lua require("hop").hint_patterns({},"\\\\s\\\\+")<cr>', -- Hop to Whitespace
+    { 'sr', '<cmd> lua vim.lsp.buf.references()<CR>' },
+    { 'dn', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
+    { 'dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
 
--- Buffer Picking (via Barbar)
-  ['Hb'] = ':BufferPick<cr>',
+    { 'p', { -- Populate Quickfix / Locallist
+      { 'q', '<cmd>lua vim.diagnostic.setloclist()<CR>' },
+      { 'l', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
+    }},
 
--- Toggle Minimap
-  ['<leader>mt'] = ':MinimapToggle<CR>',
+    { 'ld', '<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>' },
+    { 'f', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
+  }},
 
--- Vimtex
-  ['<A-t>'] = '<cmd>VimtexTocToggle<CR>',
+  { '<C-', {
+    { 'q>', '<C-x>' }, -- Decrement Number
 
+    -- Buffer management
+    { 'j>', '<cmd>BufferNext<CR>' },
+    { 'k>', '<cmd>BufferPrevious<CR>' },
+    { 'x>', '<cmd>bdelete<CR>' },
+
+    -- Fuzzy Finding Shortcuts
+    { 'p>', '<cmd>lua require("telescope.builtin").find_files()<cr>' },
+    { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<cr>' },
+    { 'b>', '<cmd>Telescope buffers<cr> ' },
+  }},
+
+  -- Extended Fuzzy Finding
+  { 't', {
+    { 'hh', '<cmd>Telescope help_tags<cr>' },
+    { 'km', '<cmd>Telescope keymaps<cr>' },
+    { 'jj', '<cmd>Telescope lsp_document_symbols<cr>' },
+    { 'dd', '<cmd>Telescope lsp_document_diagnostics<cr>' },
+
+    { 'e', { -- Edit Config
+      { 'e', '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>' },
+      { 'g', '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>' },
+    }},
+
+    { 'gs', '<cmd>lua require("telescope.builtin").grep_string()<CR>' },
+    { 'kk', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<cr>' },
+  }},
+
+  -- Debugging
+  { '<F2>',  '<cmd>lua require("dap").toggle_breakpoint()<cr>' },
+  { '<F4>',  '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<cr>:lua require("dapui").close()<cr>' },
+  { '<F5>',  '<cmd>lua require("dap").continue()<cr>' },
+  { '<F6>',  '<cmd>lua require("dap").run()<cr>' },
+  { '<F8>',  '<cmd>lua require("dap").step_into()<cr>' },
+  { '<F9>',  '<cmd>lua require("dap").step_over()<cr>' },
+  { '<F10>', '<cmd>lua require("dap").step_out()<cr>' },
+	{ '<F11>', '<cmd>lua require("dap").run_to_cursor()<cr>' },
+
+  { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
+
+  -- Quickfix and Locallist movement
+  { ',', '<cmd>cnext<CR>' },
+  { ';', '<cmd>cprev<CR>' },
+
+  { 'ü', '<cmd>lnext<CR>' },
+  { 'Ü', '<cmd>lprev<CR>' },
+
+
+  { 'g', {
+    { 'D', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
+    { 'd', '<cmd>lua vim.lsp.buf.definition()<cr>' },
+  -- Git (-gutter)
+    { 's', {
+      { 't', ':GitGutterSignsToggle<cr>' },
+      { 'h', ':GitGutterStageHunk<cr>' },
+    }},
+
+    { 't', ':GitGutterToggle<cr>' },
+    { 'ph', ':GitGutterPreviewHunk<cr>' },
+  }},
+
+  { mode='i', {
+    { '<A-', {
+      { 'd>', '<cmd>Lspsaga preview_definition<CR>' }, -- Lspsaga Definition (might change)
+      { 'h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
+    }},
+  }},
 }
 
--- Insert mode Mappings
-i_key_tbl = {
--- Select first completion suggestion
-  ['<A-Enter>'] = '<Down><Enter>',
-
--- Open Signature Help
-  ['<A-h>'] = '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>',
-  ['<A-d>'] = '<cmd>Lspsaga preview_definition<CR>',
-
--- Go to end of line
-  ['<C-l>'] = '<esc>A',
-  ['<C-h>'] = '<esc>I',
+-- Extend text objects
+surround_pairs = {
+  [':'] = ':',
+  [';'] = ';',
+  ['.'] = '.',
+  [','] = ',',
+  ['/'] = '/',
+  ['<bar>'] = '<bar>',
+  ['_'] = '_',
+  ['-'] = '-',
+  ['>'] = '<',
 }
 
--- Actually settings the keymaps
-set_km("n", n_key_tbl, true, false)
-set_km("i", i_key_tbl, true, false)
--- set_km("x", x_key_tbl, true, false)
-
-return {
-  normal = n_key_tbl,
-  insert = i_key_tbl,
-  ex = x_key_tbl
-}
+for key, value in pairs(surround_pairs) do
+  for _, action in ipairs({ "c", "d", "v", "y" }) do
+    vim.api.nvim_set_keymap("n", action .. 'i' .. key,
+                                 'T' .. key .. action .. 't' .. value,
+                                 { noremap = true, silent = false })
+    vim.api.nvim_set_keymap("n", action .. 'a' .. key,
+                                 'F' .. key .. action .. 'f' .. value,
+                                 { noremap = true, silent = false })
+  end
+end

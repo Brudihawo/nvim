@@ -55,34 +55,16 @@ vim.o.completeopt = "menuone,noselect"
 require('my_autocommands')
 require('my_keymapping')
 
--- Extend text objects
-surround_pairs = {
-  [':'] = ':',
-  [';'] = ';',
-  ['.'] = '.',
-  [','] = ',',
-  ['/'] = '/',
-  ['<bar>'] = '<bar>',
-  ['_'] = '_',
-  ['-'] = '-',
-  ['>'] = '<',
+require('lightspeed').setup {
+  jump_to_first_match = true,
+  jump_on_partial_input_safety_timeout = 400,
+  x_mode_prefix_key = '<m-x>',
+  highlight_unique_chars = true,
+  limit_ft_matches = 7,
 }
 
-for key, value in pairs(surround_pairs) do
-  for _, action in ipairs({ "c", "d", "v", "y" }) do
-    vim.api.nvim_set_keymap("n", action .. 'i' .. key,
-                                 'T' .. key .. action .. 't' .. value,
-                                 { noremap = true, silent = false })
-    vim.api.nvim_set_keymap("n", action .. 'a' .. key,
-                                 'F' .. key .. action .. 'f' .. value,
-                                 { noremap = true, silent = false })
-  end
-end
-
-require('hop').setup {
-  keys="asdfghjklöwertzuio",
-  perm_method = require'hop.perm'.TrieBacktrackFilling,
-}
+vim.cmd('nunmap F')
+vim.cmd('nunmap f')
 
 require('my_telescope_config')
 require('my_treesitter_config')

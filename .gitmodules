@@ -133,3 +133,6 @@
 [submodule "pack/editing/start/lightspeed.nvim"]
 	path = pack/editing/start/lightspeed.nvim
 	url = https://github.com/ggandor/lightspeed.nvim
+[submodule "pack/editing/start/nest.nvim"]
+	path = pack/editing/start/nest.nvim
+	url = https://github.com/LionC/nest.nvim
