@@ -49,8 +49,8 @@ require('nest').applyKeymaps{
     { 'dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
 
     { 'p', { -- Populate Quickfix / Locallist
-      { 'q', '<cmd>lua vim.diagnostic.setloclist()<CR>' },
-      { 'l', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
+      { 'l', '<cmd>lua vim.diagnostic.setloclist()<CR>' },
+      { 'q', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
     }},
 
     { 'ld', '<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>' },
@@ -66,17 +66,17 @@ require('nest').applyKeymaps{
     { 'x>', '<cmd>bdelete<CR>' },
 
     -- Fuzzy Finding Shortcuts
-    { 'p>', '<cmd>lua require("telescope.builtin").find_files()<cr>' },
-    { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<cr>' },
-    { 'b>', '<cmd>Telescope buffers<cr> ' },
+    { 'p>', '<cmd>lua require("telescope.builtin").find_files()<CR>' },
+    { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<CR>' },
+    { 'b>', '<cmd>Telescope buffers<CR> ' },
   }},
 
   -- Extended Fuzzy Finding
   { 't', {
-    { 'hh', '<cmd>Telescope help_tags<cr>' },
-    { 'km', '<cmd>Telescope keymaps<cr>' },
-    { 'jj', '<cmd>Telescope lsp_document_symbols<cr>' },
-    { 'dd', '<cmd>Telescope lsp_document_diagnostics<cr>' },
+    { 'hh', '<cmd>Telescope help_tags<CR>' },
+    { 'km', '<cmd>Telescope keymaps<CR>' },
+    { 'jj', '<cmd>Telescope lsp_document_symbols<CR>' },
+    { 'dd', '<cmd>Telescope lsp_document_diagnostics<CR>' },
 
     { 'e', { -- Edit Config
       { 'e', '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>' },
@@ -84,18 +84,18 @@ require('nest').applyKeymaps{
     }},
 
     { 'gs', '<cmd>lua require("telescope.builtin").grep_string()<CR>' },
-    { 'kk', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<cr>' },
+    { 'kk', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<CR>' },
   }},
 
   -- Debugging
-  { '<F2>',  '<cmd>lua require("dap").toggle_breakpoint()<cr>' },
-  { '<F4>',  '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<cr>:lua require("dapui").close()<cr>' },
-  { '<F5>',  '<cmd>lua require("dap").continue()<cr>' },
-  { '<F6>',  '<cmd>lua require("dap").run()<cr>' },
-  { '<F8>',  '<cmd>lua require("dap").step_into()<cr>' },
-  { '<F9>',  '<cmd>lua require("dap").step_over()<cr>' },
-  { '<F10>', '<cmd>lua require("dap").step_out()<cr>' },
-	{ '<F11>', '<cmd>lua require("dap").run_to_cursor()<cr>' },
+  { '<F2>',  '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
+  { '<F4>',  '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<CR>:lua require("dapui").close()<CR>' },
+  { '<F5>',  '<cmd>lua require("dap").continue()<CR>' },
+  { '<F6>',  '<cmd>lua require("dap").run()<CR>' },
+  { '<F8>',  '<cmd>lua require("dap").step_into()<CR>' },
+  { '<F9>',  '<cmd>lua require("dap").step_over()<CR>' },
+  { '<F10>', '<cmd>lua require("dap").step_out()<CR>' },
+	{ '<F11>', '<cmd>lua require("dap").run_to_cursor()<CR>' },
 
   { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
 
@@ -108,17 +108,31 @@ require('nest').applyKeymaps{
 
 
   { 'g', {
-    { 'D', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
-    { 'd', '<cmd>lua vim.lsp.buf.definition()<cr>' },
+    -- Go to Declaration / Definition
+    { 'D', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
+    { 'd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
+    { 'i', '<cmd>lua vim.lsp.buf.implementation()<CR>' },
+
   -- Git (-gutter)
-    { 's', {
-      { 't', ':GitGutterSignsToggle<cr>' },
-      { 'h', ':GitGutterStageHunk<cr>' },
+    { 't', {
+      { 't', '<cmd>GitGutterSignsToggle<CR>' },
+      { 'f', '<cmd>GitGutterFold<CR>' },
     }},
 
-    { 't', ':GitGutterToggle<cr>' },
-    { 'ph', ':GitGutterPreviewHunk<cr>' },
+    { 'h', { -- GitGutter Hunk Actions
+      { 'p', '<cmd>GitGutterPrevHunk<CR>' }, -- Move to Previous
+      { 'n', '<cmd>GitGutterNextHunk<CR>' }, -- Move to Next
+      { 's', '<cmd>GitGutterStageHunk<CR>' }, -- Stage
+      { 'u', '<cmd>GitGutterUndoHunk<CR>' }, -- Undo
+    }},
+
+    { 'q', { -- Quickfix Actions
+      { 'f', '<cmd>GitGutterQuickFixCurrentFile<CR>' },
+      { 'q', '<cmd>GitGutterQuickFix<CR>' },
+    }},
   }},
+
+  { "==", '<cmd>GitGutterPreviewHunk<CR>' },
 
   { mode='i', {
     { '<A-', {
