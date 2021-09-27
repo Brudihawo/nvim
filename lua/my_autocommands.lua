@@ -23,7 +23,8 @@ vim.api.nvim_exec('autocmd FileType sh nnoremap <leader>x :w <CR>:! bash <<< cat
 vim.api.nvim_exec('autocmd FileType rust nnoremap <leader>x :w <CR>:! cargo run<CR>', true)
 
 -- Filetype Specific Commands
-vim.api.nvim_exec('autocmd FileType tex nnoremap <leader>B ciW\\textbf{<ESC>pa}<ESC>', true)
+vim.api.nvim_exec('autocmd FileType tex nnoremap <buffer> <leader>B ciW\\textbf{<ESC>pa}<ESC>', true)
+vim.api.nvim_exec('autocmd FileType tex call vimtex#init()', true)
 -- Hold Cursor action
 vim.api.nvim_exec('autocmd CursorHold * :Lspsaga show_cursor_diagnostics', true)
 
