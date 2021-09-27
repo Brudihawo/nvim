@@ -1,3 +1,4 @@
+local coq = require('coq')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true;
 capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -9,30 +10,32 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 require("lspconfig").pylsp.setup{
-  capabilities = capabilities,
-  -- on_attach = require('lsp_signature').on_attach("pylsp"),
-  settings = {
-    pylsp = {
-      configurationSources = { "flake8" },
-      plugins = {
-        pydocstyle = {
-          enabled = true,
-          convention = 'google'
-        },
-        jedi_completion = {
-          enabled = true,
-          fuzzy = true,
-          eager = true
-        },
-        black = {
-          enabled = true,
-          args = {
-            '-l', '80'
+  coq.lsp_ensure_capabilities{
+    capabilities = capabilities,
+    -- on_attach = require('lsp_signature').on_attach("pylsp"),
+    settings = {
+      pylsp = {
+        configurationSources = { "flake8" },
+        plugins = {
+          pydocstyle = {
+            enabled = true,
+            convention = 'google'
+          },
+          jedi_completion = {
+            enabled = true,
+            fuzzy = true,
+            eager = true
+          },
+          black = {
+            enabled = true,
+            args = {
+              '-l', '80'
+            }
+          },
+          flake8 = {
+            enabled = true,
+            args = { "--ignore=E203,W503" },
           }
-        },
-        flake8 = {
-          enabled = true,
-          args = { "--ignore=E203,W503" },
         }
       }
     }
@@ -40,25 +43,27 @@ require("lspconfig").pylsp.setup{
 }
 
 require("lspconfig").rust_analyzer.setup{
-  capabilities = capabilities,
-  settings = {
-    ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
-      },
-      cargo = {
-        loadOutDirsFromCheck = true,
-      },
-      procMacro = {
-        enable = true,
+  coq.lsp_ensure_capabilities{
+    capabilities = capabilities,
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importGranularity = "module",
+          importPrefix = "by_self",
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+        },
+        procMacro = {
+          enable = true,
+        }
       }
     }
   }
 }
 
 require("lspconfig").sumneko_lua.setup {
- cmd = {"lua-language-server"},
+  cmd = {"lua-language-server"},
   settings = {
     Lua = {
       runtime = {
@@ -85,52 +90,59 @@ require("lspconfig").sumneko_lua.setup {
 
 
 require("lspconfig").texlab.setup{
-  capabilities = capabilities,
-  cmd = { "texlab" },
-  filetypes = { "tex", "bib" },
-  settings = {
-    texlab = {
-      auxDirectory = ".",
-      bibtexFormatter = "texlab",
-      build = {
-        args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
-        executable = "latexmk",
-        forwardSearchAfter = false,
-        onSave = false
-      },
-      chktex = {
-        onEdit = false,
-        onOpenAndSave = false
-      },
-      diagnosticsDelay = 300,
-      formatterLineLength = 80,
-      forwardSearch = {
-        args = {}
-      },
-      latexFormatter = "latexindent",
-      latexindent = {
-        modifyLineBreaks = false
+  coq.lsp_ensure_capabilities{
+    capabilities = capabilities,
+    cmd = { "texlab" },
+    filetypes = { "tex", "bib" },
+    settings = {
+      texlab = {
+        auxDirectory = ".",
+        bibtexFormatter = "texlab",
+        build = {
+          args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
+          executable = "latexmk",
+          forwardSearchAfter = false,
+          onSave = false
+        },
+        chktex = {
+          onEdit = false,
+          onOpenAndSave = false
+        },
+        diagnosticsDelay = 300,
+        formatterLineLength = 80,
+        forwardSearch = {
+          args = {}
+        },
+        latexFormatter = "latexindent",
+        latexindent = {
+          modifyLineBreaks = false
+        }
       }
     }
   }
 }
 
 require("lspconfig").ccls.setup{
-  capabilities = capabilities,
-  -- on_attach = require('lsp_signature').on_attach("ccls"),
-  init_options = {
-    index = {
-      threads = 0;
+  coq.lsp_ensure_capabilities{
+    capabilities = capabilities,
+    -- on_attach = require('lsp_signature').on_attach("ccls"),
+    init_options = {
+      index = {
+        threads = 0;
+      },
+      cache = {
+        directory = "/tmp/ccls";
+      },
     },
-    cache = {
-      directory = "/tmp/ccls";
-    },
-  },
-  rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
-  filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
+    rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
+    filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
+  }
 }
+
 require("lspconfig").cmake.setup{
-  capabilities = capabilities,
+  coq.lsp_ensure_capabilities{
+    capabilities = capabilities,
+  }
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -143,6 +155,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 local saga = require('lspsaga')
 saga.init_lsp_saga {
+  code_action_prompt = {
+    enable = false,
+  },
   max_preview_lines = 20,
   finder_action_keys = {
     open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
@@ -169,6 +184,7 @@ vim.g.vimtex_quickfix_ignore_filters = {
   ".*Underfull \\hbox.*",
 }
 
+vim.g.tex_flavour = 'latex'
 vim.g.vimtex_compiler_name = 'nvr'
 vim.g.vimtex_compiler_method = 'latexmk'
 vim.g.vimtex_view_general_viewer = 'zathura'
