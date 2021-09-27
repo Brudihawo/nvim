@@ -1,13 +1,3 @@
--- Colorscheme
-vim.o.termguicolors = true
-vim.g.gruvbox_bold = true
-vim.g.gruvbox_italic = true
-vim.g.gruvbox_underline = true
--- vim.g.gruvbox_improved_warnings = true
-
-vim.g.gruvbox_italicize_strings = true
-vim.g.gruvbox_italicise_comments = true
-
 -- highlighting and Readability
 vim.o.syntax = 'on'
 vim.o.ruler = true
@@ -25,12 +15,25 @@ vim.o.hlsearch = true
 vim.o.inccommand = 'split'
 vim.o.smartcase = true
 
--- vim.g.gruvbox_guisp_fallback = 'fg'
-vim.g.gruvbox_guisp_fallback = 'red'
-vim.g.gruvbox_hls_cursor = true
-vim.g.gruvbox_termcolors = 256
-vim.g.gruvbox_invert_selection = true
-vim.cmd([[colorscheme gruvbox]])
+-- Colorscheme
+vim.cmd[[
+if has('termguicolors')
+  set termguicolors
+endif
+]]
+
+vim.o.background='dark'
+vim.g.gruvbox_material_background='hard'
+vim.g.gruvbox_material_enable_italic=true
+vim.g.gruvbox_material_ui_contrast='high'
+vim.g.gruvbox_material_diagnostic_text_highlight=true
+vim.g.gruvbox_material_palette='material'
+
+
+vim.cmd([[
+colorscheme gruvbox-material
+]])
+
 
 -- Gitgutter disable
 vim.o.signcolumn = 'yes'
