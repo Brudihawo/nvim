@@ -2,6 +2,50 @@
 vim.g.mapleader=" "
 vim.g.maplocalleader=" "
 
+local function confirm(message)
+  print(message)
+  return vim.fn.inputlist({"1. yes", "2. no"}) == 1
+end
+
+local function file_exists(fname)
+  local f = io.open(fname, "r")
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
+
+local function graphviz_graph(engine)
+  local fname = vim.fn.bufname()
+  local outfile_name = vim.fn.input("Output Filename: ", "", "file")
+
+  if outfile_name == "" then
+    if confirm("No output file specified. Use current file name?") then
+      outfile_name = fname:gsub("%..+$", ".png")
+      print(' -> \nOutputting to ' .. outfile_name .. ".")
+    else
+      print(" -> \nExecution cancelled.\n")
+      return
+    end
+  end
+
+  if file_exists(outfile_name) then
+    if not confirm("File Exists. Overwrite?") then
+      print(" -> \nExecution cancelled.\n")
+      return
+    else
+      print(" -> \nOverwriting " .. outfile_name .. ".\n")
+    end
+  end
+
+  local cmd = engine .. " -Tpng '" .. fname .. "' -o '" .. outfile_name .. "'"
+
+  os.execute(cmd .. "> /dev/null")
+end
+
+
 require('nest').applyKeymaps{
   { '<leader>', {
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
@@ -19,9 +63,14 @@ require('nest').applyKeymaps{
     -- Code Minimap
     { 'mt', '<cmd>MinimapToggle<CR>' },
 
--- Tagbar
-  ['<leader>bo'] = ':Tagbar<CR> ', -- Bar open
-  ['<leader>st'] = ':TagbarShowTag<CR>', -- " Show tag
+    -- Create dot / neato Graph
+    { 'gd', function() graphviz_graph("dot") end },
+    { 'gn', function() graphviz_graph("neato") end },
+    { 'gt', function() graphviz_graph("twopi") end },
+
+    -- Tagbar
+    { 'bo', ':Tagbar<CR>' }, -- Bar open
+    { 'st', ':TagbarShowTag<CR>' }, -- " Show tag
   }},
   { '<A-', {
     -- Resizing
@@ -79,8 +128,8 @@ require('nest').applyKeymaps{
     { 'dd', '<cmd>Telescope lsp_document_diagnostics<CR>' },
 
     { 'e', { -- Edit Config
-      { 'e', '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>' },
-      { 'g', '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*" }})<CR>' },
+      { 'e', '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
+      { 'g', '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
     }},
 
     { 'gs', '<cmd>lua require("telescope.builtin").grep_string()<CR>' },
@@ -113,7 +162,7 @@ require('nest').applyKeymaps{
     { 'd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
     { 'i', '<cmd>lua vim.lsp.buf.implementation()<CR>' },
 
-  -- Git (-gutter)
+    -- Git (-gutter)
     { 't', {
       { 't', '<cmd>GitGutterSignsToggle<CR>' },
       { 'f', '<cmd>GitGutterFold<CR>' },
@@ -130,6 +179,7 @@ require('nest').applyKeymaps{
       { 'f', '<cmd>GitGutterQuickFixCurrentFile<CR>' },
       { 'q', '<cmd>GitGutterQuickFix<CR>' },
     }},
+
   }},
 
   { "==", '<cmd>GitGutterPreviewHunk<CR>' },
@@ -140,10 +190,19 @@ require('nest').applyKeymaps{
       { 'h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
     }},
   }},
+
+
+  { mode='n', {
+    { 'gcc', '<Plug>kommentary_line_default' },
+    { 'gc', '<Plug>kommentary_motion_default' },
+  }},
+  { mode='v', {
+    { 'gc', '<Plug>kommentary_visual_default<CR>' },
+  }},
 }
 
 -- Extend text objects
-surround_pairs = {
+local surround_pairs = {
   [':'] = ':',
   [';'] = ';',
   ['.'] = '.',
