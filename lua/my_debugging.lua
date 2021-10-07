@@ -22,7 +22,7 @@ dap.adapters.cppdbg = {
 dap.configurations.cpp = {
   {
     name = 'Launch file',
-    type = 'cpptools',
+    type = 'cppdbg',
     request = 'launch',
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -31,25 +31,26 @@ dap.configurations.cpp = {
     miDebuggerPath = 'gdb',
     cwd = '${workspaceFolder}',
     stopOnEntry = true,
+    runInTerminal = false,
   },
-  {
-    name = 'Attach to gdbserver :1234',
-    type = 'cppdbg',
-    request = 'launch',
-    MiMode = 'gdb',
-    miDebuggerServerAdress = 'localhost:1234',
-    miDebuggerPath = 'gdb',
-    cwd = '${workspaceFolder}',
-    program = function()
-      return vim.fn.input('Path to Executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    args = function()
-      local args = vim.fn.input('Arguments: ', '','file')
-      args = splitstr(args)
-      print(vim.inspect(args))
-      return args
-    end,
-  },
+  -- {
+  --   name = 'Attach to gdbserver :1234',
+  --   type = 'cppdbg',
+  --   request = 'launch',
+  --   MiMode = 'gdb',
+  --   miDebuggerServerAdress = 'localhost:1234',
+  --   miDebuggerPath = 'gdb',
+  --   cwd = '${workspaceFolder}',
+  --   program = function()
+  --     return vim.fn.input('Path to Executable: ', vim.fn.getcwd() .. '/', 'file')
+  --   end,
+  --   args = function()
+  --     local args = vim.fn.input('Arguments: ', '','file')
+  --     args = splitstr(args)
+  --     print(vim.inspect(args))
+  --     return args
+  --   end,
+  -- },
 }
 
 dap.configurations.c = dap.configurations.cpp
@@ -96,7 +97,6 @@ require("dapui").setup({
     repl = "r",
   },
   sidebar = {
-    open_on_start = true,
     elements = {
       -- You can change the order of elements in the sidebar
       "scopes",
@@ -108,7 +108,6 @@ require("dapui").setup({
     position = "left" -- Can be "left" or "right"
   },
   tray = {
-    open_on_start = true,
     elements = {
       "repl"
     },
