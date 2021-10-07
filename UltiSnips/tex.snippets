@@ -65,7 +65,8 @@ $2
 endsnippet
 
 snippet #pa "Paragraph Header" Ai
-\paragraph{$1} $2
+\paragraph{$1}
+$2
 endsnippet
 
 snippet #oenv "Environment with Options" Ab
@@ -88,16 +89,31 @@ snippet #imz "Itemize" Ab
 \end{itemize}
 endsnippet
 
+snippet #enum "Enumerate" Ab
+\begin{enumerate}
+	\item $1
+\end{enumerate}
+endsnippet
+
 post_expand "fix_indent(snip)"
 snippet #ii "item" Ab
 \item 
 endsnippet
 
 post_expand "fix_indent(snip)"
-snippet #II "item" Ab
+snippet #io "item[]" Ab
 \item[$1] $2
 endsnippet
 
+post_expand "fix_indent(snip)"
+snippet #i+ "item[+]" Ab
+\item[+] $1
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #i- "item[-]" Ab
+\item[-] $1
+endsnippet
 
 snippet #tbx "tabularx" Ab
 \begin{tabularx}{${1:width}\textwidth}{${2:alignment}}
@@ -149,7 +165,6 @@ endsnippet
 
 snippet #cp "clearpage" Ai
 \clearpage
-$1
 endsnippet
 
 snippet #comptbl "comparison table" Ab
@@ -211,7 +226,7 @@ snippet #> "right arrow" Ai
 $\rightarrow$
 endsnippet
 
-snippet -> "right arrow" Ai
+snippet --> "right arrow" Ai
 \rightarrow
 endsnippet
 
@@ -219,15 +234,15 @@ snippet #< "left arrow" Ai
 $\leftarrow$
 endsnippet
 
-snippet <- "left arrow" Ai
+snippet <-- "left arrow" Ai
 \leftarrow
 endsnippet
 
-snippet #=> "right double arrow" Ai
+snippet ==> "right double arrow" Ai
 \Rightarrow
 endsnippet
 
-snippet #<= "left double arrow" Ai
+snippet <== "left double arrow" Ai
 \Leftarrow
 endsnippet
 
@@ -266,15 +281,15 @@ snippet #Sci "subcaptionbox image" Ai
 \subcaptionbox{${1:caption}}{\includegraphics[width=${2:width}\textwidth]{${3:imagepath}}}
 endsnippet
 
-snippet \left( "leftright(" Ai
+snippet #( "leftright(" Ai
 \left($1\right)$2
 endsnippet
 
-snippet \left{ "leftright{" Ai
-\left{$1\right}$2
+snippet #{ "leftright{" Ai
+\left\{$1\right\}$2
 endsnippet
 
-snippet \left[ "leftright[" Ai
+snippet #[ "leftright[" Ai
 \left[$1\right]$2
 endsnippet
 

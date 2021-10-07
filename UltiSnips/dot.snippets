@@ -1,0 +1,21 @@
+snippet #nn "New Node" Ai
+${1:name} [label="${2:label}"];
+endsnippet
+
+snippet #ng "New Graph" Ai
+digraph ${1:name} {
+	rankdir=LR;
+	dpi=160;
+	node [shape=box];
+  $2
+}
+endsnippet
+
+snippet #sg "Subgraph" Ai
+subgraph cluster$1 {
+	style=${2:style};
+	fillcolor=${3:fillcolor};
+	label="${4:label}";
+	$5
+}
+endsnippet

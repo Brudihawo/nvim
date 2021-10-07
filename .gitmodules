@@ -136,3 +136,15 @@
 [submodule "pack/editing/start/nest.nvim"]
 	path = pack/editing/start/nest.nvim
 	url = https://github.com/LionC/nest.nvim
+[submodule "pack/editing/start/oak"]
+	path = pack/editing/start/oak
+	url = https://github.com/vigoux/oak
+[submodule "pack/editing/start/seoul256.nvim"]
+	path = pack/editing/start/seoul256.nvim
+	url = https://github.com/shaunsingh/seoul256.nvim
+[submodule "pack/editing/start/melange"]
+	path = pack/editing/start/melange
+	url = https://github.com/savq/melange
+[submodule "pack/editing/start/kommentary"]
+	path = pack/editing/start/kommentary
+	url = https://github.com/b3nj5m1n/kommentary

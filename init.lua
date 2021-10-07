@@ -66,6 +66,11 @@ require('lightspeed').setup {
 vim.cmd('nunmap F')
 vim.cmd('nunmap f')
 
+-- Kommentary Config
+require('kommentary.config').configure_language('default', {
+  prefer_single_line_comments = true,
+})
+
 require('my_telescope_config')
 require('my_treesitter_config')
 require('my_lsp_config')
