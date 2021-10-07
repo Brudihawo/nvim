@@ -22,18 +22,38 @@ if has('termguicolors')
 endif
 ]]
 
-vim.o.background='dark'
-vim.g.gruvbox_material_background='hard'
-vim.g.gruvbox_material_enable_italic=true
-vim.g.gruvbox_material_ui_contrast='high'
-vim.g.gruvbox_material_diagnostic_text_highlight=true
-vim.g.gruvbox_material_palette='material'
+local colorscheme = "melange"
+local lualine_theme = ""
 
+if colorscheme == "seoul256" then
+  vim.g.seoul256_italic_comments = true
+  vim.g.seoul256_italic_keywords = true
+  vim.g.seoul256_italic_functions = false
+  vim.g.seoul256_italic_variables = false
+  vim.g.seoul256_contrast = false
+  vim.g.seoul256_disable_borders = true
+  vim.g.seoul256_disable_background = false
 
-vim.cmd([[
-colorscheme gruvbox-material
-]])
+  require('seoul256').set()
+  lualine_theme = "seoul256"
 
+elseif colorscheme == "gruvbox" then
+  vim.o.background='dark'
+  vim.g.gruvbox_material_background='hard'
+  vim.g.gruvbox_material_enable_italic=true
+  vim.g.gruvbox_material_ui_contrast='high'
+  vim.g.gruvbox_material_diagnostic_text_highlight=true
+  vim.g.gruvbox_material_palette='material'
+
+  vim.cmd([[
+    colorscheme gruvbox-material
+  ]])
+  lualine_theme = "gruvbox_material"
+elseif colorscheme == "melange" then
+
+  vim.cmd("colorscheme melange")
+  lualine_theme = "auto"
+end
 
 -- Gitgutter disable
 vim.o.signcolumn = 'yes'
