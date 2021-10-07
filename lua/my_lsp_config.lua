@@ -127,12 +127,9 @@ require("lspconfig").ccls.setup{
     capabilities = capabilities,
     -- on_attach = require('lsp_signature').on_attach("ccls"),
     init_options = {
-      index = {
-        threads = 0;
-      },
-      cache = {
-        directory = "/tmp/ccls";
-      },
+      index = { threads = 0; },
+      cache = { directory = "/tmp/ccls"; },
+      clang = { extraArgs = { "-Wmaybe-uninitialized", "-Wunused-variable", "-Wunknown-pragmas" } },
     },
     rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
     filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
