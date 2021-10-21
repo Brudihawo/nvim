@@ -148,3 +148,9 @@
 [submodule "pack/editing/start/kommentary"]
 	path = pack/editing/start/kommentary
 	url = https://github.com/b3nj5m1n/kommentary
+[submodule "pack/editing/start/bufresize.nvim"]
+	path = pack/editing/start/bufresize.nvim
+	url = https://github.com/kwkarlwang/bufresize.nvim
+[submodule "pack/editing/start/stabilize.nvim"]
+	path = pack/editing/start/stabilize.nvim
+	url = https://github.com/luukvbaal/stabilize.nvim

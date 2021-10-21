@@ -72,6 +72,20 @@ vim.o.cmdheight = 5
 vim.o.laststatus = 2
 vim.o.ambiwidth = 'single'
 
+-- Layout Changes
+require('bufresize').setup({
+  register = {
+    trigger_events = { "BufWinEnter", "WinEnter" },
+  },
+  resize = {
+    keys = {},
+    trigger_events = { "VimResized" },
+  }
+})
+
+require('stabilize').setup() -- Stabilise buffers when opening quickfixlist
+
+
 require('neoscroll').setup {
     -- All these keys will be mapped. Pass an empty table ({}) for no mappings
     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
