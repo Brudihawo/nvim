@@ -136,6 +136,14 @@ require("lspconfig").ccls.setup{
   }
 }
 
+
+-- require('lspconfig').clangd.setup {
+--   coq.lsp_ensure_capabilities {
+--     capabilities = capabilities,
+--     cmd = { "clangd", "--background-index", "--enable-config" },
+--   }
+-- }
+
 require("lspconfig").cmake.setup{
   coq.lsp_ensure_capabilities{
     capabilities = capabilities,
@@ -144,7 +152,7 @@ require("lspconfig").cmake.setup{
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text=false;
+        virtual_text=true;
         underline=true;
     }
 )

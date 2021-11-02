@@ -68,20 +68,20 @@ vim.g.bufferline = {
 
 -- layout
 vim.o.number = true
-vim.o.cmdheight = 5
+vim.o.cmdheight = 1
 vim.o.laststatus = 2
 vim.o.ambiwidth = 'single'
 
--- Layout Changes
-require('bufresize').setup({
-  register = {
-    trigger_events = { "BufWinEnter", "WinEnter" },
-  },
-  resize = {
-    keys = {},
-    trigger_events = { "VimResized" },
-  }
-})
+-- -- Layout Changes
+-- require('bufresize').setup({
+--   register = {
+--     trigger_events = { "BufWinEnter", "WinEnter" },
+--   },
+--   resize = {
+--     keys = {},
+--     trigger_events = { "VimResized" },
+--   }
+-- })
 
 require('stabilize').setup() -- Stabilise buffers when opening quickfixlist
 
