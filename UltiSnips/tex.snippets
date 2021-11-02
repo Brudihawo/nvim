@@ -31,6 +31,8 @@ snippet #init "Document Header" Ai
 \author{Hawo Höfer}
 \title{${1: title}}
 \maketitle
+\tableofcontents
+\clearpage
 $2
 \end{document}
 endsnippet
@@ -43,6 +45,45 @@ snippet #graph "Graphic Figure" Ab
 	\label{$4}
 \end{figure}
 $5
+endsnippet
+
+snippet #fsvg "Inkscape svg Figure" Ab
+\begin{figure}[h]
+  \centering
+  \def\svgwidth{${1:size}\textwidth}
+  \input{${2:file}}
+  \caption{${3:caption}}
+  \label{${4:label}}
+\end{figure}
+endsnippet
+
+snippet #fpgf "pgf plot figure" Ab
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			width = ${1:width}\textwidth,
+			height = ${2:height}\textwidth,
+			samples = 100,
+			xlabel = {${3:xlabel}},
+			ylabel = {${4:ylabel}},
+      x label style = {at = {(axis description cs:1.0,0)}},
+      y label style = {at = {(axis description cs:0,1.0)}, rotate=90},
+			line width = 1pt,
+			axis y line = left,
+			axis x line = bottom,
+			axis line style = {->},
+      legend cell align = left,
+		]
+			$5
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #ppa "pgf add plot" Ai
+	\addplot[${1:opts}]{${2:func}};
 endsnippet
 
 snippet #tw "textwidth" Ai
@@ -81,6 +122,12 @@ snippet #env "Environment" Ab
 ${2:content}
 \end{$1}
 $3
+endsnippet
+
+snippet #eqn "Equation" Ab
+\begin{equation}\label{eq:${1:label}}
+	$2
+\end{equation}
 endsnippet
 
 snippet #imz "Itemize" Ab
@@ -267,6 +314,16 @@ snippet #tikzf "Tikz picture Figure" Ai
 	\caption{${2:caption}}
 	\label{${3:label}}
 \end{figure}
+endsnippet
+
+snippet #tg "Tikz graph" Ai
+	\tikz [>={Stealth[round, sep]}]
+		\graph [layered layout,
+						components go right top aligned,
+						edges = rounded corners,
+						nodes = {rectangle, rounded corners, draw}] {
+		$1
+	};
 endsnippet
 
 snippet ° "degrees" Ai
