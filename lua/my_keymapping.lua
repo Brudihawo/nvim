@@ -2,6 +2,7 @@
 vim.g.mapleader=" "
 vim.g.maplocalleader=" "
 
+local api = vim.api
 local function confirm(message)
   print(message)
   return vim.fn.inputlist({"1. yes", "2. no"}) == 1
@@ -45,10 +46,38 @@ local function graphviz_graph(engine)
   os.execute(cmd .. "> /dev/null")
 end
 
+local trailws_active = false
+local function highlight_trailws()
+  if trailws_active then
+    vim.cmd("hi clear trailws")
+    trailws_active = false
+  else
+    vim.cmd("hi trailws guibg='#fb4934'")
+    vim.cmd("match trailws /\\s\\+$/")
+    trailws_active = true
+  end
+end
+
+local function add_linebreak(chars)
+  -- TODO: Janky AF, do this only with lua
+  local orig_pos = api.nvim_win_get_cursor(0)
+  vim.cmd('/.\\{'..chars..',\\}')
+  -- Something line for line in api.nvim_get_buf... if string.len(line) > chars ...
+
+  local cur_pos = api.nvim_win_get_cursor(0)
+  local line = api.nvim_buf_get_lines(0, cur_pos[1] - 1, cur_pos[1], true)[1]
+  if string.len(line) > chars then
+    api.nvim_feedkeys(api.nvim_replace_termcodes("0".. chars .. "lBBEa\n<Esc>", true, false, true), "n", true)
+  end
+  vim.cmd("noh")
+  --api.nvim_win_set_cursor(0, orig_pos)
+end
 
 require('nest').applyKeymaps{
   { '<leader>', {
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
+    { 'cw', function() highlight_trailws() end },
+    { 'lb', function() add_linebreak(89) end },
 
     -- Quickfix / Locallist Open / Close
     { 'c', {
@@ -87,7 +116,7 @@ require('nest').applyKeymaps{
   }},
 
   { 'L', {
-    -- Lspsaga commands (might move away in future - doesnt really seem to be necessary)
+    -- LSP commands (might move away in future - doesnt really seem to be necessary)
     { 'rn', '<cmd>Lspsaga rename<CR>' },
     { 'lf', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>' },
     { 'sh', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>' },
@@ -102,7 +131,7 @@ require('nest').applyKeymaps{
       { 'q', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
     }},
 
-    { 'ld', '<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>' },
+    { 'ld', '<cmd>lua vim.diagnostic.open_float()<CR>' },
     { 'f', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
   }},
 
@@ -156,7 +185,7 @@ require('nest').applyKeymaps{
   { 'Ü', '<cmd>lprev<CR>' },
 
 
-  { 'g', {
+  { 'g', { -- ga ... for vim-easy-align
     -- Go to Declaration / Definition
     { 'D', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
     { 'd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
@@ -216,10 +245,10 @@ local surround_pairs = {
 
 for key, value in pairs(surround_pairs) do
   for _, action in ipairs({ "c", "d", "v", "y" }) do
-    vim.api.nvim_set_keymap("n", action .. 'i' .. key,
+    api.nvim_set_keymap("n", action .. 'i' .. key,
                                  'T' .. key .. action .. 't' .. value,
                                  { noremap = true, silent = false })
-    vim.api.nvim_set_keymap("n", action .. 'a' .. key,
+    api.nvim_set_keymap("n", action .. 'a' .. key,
                                  'F' .. key .. action .. 'f' .. value,
                                  { noremap = true, silent = false })
   end

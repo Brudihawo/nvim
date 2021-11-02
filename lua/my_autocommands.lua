@@ -15,7 +15,3 @@ vim.api.nvim_exec('autocmd FileType tex nnoremap <buffer> <leader>B ciW\\textbf{
 
 -- Autocomplete
 vim.api.nvim_exec('autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc', true)
-
-vim.api.nvim_exec("autocmd FileType * hi trailws guibg='#fb4934'", true)
-vim.api.nvim_exec("autocmd FileType * match trailws /\\s\\+$/", true)
-
