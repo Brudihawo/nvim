@@ -1,12 +1,6 @@
 [submodule "pack/editing/start/barbar.nvim"]
 	path = pack/editing/start/barbar.nvim
 	url = https://github.com/romgrk/barbar.nvim
-[submodule "pack/editing/start/gruvbox.nvim"]
-	path = pack/editing/start/gruvbox.nvim
-	url = https://github.com/npxbr/gruvbox.nvim
-[submodule "pack/editing/start/hop.nvim"]
-	path = pack/editing/start/hop.nvim
-	url = https://github.com/phaazon/hop.nvim
 [submodule "pack/editing/start/lsp-colors.nvim"]
 	path = pack/editing/start/lsp-colors.nvim
 	url = https://github.com/folke/lsp-colors.nvim
