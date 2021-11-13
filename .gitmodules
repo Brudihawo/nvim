@@ -145,6 +145,3 @@
 [submodule "pack/editing/start/toggleterm.nvim"]
 	path = pack/editing/start/toggleterm.nvim
 	url = https://github.com/akinsho/toggleterm.nvim
-[submodule "pack/editing/start/neogit"]
-	path = pack/editing/start/neogit
-	url = https://github.com/TimUntersberger/neogit
