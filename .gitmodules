@@ -70,9 +70,6 @@
 [submodule "pack/editing/start/vim-commentary"]
 	path = pack/editing/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "pack/editing/start/vim-fugitive"]
-	path = pack/editing/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "pack/editing/start/vim-repeat"]
 	path = pack/editing/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
@@ -124,33 +121,18 @@
 [submodule "pack/editing/start/coq_nvim"]
 	path = pack/editing/start/coq_nvim
 	url = https://github.com/ms-jpq/coq_nvim
-[submodule "pack/editing/start/nord.nvim"]
-	path = pack/editing/start/nord.nvim
-	url = https://github.com/shaunsingh/nord.nvim
-[submodule "pack/editing/start/gruvbox-material"]
-	path = pack/editing/start/gruvbox-material
-	url = https://github.com/sainnhe/gruvbox-material
 [submodule "pack/editing/start/lightspeed.nvim"]
 	path = pack/editing/start/lightspeed.nvim
 	url = https://github.com/ggandor/lightspeed.nvim
 [submodule "pack/editing/start/nest.nvim"]
 	path = pack/editing/start/nest.nvim
 	url = https://github.com/LionC/nest.nvim
-[submodule "pack/editing/start/oak"]
-	path = pack/editing/start/oak
-	url = https://github.com/vigoux/oak
-[submodule "pack/editing/start/seoul256.nvim"]
-	path = pack/editing/start/seoul256.nvim
-	url = https://github.com/shaunsingh/seoul256.nvim
 [submodule "pack/editing/start/melange"]
 	path = pack/editing/start/melange
 	url = https://github.com/savq/melange
 [submodule "pack/editing/start/kommentary"]
 	path = pack/editing/start/kommentary
 	url = https://github.com/b3nj5m1n/kommentary
-[submodule "pack/editing/start/bufresize.nvim"]
-	path = pack/editing/start/bufresize.nvim
-	url = https://github.com/kwkarlwang/bufresize.nvim
 [submodule "pack/editing/start/stabilize.nvim"]
 	path = pack/editing/start/stabilize.nvim
 	url = https://github.com/luukvbaal/stabilize.nvim
