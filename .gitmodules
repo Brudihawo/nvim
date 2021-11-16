@@ -139,3 +139,9 @@
 [submodule "pack/editing/start/toggleterm.nvim"]
 	path = pack/editing/start/toggleterm.nvim
 	url = https://github.com/akinsho/toggleterm.nvim
+[submodule "pack/editing/start/lazygit.nvim"]
+	path = pack/editing/start/lazygit.nvim
+	url = https://github.com/kdheepak/lazygit.nvim
+[submodule "pack/editing/start/nvim-startup.lua"]
+	path = pack/editing/start/nvim-startup.lua
+	url = https://github.com/henriquehbr/nvim-startup.lua
