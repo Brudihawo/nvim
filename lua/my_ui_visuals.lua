@@ -1,4 +1,6 @@
+-------------------------------------------------------------------------------
 -- highlighting and Readability
+-------------------------------------------------------------------------------
 vim.o.syntax = 'on'
 vim.o.ruler = true
 vim.o.showcmd = true
@@ -7,13 +9,18 @@ vim.o.cursorline = true
 vim.o.number = true
 vim.o.relativenumber = true
 
--- Color Column
-vim.o.colorcolumn = "80"
-
 -- search
 vim.o.hlsearch = true
 vim.o.inccommand = 'split'
 vim.o.smartcase = true
+
+-- Color Column
+vim.o.colorcolumn = "80"
+
+
+-------------------------------------------------------------------------------
+-- COLORS
+-------------------------------------------------------------------------------
 
 -- Colorscheme
 vim.cmd[[
@@ -55,16 +62,50 @@ elseif colorscheme == "melange" then
   lualine_theme = "auto"
 end
 
--- Gitgutter disable
+-- Do i need this?
+-- LSPSaga Highlighting
+vim.cmd("highlight LspSagaDefPreviewBorder guifg='#ebdbb2'")
+vim.cmd("highlight clear LspFloatWinBorder")
+vim.cmd("highlight link LspFloatWinBorder LspSagaDefPreviewBorder")
+vim.cmd("highlight LspSagaRenameBorder guifg='#d79921'")
+
+-------------------------------------------------------------------------------
+-- GIT
+-------------------------------------------------------------------------------
+
+-- Gitgutter disable signs
 vim.o.signcolumn = 'yes'
 vim.g.gitgutter_signs = false
 
--- Barbar.nvim
-vim.g.bufferline = {
-  tabpages = true,
-  closable = false,
-  clickable = false,
+-- LazyGit
+vim.g.lazygit_floating_window_winblend = 0
+vim.g.lazygit_floating_window_use_plenary = 0
+
+
+-------------------------------------------------------------------------------
+-- OTHER UI STUFF
+-------------------------------------------------------------------------------
+
+-- colorizer
+require('colorizer').setup {
+  ['*'] = {
+    RGB = true,
+    RRGGBB = true,
+    RRGGBBAA = true,
+    names = false,
+  }
 }
+
+-- Barbar.nvim
+BARBAR_LOADED = false or BARBAR_LOADED
+if not BARBAR_LOADED then
+  vim.g.bufferline = {
+    tabpages = true,
+    closable = false,
+    clickable = false,
+  }
+  BARBAR_LOADED = true
+end
 
 -- layout
 vim.o.number = true
@@ -72,19 +113,78 @@ vim.o.cmdheight = 1
 vim.o.laststatus = 2
 vim.o.ambiwidth = 'single'
 
--- -- Layout Changes
--- require('bufresize').setup({
---   register = {
---     trigger_events = { "BufWinEnter", "WinEnter" },
---   },
---   resize = {
---     keys = {},
---     trigger_events = { "VimResized" },
---   }
--- })
+-- Minimap
+vim.g.minimap_git_colors = true
+vim.g.minimap_highlight_search = true
+
+
+require('indent_blankline').setup{
+  buftype_exclude = { "terminal" },
+  filetype_exclude = { "dashboard" },
+  use_treesitter = true,
+  char = '│',
+  show_current_context = true,
+  context_patterns = {
+    "compound_statement", -- C scope
+    ".*class.*",
+    ".*function.*",
+    ".*method.*",
+    ".*body.*",
+    "table", -- Lua Tables
+    "field",
+    "if.*",
+    "for.*",
+    "list_comprehension", -- Python stuff
+    ".*argument.*"
+  }
+}
+
+
+-- dashboard-nvim
+vim.g.dashboard_default_executive = 'telescope'
+
+-- listchars
+vim.o.listchars='eol:↲'
+
+-- Toggleterm
+require('toggleterm').setup{
+  -- size can be a number or function which is passed the current terminal
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 15
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.4
+    end
+  end,
+  open_mapping = [[<c-\>]],
+  hide_numbers = true, -- hide the number column in toggleterm buffers
+  shade_filetypes = {},
+  shade_terminals = true,
+  shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  start_in_insert = true,
+  insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  persist_size = true,
+  direction = 'float',
+  close_on_exit = true, -- close the terminal window when the process exits
+  shell = vim.o.shell, -- change the default shell
+  -- This field is only relevant if direction is set to 'float'
+  float_opts = {
+    -- The border key is *almost* the same as 'nvim_open_win'
+    -- see :h nvim_open_win for details on borders however
+    -- the 'curved' border is a custom border type
+    -- not natively supported but implemented in this plugin.
+    border = 'curved',
+    width = 4000,
+    height = 100,
+    winblend = 3,
+    highlights = {
+      border = "Normal",
+      background = "Normal",
+    }
+  }
+}
 
 require('stabilize').setup() -- Stabilise buffers when opening quickfixlist
-
 
 require('neoscroll').setup {
     -- All these keys will be mapped. Pass an empty table ({}) for no mappings
@@ -108,7 +208,7 @@ require('lualine').setup {
      lualine_b = {'branch'},
      lualine_c = {'filename'},
      lualine_x = {'encoding'},
-     lualine_y = {'filetype', {'diagnostics', sources={'nvim_lsp'}}},
+     lualine_y = {'filetype', {'diagnostics', sources={'nvim_diagnostic'}}},
      lualine_z = {'location', 'progress'},
    },
   extensions = {
@@ -117,50 +217,3 @@ require('lualine').setup {
   }
 }
 
-require('colorizer').setup {
-  ['*'] = {
-    RGB = true,
-    RRGGBB = true,
-    RRGGBBAA = true,
-    names = false,
-  }
-}
-
-require('indent_blankline').setup{
-  buftype_exclude = { "terminal" },
-  filetype_exclude = { "dashboard" },
-  use_treesitter = true,
-  char = '│',
-  show_current_context = true,
-  context_patterns = {
-    "compound_statement", -- C scope
-    ".*class.*",
-    ".*function.*",
-    ".*method.*",
-    ".*body.*",
-    "table", -- Lua Tables
-    "field",
-    "if.*",
-    "for.*",
-    "list_comprehension", -- Python stuff
-    ".*argument.*"
-  }
-}
-
--- LSPSaga Highlighting
-vim.cmd("highlight LspSagaDefPreviewBorder guifg='#ebdbb2'")
-vim.cmd("highlight clear LspFloatWinBorder")
-vim.cmd("highlight link LspFloatWinBorder LspSagaDefPreviewBorder")
-vim.cmd("highlight LspSagaRenameBorder guifg='#d79921'")
-
--- vim.cmd("highlight trailws guibg='#fb4934'")
--- vim.cmd("match trailws /\\s\\+$/")
-
--- vim.cmd("highlight longline guibg='#fabd2f' guifg='#282828'")
--- vim.cmd("match longline /.\\%>80v/")
-
--- dashboard-nvim
-vim.g.dashboard_default_executive = 'telescope'
-
--- listchars
-vim.o.listchars='eol:↲'

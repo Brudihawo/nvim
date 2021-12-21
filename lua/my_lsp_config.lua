@@ -9,6 +9,14 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text=true;
+        underline=true;
+    }
+)
+
+
 require("lspconfig").pylsp.setup{
   coq.lsp_ensure_capabilities{
     capabilities = capabilities,
@@ -108,7 +116,7 @@ require("lspconfig").texlab.setup{
           onEdit = false,
           onOpenAndSave = false
         },
-        diagnosticsDelay = 300,
+        diagnosticsDelay = 100,
         formatterLineLength = 80,
         forwardSearch = {
           args = {}
@@ -119,21 +127,22 @@ require("lspconfig").texlab.setup{
         }
       }
     }
-  }
+  },
 }
 
+
 require("lspconfig").ccls.setup{
-  coq.lsp_ensure_capabilities{
+  capabilities = coq.lsp_ensure_capabilities{
     capabilities = capabilities,
+  },
     -- on_attach = require('lsp_signature').on_attach("ccls"),
-    init_options = {
-      index = { threads = 0; },
-      cache = { directory = "/tmp/ccls"; },
-      clang = { extraArgs = { "-Wmaybe-uninitialized", "-Wunused-variable", "-Wunknown-pragmas" } },
-    },
-    rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
-    filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
-  }
+  init_options = {
+    index = { threads = 0; },
+    cache = { directory = "/tmp/ccls"; },
+    clang = { extraArgs = { "-Wmaybe-uninitialized", "-Wunused-variable", "-Wunknown-pragmas" } },
+  },
+  rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
+  filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
 }
 
 
@@ -149,14 +158,6 @@ require("lspconfig").cmake.setup{
     capabilities = capabilities,
   }
 }
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text=true;
-        underline=true;
-    }
-)
-
 
 local saga = require('lspsaga')
 saga.init_lsp_saga {
@@ -183,10 +184,14 @@ vim.api.nvim_command("sign define LspDiagnosticsSignInformation text=ⓘ")
 vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
 
 -- VimTeX
+vim.g.vimtex_mappings_disable = {
+  n = {'<leader>ls', '<leader>ll', '<leader>lv' },
+}
 vim.g.vimtex_quickfix_open_on_warning = false
 vim.g.vimtex_quickfix_ignore_filters = {
-  ".*Overfull \\hbox.*",
-  ".*Underfull \\hbox.*",
+  "Overfull",
+  "Underfull",
+  "float specifier",
 }
 
 vim.g.tex_flavour = 'latex'

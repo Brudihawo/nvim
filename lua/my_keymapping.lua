@@ -2,6 +2,8 @@
 vim.g.mapleader=" "
 vim.g.maplocalleader=" "
 
+require('line_manipulation')
+
 local api = vim.api
 local function confirm(message)
   print(message)
@@ -58,26 +60,17 @@ local function highlight_trailws()
   end
 end
 
-local function add_linebreak(chars)
-  -- TODO: Janky AF, do this only with lua
-  local orig_pos = api.nvim_win_get_cursor(0)
-  vim.cmd('/.\\{'..chars..',\\}')
-  -- Something line for line in api.nvim_get_buf... if string.len(line) > chars ...
-
-  local cur_pos = api.nvim_win_get_cursor(0)
-  local line = api.nvim_buf_get_lines(0, cur_pos[1] - 1, cur_pos[1], true)[1]
-  if string.len(line) > chars then
-    api.nvim_feedkeys(api.nvim_replace_termcodes("0".. chars .. "lBBEa\n<Esc>", true, false, true), "n", true)
-  end
-  vim.cmd("noh")
-  --api.nvim_win_set_cursor(0, orig_pos)
+local function search_to_loclist()
+  local term = vim.fn.input("Search String: ", "")
+  vim.cmd("lexpr []")
+  vim.cmd(":g/" .. term ..
+    '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
 end
 
 require('nest').applyKeymaps{
   { '<leader>', {
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
     { 'cw', function() highlight_trailws() end },
-    { 'lb', function() add_linebreak(89) end },
 
     -- Quickfix / Locallist Open / Close
     { 'c', {
@@ -87,6 +80,13 @@ require('nest').applyKeymaps{
     { 'l', {
       { 'o', '<cmd>lopen<CR>' },
       { 'c', '<cmd>lclose<CR>' },
+      { 's', search_to_loclist },
+    }},
+
+    -- Vimtex
+    { 'v', {
+      { 'c', '<plug>(vimtex-compile>'},
+      { 'v', '<plug>(vimtex-view>'},
     }},
 
     -- Code Minimap
@@ -97,10 +97,15 @@ require('nest').applyKeymaps{
     { 'gn', function() graphviz_graph("neato") end },
     { 'gt', function() graphviz_graph("twopi") end },
 
+    -- LazyGit
+    { 'gg', '<cmd>LazyGit<CR>' },
+
     -- Tagbar
     { 'bo', ':Tagbar<CR>' }, -- Bar open
     { 'st', ':TagbarShowTag<CR>' }, -- " Show tag
+
   }},
+
   { '<A-', {
     -- Resizing
     { 'J>', '<cmd>resize +3<CR>' },
@@ -131,7 +136,7 @@ require('nest').applyKeymaps{
       { 'q', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
     }},
 
-    { 'ld', '<cmd>lua vim.diagnostic.open_float()<CR>' },
+    { 'ld', '<cmd>lua vim.diagnostic.open_float(0, { scope="line" })<CR>' },
     { 'f', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
   }},
 
@@ -221,26 +226,32 @@ require('nest').applyKeymaps{
   }},
 
 
-  { mode='n', {
+  { mode = 'n', {
     { 'gcc', '<Plug>kommentary_line_default' },
     { 'gc', '<Plug>kommentary_motion_default' },
   }},
-  { mode='v', {
+  { mode = 'v', {
     { 'gc', '<Plug>kommentary_visual_default<CR>' },
   }},
+  { mode = 'vn', {
+    { 'ga', '<cmd>EasyAlign<CR>' },
+  }},
+  { mode = 'n', options= { noremap = false }, {
+    { '<leader>lb', '<Plug>HInsertLineBreak' },
+  }}
 }
 
 -- Extend text objects
 local surround_pairs = {
-  [':'] = ':',
-  [';'] = ';',
-  ['.'] = '.',
-  [','] = ',',
-  ['/'] = '/',
+  [':']     = ':',
+  [';']     = ';',
+  ['.']     = '.',
+  [',']     = ',',
+  ['/']     = '/',
   ['<bar>'] = '<bar>',
-  ['_'] = '_',
-  ['-'] = '-',
-  ['>'] = '<',
+  ['_']     = '_',
+  ['-']     = '-',
+  ['>']     = '<',
 }
 
 for key, value in pairs(surround_pairs) do

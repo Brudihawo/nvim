@@ -5,6 +5,8 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.linebreak = true
 vim.o.wrap = true
+vim.o.hidden = true
+vim.o.compatible = false
 
 vim.o.backspace = 'indent,eol,start'
 vim.o.display = 'lastline'
@@ -30,12 +32,7 @@ vim.o.updatetime = 800
 -- Vim-cmake
 vim.g.cmake_generate_options ={ '-G', 'Ninja', '-B', 'build' }
 
--- Minimap
-vim.g.minimap_git_colors = true
-vim.g.minimap_highlight_search = true
-
 -- Autocompletion
-local coq = require('coq')
 vim.g.coq_settings = {
   auto_start = "shut-up",
   weights = {
@@ -43,11 +40,21 @@ vim.g.coq_settings = {
     recency = 1.5,
   },
   display = {
+    ghost_text = {
+      enabled = true,
+    },
     icons = {
       spacing = 2,
+      mode = "short"
     }
+  },
+  clients = {
+    ["tags.enabled"] = false,
+    ["tree_sitter.enabled"] = false,
+    ["snippets.enabled"] = false,
   }
 }
+local coq = require('coq')
 
 vim.cmd[[COQnow -s]]
 vim.o.completeopt = "menuone,noselect"
@@ -55,21 +62,24 @@ vim.o.completeopt = "menuone,noselect"
 require('my_autocommands')
 require('my_keymapping')
 
-require('lightspeed').setup {
-  jump_to_first_match = true,
-  jump_on_partial_input_safety_timeout = 400,
-  x_mode_prefix_key = '<m-x>',
-  highlight_unique_chars = true,
-  limit_ft_matches = 7,
-}
+LIGHTSPEED_LOADED = false or LIGHTSPEED_LOADED
+if not LIGHTSPEED_LOADED then
+  require('lightspeed').setup {
+    jump_on_partial_input_safety_timeout = 400,
+    highlight_unique_chars = true,
+    limit_ft_matches = 7,
+  }
+  vim.cmd('nunmap F')
+  vim.cmd('nunmap f')
 
-vim.cmd('nunmap F')
-vim.cmd('nunmap f')
+  LIGHTSPEED_LOADED = true
+end
 
 -- Kommentary Config
 require('kommentary.config').configure_language('default', {
   prefer_single_line_comments = true,
 })
+
 
 require('my_telescope_config')
 require('my_treesitter_config')
