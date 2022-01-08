@@ -109,9 +109,6 @@
 [submodule "pack/editing/start/nvim-treesitter-refactor"]
 	path = pack/editing/start/nvim-treesitter-refactor
 	url = https://github.com/nvim-treesitter/nvim-treesitter-refactor
-[submodule "pack/editing/start/symbols-outline.nvim"]
-	path = pack/editing/start/symbols-outline.nvim
-	url = https://github.com/simrat39/symbols-outline.nvim
 [submodule "pack/editing/start/coq_nvim"]
 	path = pack/editing/start/coq_nvim
 	url = https://github.com/ms-jpq/coq_nvim
