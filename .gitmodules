@@ -124,9 +124,6 @@
 [submodule "pack/editing/start/kommentary"]
 	path = pack/editing/start/kommentary
 	url = https://github.com/b3nj5m1n/kommentary
-[submodule "pack/editing/start/stabilize.nvim"]
-	path = pack/editing/start/stabilize.nvim
-	url = https://github.com/luukvbaal/stabilize.nvim
 [submodule "pack/editing/start/vim-easy-align"]
 	path = pack/editing/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
