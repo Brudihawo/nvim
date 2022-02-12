@@ -17,10 +17,12 @@ vim.o.ttimeout = true
 vim.o.ttimeoutlen = 200
 vim.o.pastetoggle = '<F10>'
 
+vim.o.shell = "/usr/bin/bash"
+
 -- UltiSnips Config
-vim.g.UltiSnipsExpandTrigger = "<c-X>"
-vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+vim.g.UltiSnipsExpandTrigger = "<M-X>"
+vim.g.UltiSnipsJumpForwardTrigger = "<M-n>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<M-m>"
 vim.g.UltiSnipsEditSplit = "context"
 
 -- Markdown Preview
