@@ -67,8 +67,7 @@ require('my_keymapping')
 LIGHTSPEED_LOADED = false or LIGHTSPEED_LOADED
 if not LIGHTSPEED_LOADED then
   require('lightspeed').setup {
-    jump_on_partial_input_safety_timeout = 400,
-    highlight_unique_chars = true,
+    jump_to_unique_chars = true,
     limit_ft_matches = 7,
   }
   vim.cmd('nunmap F')
