@@ -135,7 +135,6 @@ require("lspconfig").ccls.setup{
   capabilities = coq.lsp_ensure_capabilities{
     capabilities = capabilities,
   },
-    -- on_attach = require('lsp_signature').on_attach("ccls"),
   init_options = {
     index = { threads = 0; },
     cache = { directory = "/tmp/ccls"; },
@@ -145,13 +144,6 @@ require("lspconfig").ccls.setup{
   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
 }
 
-
--- require('lspconfig').clangd.setup {
---   coq.lsp_ensure_capabilities {
---     capabilities = capabilities,
---     cmd = { "clangd", "--background-index", "--enable-config" },
---   }
--- }
 
 require("lspconfig").cmake.setup{
   coq.lsp_ensure_capabilities{

@@ -184,8 +184,6 @@ require('toggleterm').setup{
   }
 }
 
-require('stabilize').setup() -- Stabilise buffers when opening quickfixlist
-
 require('neoscroll').setup {
     -- All these keys will be mapped. Pass an empty table ({}) for no mappings
     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',

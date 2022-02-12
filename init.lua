@@ -38,8 +38,9 @@ vim.g.cmake_generate_options ={ '-G', 'Ninja', '-B', 'build' }
 vim.g.coq_settings = {
   auto_start = "shut-up",
   weights = {
+    edit_distance = 3,
     proximity = 0.75,
-    recency = 1.5,
+    recency = 0.75,
   },
   display = {
     ghost_text = {
