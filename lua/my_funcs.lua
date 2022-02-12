@@ -16,6 +16,28 @@ M.goto_c_h = function()
     end
 end
 
+M.new_buf_cmd = function(bufname)
+  local command = vim.fn.input("Execute Command: ", "", 'shellcmd')
+  bufname = bufname or "command"
+  vim.cmd("new " .. bufname)
+  vim.cmd("r!" .. command)
+  vim.cmd('setlocal readonly')
+end
+
+vim.cmd([[
+function! CompleteMan(ArgLead, CmdLine, CursorPos)
+  return system("apropos . | awk '{print $1}'")
+endfunction
+]])
+
+M.man_split = function()
+  local program = vim.fn.input("man: ", "", 'custom,CompleteMan')
+  vim.cmd("vnew ")
+  vim.cmd('r! MANWIDTH=' .. vim.fn.winwidth(0) .. ' man ' .. program)
+  vim.cmd('set ft=man')
+  vim.cmd('setlocal readonly')
+end
+
 
 my_rename_handler = function (err, method, result, client_id, bufnr, config)
   local items = vim.lsp.util.locations_to_items(result)

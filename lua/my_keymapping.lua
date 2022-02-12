@@ -69,8 +69,10 @@ end
 
 require('nest').applyKeymaps{
   { '<leader>', {
+    { 'mm', function() require('my_funcs').man_split() end },
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
     { 'cw', function() highlight_trailws() end },
+    { 'nb', function() require('my_funcs').new_buf_cmd() end },
 
     -- Quickfix / Locallist Open / Close
     { 'c', {
@@ -172,7 +174,8 @@ require('nest').applyKeymaps{
 
   -- Debugging
   { '<F2>',  '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
-  { '<F4>',  '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<CR>:lua require("dapui").close()<CR>' },
+  { '<F3>',  '<cmd>lua require("dap.ui.widgets").hover()<CR>' },
+  { '<F4>',  '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<CR>' },
   { '<F5>',  '<cmd>lua require("dap").continue()<CR>' },
   { '<F6>',  '<cmd>lua require("dap").run()<CR>' },
   { '<F8>',  '<cmd>lua require("dap").step_into()<CR>' },
