@@ -9,48 +9,29 @@ local function splitstr(input, sep)
   for elem in string.gmatch(input, "([^"..sep.."]+)") do
     table.insert(t, elem)
   end
-  print(vim.inspect(t))
+  -- print(vim.inspect(t))
   return t
 end
 
 -- Rust, C, C++
-dap.adapters.cppdbg = {
+dap.adapters.lldb = {
   type = 'executable',
-  command = os.getenv('HOME') .. '/debug_adapters/vscode-cpptools/extension/debugAdapters/OpenDebugAD7',
+  command = '/usr/bin/lldb-vscode'
 }
 
 dap.configurations.cpp = {
   {
-    name = 'Launch file',
-    type = 'cppdbg',
+    name = 'Launch',
+    type = 'lldb',
     request = 'launch',
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
-    MiMode = 'gdb',
-    miDebuggerPath = 'gdb',
     cwd = '${workspaceFolder}',
     stopOnEntry = true,
     runInTerminal = false,
+    args = function() return splitstr(vim.fn.input('Args: ', '', 'file')) end,
   },
-  -- {
-  --   name = 'Attach to gdbserver :1234',
-  --   type = 'cppdbg',
-  --   request = 'launch',
-  --   MiMode = 'gdb',
-  --   miDebuggerServerAdress = 'localhost:1234',
-  --   miDebuggerPath = 'gdb',
-  --   cwd = '${workspaceFolder}',
-  --   program = function()
-  --     return vim.fn.input('Path to Executable: ', vim.fn.getcwd() .. '/', 'file')
-  --   end,
-  --   args = function()
-  --     local args = vim.fn.input('Arguments: ', '','file')
-  --     args = splitstr(args)
-  --     print(vim.inspect(args))
-  --     return args
-  --   end,
-  -- },
 }
 
 dap.configurations.c = dap.configurations.cpp
@@ -82,7 +63,6 @@ dap.configurations.python = {
 }
 
 -- DAP-UI
-
 require("dapui").setup({
   icons = {
     expanded = "▾",
