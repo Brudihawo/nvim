@@ -1,4 +1,5 @@
 -- Formatting
+require('plugins')
 vim.o.encoding = 'utf-8'
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
