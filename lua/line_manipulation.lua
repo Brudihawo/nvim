@@ -50,7 +50,7 @@ M.add_linebreak = function(chars)
 end
 
 api.nvim_set_keymap("n", "<plug>HInsertLineBreak",
-  "<cmd>call v:lua.require('line_manipulation').add_linebreak(89)<CR>",
+  "<cmd>call v:lua.require('line_manipulation').add_linebreak(87)<CR>",
   { silent=true, noremap=false, expr=false })
 api.nvim_exec('call repeat#set("\\<plug>HInsertLineBreak", v:count)', true)
 
