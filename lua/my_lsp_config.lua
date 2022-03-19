@@ -131,19 +131,26 @@ require("lspconfig").texlab.setup{
 }
 
 
-require("lspconfig").ccls.setup{
+-- require("lspconfig").ccls.setup{
+--   capabilities = coq.lsp_ensure_capabilities{
+--     capabilities = capabilities,
+--   },
+--   init_options = {
+--     index = { threads = 0; },
+--     cache = { directory = "/tmp/ccls"; },
+--     clang = { extraArgs = { "-Wmaybe-uninitialized", "-Wunused-variable", "-Wunknown-pragmas" } },
+--   },
+--   rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
+--   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
+-- }
+
+require("lspconfig").clangd.setup{
   capabilities = coq.lsp_ensure_capabilities{
     capabilities = capabilities,
   },
-  init_options = {
-    index = { threads = 0; },
-    cache = { directory = "/tmp/ccls"; },
-    clang = { extraArgs = { "-Wmaybe-uninitialized", "-Wunused-variable", "-Wunknown-pragmas" } },
-  },
-  rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
+  rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
 }
-
 
 require("lspconfig").cmake.setup{
   coq.lsp_ensure_capabilities{
