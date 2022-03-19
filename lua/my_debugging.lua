@@ -63,7 +63,8 @@ dap.configurations.python = {
 }
 
 -- DAP-UI
-require("dapui").setup({
+local dapui = require("dapui")
+dapui.setup({
   icons = {
     expanded = "▾",
     collapsed = "▸"
@@ -96,9 +97,24 @@ require("dapui").setup({
   },
   floating = {
     max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil   -- Floats will be treated as percentage of your screen.
+    max_width = nil,  -- Floats will be treated as percentage of your screen.
+    mappings = {
+      close = { "q", "<Esc>" },
+    }
   }
 })
+
+dap.listeners.after.event_initialized["dapui_config"] = function ()
+  dapui.open()
+end
+
+dap.listeners.before.event_event_terminated["dapui_config"] = function ()
+  dapui.close()
+end
+
+dap.listeners.before.event_exited["dapui_config"] = function ()
+  dapui.close()
+end
 
 require('nvim-dap-virtual-text').setup()
 vim.fn.sign_define('DapBreakpoint', { text ='🛑' })
