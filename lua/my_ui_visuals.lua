@@ -143,7 +143,7 @@ require('indent_blankline').setup{
 -- dashboard-nvim
 vim.g.dashboard_default_executive = 'telescope'
 
--- listchars
+-- listchars   
 vim.o.listchars='eol:↲'
 
 -- Toggleterm
