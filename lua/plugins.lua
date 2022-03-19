@@ -60,7 +60,7 @@ return require('packer').startup(function()
   use 'tpope/vim-surround'
 
   -- Git
-  use 'tpope/vim-fugitive'
+  use 'TimUntersberger/Neogit'
   use 'airblade/vim-gitgutter'
   use 'gisphm/vim-gitignore'
 end)
