@@ -69,6 +69,7 @@ require('my_keymapping')
 LIGHTSPEED_LOADED = false or LIGHTSPEED_LOADED
 if not LIGHTSPEED_LOADED then
   require('lightspeed').setup {
+    ignore_case = true,
     jump_to_unique_chars = true,
     limit_ft_matches = 7,
   }
@@ -97,7 +98,7 @@ require('neogit').setup {
       kind = "split",
   },
   -- Change the default way of opening neogit
-  kind = "split_above",
+  kind = "tab",
   -- customize displayed signs
   signs = {
     -- { CLOSED, OPENED }
@@ -141,3 +142,15 @@ vim.cmd("hi NeogitDiffDelete guibg='#7d2a2f' guifg='#f4f0ed'")
 vim.cmd("hi NeogitDiffContextHighlight guibg='#4d453e'")
 
 vim.cmd("hi NeogitHunkHeaderHighlight guibg='#697893'")
+
+-- IRON.nvim
+local iron = require('iron')
+
+iron.core.set_config {
+  preferred = {
+    python = 'ipython',
+  }
+}
+
+-- Zotcite
+vim.cmd[[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]

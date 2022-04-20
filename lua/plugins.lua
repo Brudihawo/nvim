@@ -7,7 +7,9 @@ return require('packer').startup(function()
   use 'glepnir/dashboard-nvim'
   use 'wfxr/minimap.vim'
   use 'kyazdani42/nvim-web-devicons'
+
   use 'akinsho/toggleterm.nvim'
+  use 'hkupty/iron.nvim'
 
   -- Colorscheme
   use 'rktjmp/lush.nvim'
@@ -17,6 +19,7 @@ return require('packer').startup(function()
 
   use 'norcalli/nvim-colorizer.lua'
   use 'lukas-reineke/indent-blankline.nvim'
+
   use 'b3nj5m1n/kommentary'
 
   use 'ggandor/lightspeed.nvim'
@@ -25,11 +28,12 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'folke/lsp-colors.nvim'
   use 'ray-x/lsp_signature.nvim'
-  use 'glepnir/lspsaga.nvim'
-  use 'lervag/vimtex'
   use 'vhdirk/vim-cmake'
 
-  use 'iamcco/markdown-preview.nvim'
+  use 'lervag/vimtex'
+  use 'jalvesaq/zotcite'
+
+  use { 'iamcco/markdown-preview.nvim', run=":call mkdp#util#install()" }
 
   use 'karb94/neoscroll.nvim'
   use 'LionC/nest.nvim'
