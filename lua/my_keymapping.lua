@@ -60,6 +60,29 @@ local function highlight_trailws()
   end
 end
 
+local function preview_def_callback(_, result, ctx, config)
+  if result == nil or vim.tbl_isempty(result) then
+    vim.lsp.log.info(ctx.request, 'Could not find definition')
+    return nil
+  end
+
+
+  if vim.tbl_islist(result) then
+    vim.lsp.util.preview_location(result[1])
+    print(vim.inspect(result[1]))
+  else
+    print("One found")
+    print(vim.inspect(result))
+    vim.lsp.util.preview_location(result.location)
+  end
+end
+
+local function peek_def()
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_def_callback)
+end
+
+
 local function search_to_loclist()
   local term = vim.fn.input("Search String: ", "")
   vim.cmd("lexpr []")
@@ -117,19 +140,22 @@ require('nest').applyKeymaps{
 
     { 't>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
-    { 'd>', '<cmd>lua require("lspsaga.provider").preview_definition()<CR>' }, -- Preview Definition with Lspsaga
 
     { 'Enter>', '^g$a<Enter><Esc>' }, -- Add line break so that it fits on screen
   }},
 
   { 'L', {
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
-    { 'rn', '<cmd>Lspsaga rename<CR>' },
-    { 'lf', '<cmd>lua require("lspsaga.provider").lsp_finder()<CR>' },
-    { 'sh', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>' },
-    { 'sd', '<cmd>Lspsaga hover_doc<CR>' },
+    { 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>' },
 
-    { 'sr', '<cmd> lua vim.lsp.buf.references()<CR>' },
+    { 'h', '<cmd>lua vim.lsp.buf.hover()<CR>' },
+
+    { 'pd', peek_def },
+
+    { 'ci', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>' },
+    { 'co', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>' },
+
+    { 'sr', '<cmd>lua vim.lsp.buf.references()<CR>' },
     { 'dn', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
     { 'dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
 
@@ -223,7 +249,6 @@ require('nest').applyKeymaps{
 
   { mode='i', {
     { '<A-', {
-      { 'd>', '<cmd>Lspsaga preview_definition<CR>' }, -- Lspsaga Definition (might change)
       { 'h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
     }},
   }},
