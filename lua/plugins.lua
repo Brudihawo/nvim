@@ -8,7 +8,6 @@ return require('packer').startup(function()
   use 'wfxr/minimap.vim'
   use 'kyazdani42/nvim-web-devicons'
 
-  use 'akinsho/toggleterm.nvim'
   use 'hkupty/iron.nvim'
 
   -- Colorscheme
@@ -22,7 +21,8 @@ return require('packer').startup(function()
 
   use 'b3nj5m1n/kommentary'
 
-  use 'ggandor/lightspeed.nvim'
+  -- use 'ggandor/lightspeed.nvim'
+  use 'ggandor/leap.nvim'
 
   -- LSP-y / Language specific stuff
   use 'neovim/nvim-lspconfig'

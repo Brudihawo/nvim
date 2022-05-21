@@ -66,18 +66,24 @@ vim.o.completeopt = "menuone,noselect"
 require('my_autocommands')
 require('my_keymapping')
 
-LIGHTSPEED_LOADED = false or LIGHTSPEED_LOADED
-if not LIGHTSPEED_LOADED then
-  require('lightspeed').setup {
-    ignore_case = true,
-    jump_to_unique_chars = true,
-    limit_ft_matches = 7,
-  }
-  vim.cmd('nunmap F')
-  vim.cmd('nunmap f')
+-- LIGHTSPEED_LOADED = false or LIGHTSPEED_LOADED
+-- if not LIGHTSPEED_LOADED then
+--   require('lightspeed').setup {
+--     ignore_case = true,
+--     jump_to_unique_chars = true,
+--     limit_ft_matches = 7,
+--   }
+--   vim.cmd('nunmap F')
+--   vim.cmd('nunmap f')
 
-  LIGHTSPEED_LOADED = true
-end
+--   LIGHTSPEED_LOADED = true
+-- end
+local leap = require('leap')
+leap.setup {
+  case_insensitive = true, 
+}
+leap.set_default_keymaps()
+leap.init_highlight(true)
 
 -- Kommentary Config
 require('kommentary.config').configure_language('default', {

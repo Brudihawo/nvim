@@ -165,7 +165,7 @@ require('nest').applyKeymaps{
     }},
 
     { 'ld', '<cmd>lua vim.diagnostic.open_float(0, { scope="line" })<CR>' },
-    { 'f', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
+    { 'f', '<cmd>lua vim.lsp.buf.format{async=true}<CR>' },
   }},
 
   { '<C-', {
