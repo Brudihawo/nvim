@@ -4,8 +4,6 @@ return require('packer').startup(function()
   -- UI
   use 'romgrk/barbar.nvim'
   use 'hoob3rt/lualine.nvim'
-  use 'glepnir/dashboard-nvim'
-  use 'wfxr/minimap.vim'
   use 'kyazdani42/nvim-web-devicons'
 
   use 'hkupty/iron.nvim'
