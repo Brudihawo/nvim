@@ -96,17 +96,6 @@ require('colorizer').setup {
   }
 }
 
--- Barbar.nvim
-BARBAR_LOADED = false or BARBAR_LOADED
-if not BARBAR_LOADED then
-  vim.g.bufferline = {
-    tabpages = true,
-    closable = false,
-    clickable = false,
-  }
-  BARBAR_LOADED = true
-end
-
 -- layout
 vim.o.number = true
 vim.o.cmdheight = 1

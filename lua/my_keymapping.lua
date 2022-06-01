@@ -172,14 +172,14 @@ require('nest').applyKeymaps{
     { 'q>', '<C-x>' }, -- Decrement Number
 
     -- Buffer management
-    { 'j>', '<cmd>BufferNext<CR>' },
-    { 'k>', '<cmd>BufferPrevious<CR>' },
+    { 'j>', '<cmd>bnext<CR>' },
+    { 'k>', '<cmd>bprev<CR>' },
     { 'x>', '<cmd>bdelete<CR>' },
 
     -- Fuzzy Finding Shortcuts
     { 'p>', '<cmd>lua require("telescope.builtin").find_files()<CR>' },
     { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<CR>' },
-    { 'b>', '<cmd>Telescope buffers<CR> ' },
+    { 'b>', '<cmd>Telescope buffers<CR>' },
   }},
 
   -- Extended Fuzzy Finding

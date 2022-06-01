@@ -2,11 +2,8 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- UI
-  use 'romgrk/barbar.nvim'
   use 'hoob3rt/lualine.nvim'
   use 'kyazdani42/nvim-web-devicons'
-
-  use 'hkupty/iron.nvim'
 
   -- Colorscheme
   use 'rktjmp/lush.nvim'

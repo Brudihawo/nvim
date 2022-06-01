@@ -149,14 +149,5 @@ vim.cmd("hi NeogitDiffContextHighlight guibg='#4d453e'")
 
 vim.cmd("hi NeogitHunkHeaderHighlight guibg='#697893'")
 
--- IRON.nvim
-local iron = require('iron')
-
-iron.core.set_config {
-  preferred = {
-    python = 'ipython',
-  }
-}
-
 -- Zotcite
 vim.cmd[[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]
