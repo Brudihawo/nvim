@@ -6,7 +6,7 @@ local function splitstr(input, sep)
     sep = "%s"
   end
   local t = {}
-  for elem in string.gmatch(input, "([^"..sep.."]+)") do
+  for elem in string.gmatch(input, "([^" .. sep .. "]+)") do
     table.insert(t, elem)
   end
   -- print(vim.inspect(t))
@@ -64,57 +64,39 @@ dap.configurations.python = {
 
 -- DAP-UI
 local dapui = require("dapui")
-dapui.setup({
-  icons = {
-    expanded = "▾",
-    collapsed = "▸"
-  },
-  mappings = {
-    -- Use a table to apply multiple mappings
-    expand = {"<CR>", "<2-LeftMouse>"},
-    open = "o",
-    remove = "d",
-    edit = "e",
-    repl = "r",
-  },
-  sidebar = {
-    elements = {
-      -- You can change the order of elements in the sidebar
-      "scopes",
-      "breakpoints",
-      "stacks",
-      "watches"
+require('dapui').setup { layouts = {
+    {
+      elements = {
+        'scopes',
+        'breakpoints',
+        'stacks',
+        'watches',
+      },
+      size = 40,
+      position = 'left',
     },
-    size = 40,
-    position = "left" -- Can be "left" or "right"
-  },
-  tray = {
-    elements = {
-      "repl"
+    {
+      elements = {
+        'repl',
+        'console',
+      },
+      size = 10,
+      position = 'bottom',
     },
-    size = 10,
-    position = "bottom" -- Can be "bottom" or "top"
   },
-  floating = {
-    max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil,  -- Floats will be treated as percentage of your screen.
-    mappings = {
-      close = { "q", "<Esc>" },
-    }
-  }
-})
+}
 
-dap.listeners.after.event_initialized["dapui_config"] = function ()
+dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
 
-dap.listeners.before.event_event_terminated["dapui_config"] = function ()
+dap.listeners.before.event_event_terminated["dapui_config"] = function()
   dapui.close()
 end
 
-dap.listeners.before.event_exited["dapui_config"] = function ()
+dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
 require('nvim-dap-virtual-text').setup()
-vim.fn.sign_define('DapBreakpoint', { text ='🛑' })
+vim.fn.sign_define('DapBreakpoint', { text = '🛑' })
