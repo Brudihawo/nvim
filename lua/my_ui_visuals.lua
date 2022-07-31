@@ -96,17 +96,6 @@ require('colorizer').setup {
   }
 }
 
--- Barbar.nvim
-BARBAR_LOADED = false or BARBAR_LOADED
-if not BARBAR_LOADED then
-  vim.g.bufferline = {
-    tabpages = true,
-    closable = false,
-    clickable = false,
-  }
-  BARBAR_LOADED = true
-end
-
 -- layout
 vim.o.number = true
 vim.o.cmdheight = 1
@@ -116,28 +105,6 @@ vim.o.ambiwidth = 'single'
 -- Minimap
 vim.g.minimap_git_colors = true
 vim.g.minimap_highlight_search = true
-
-
-require('indent_blankline').setup{
-  buftype_exclude = { "terminal" },
-  filetype_exclude = { "dashboard" },
-  use_treesitter = true,
-  char = '│',
-  show_current_context = true,
-  context_patterns = {
-    "compound_statement", -- C scope
-    ".*class.*",
-    ".*function.*",
-    ".*method.*",
-    ".*body.*",
-    "table", -- Lua Tables
-    "field",
-    "if.*",
-    "for.*",
-    "list_comprehension", -- Python stuff
-    ".*argument.*"
-  }
-}
 
 
 -- dashboard-nvim
@@ -168,12 +135,8 @@ require('lualine').setup {
      lualine_b = {'branch'},
      lualine_c = {'filename'},
      lualine_x = {'encoding'},
-     lualine_y = {'filetype', {'diagnostics', sources={'nvim_diagnostic'}}},
+     lualine_y = {'filetype'},
      lualine_z = {'location', 'progress'},
    },
-  extensions = {
-    'quickfix',
-    'fugitive'
-  }
 }
 

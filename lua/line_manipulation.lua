@@ -14,10 +14,10 @@ M.add_linebreak = function(chars)
   local line = api.nvim_get_current_line()
   if line:len() < tonumber(chars, 10) then
     api.nvim_out_write("Line is shorter than " .. chars .. " ("
-          .. line:len() .. ") characters. Skipping...\n")
-      if line_nr < api.nvim_buf_line_count(0) then
-        api.nvim_win_set_cursor(0, {line_nr + 1, 0})
-      end
+      .. line:len() .. ") characters. Skipping...\n")
+    if line_nr < api.nvim_buf_line_count(0) then
+      api.nvim_win_set_cursor(0, { line_nr + 1, 0 })
+    end
     return
   else
     api.nvim_out_write("Truncating line of length " .. line:len() .. ".\n")
@@ -39,20 +39,21 @@ M.add_linebreak = function(chars)
 
   -- Handling Comments Using Kommentary
   if kommentary.is_comment(line_nr, line_nr, kconfig.get_config(0)) then
-    api.nvim_win_set_cursor(0, {line_nr, 0})
+    api.nvim_win_set_cursor(0, { line_nr, 0 })
     require('kommentary').toggle_comment(line_nr + 1, line_nr + 1)
   end
 
   -- Set new cursor position on next line
   if line_nr < api.nvim_buf_line_count(0) then
-    api.nvim_win_set_cursor(0, {line_nr + 1, 0})
+    api.nvim_win_set_cursor(0, { line_nr + 1, 0 })
   end
 end
 
 api.nvim_set_keymap("n", "<plug>HInsertLineBreak",
-  "<cmd>call v:lua.require('line_manipulation').add_linebreak(87)<CR>",
-  { silent=true, noremap=false, expr=false })
-api.nvim_exec('call repeat#set("\\<plug>HInsertLineBreak", v:count)', true)
+  "<cmd>lua require('line_manipulation').add_linebreak(87)<CR>",
+  { silent = true, noremap = false, expr = false })
+
+vim.fn['repeat#set'](api.nvim_replace_termcodes('<plug>HInsertLineBreak', true, false, false), vim.v.count)
 
 
 

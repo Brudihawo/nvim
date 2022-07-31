@@ -1,13 +1,13 @@
 -- Leader Key
-vim.g.mapleader=" "
-vim.g.maplocalleader=" "
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 require('line_manipulation')
 
 local api = vim.api
 local function confirm(message)
   print(message)
-  return vim.fn.inputlist({"1. yes", "2. no"}) == 1
+  return vim.fn.inputlist({ "1. yes", "2. no" }) == 1
 end
 
 local function file_exists(fname)
@@ -82,7 +82,6 @@ local function peek_def()
   return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_def_callback)
 end
 
-
 local function search_to_loclist()
   local term = vim.fn.input("Search String: ", "")
   vim.cmd("lexpr []")
@@ -90,7 +89,7 @@ local function search_to_loclist()
     '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
 end
 
-require('nest').applyKeymaps{
+require('nest').applyKeymaps {
   { '<leader>', {
     { 'mm', function() require('my_funcs').man_split() end },
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
@@ -101,18 +100,24 @@ require('nest').applyKeymaps{
     { 'c', {
       { 'o', '<cmd>copen<CR>' },
       { 'c', '<cmd>cclose<CR>' },
-    }},
+    } },
     { 'l', {
       { 'o', '<cmd>lopen<CR>' },
       { 'c', '<cmd>lclose<CR>' },
       { 's', search_to_loclist },
-    }},
+    } },
+
+    { 's', { -- Ouroboros
+      { 'w', '<cmd>Ouroboros<CR>' },
+      { 's', '<cmd>vsplit | Ouroboros<CR>' },
+      { 'h', '<cmd>split | Ouroboros<CR>' },
+    } },
 
     -- Vimtex
     { 'v', {
-      { 'c', '<plug>(vimtex-compile>'},
-      { 'v', '<plug>(vimtex-view>'},
-    }},
+      { 'c', '<plug>(vimtex-compile>' },
+      { 'v', '<plug>(vimtex-view>' },
+    } },
 
     -- Code Minimap
     { 'mt', '<cmd>MinimapToggle<CR>' },
@@ -129,7 +134,7 @@ require('nest').applyKeymaps{
     { 'bo', ':Tagbar<CR>' }, -- Bar open
     { 'st', ':TagbarShowTag<CR>' }, -- " Show tag
 
-  }},
+  } },
 
   { '<A-', {
     -- Resizing
@@ -142,7 +147,7 @@ require('nest').applyKeymaps{
 
 
     { 'Enter>', '^g$a<Enter><Esc>' }, -- Add line break so that it fits on screen
-  }},
+  } },
 
   { 'L', {
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
@@ -162,52 +167,58 @@ require('nest').applyKeymaps{
     { 'p', { -- Populate Quickfix / Locallist
       { 'l', '<cmd>lua vim.diagnostic.setloclist()<CR>' },
       { 'q', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
-    }},
+    } },
 
     { 'ld', '<cmd>lua vim.diagnostic.open_float(0, { scope="line" })<CR>' },
     { 'f', '<cmd>lua vim.lsp.buf.format{async=true}<CR>' },
-  }},
+  } },
 
   { '<C-', {
     { 'q>', '<C-x>' }, -- Decrement Number
 
     -- Buffer management
-    { 'j>', '<cmd>BufferNext<CR>' },
-    { 'k>', '<cmd>BufferPrevious<CR>' },
+    { 'j>', '<cmd>bnext<CR>' },
+    { 'k>', '<cmd>bprev<CR>' },
     { 'x>', '<cmd>bdelete<CR>' },
 
     -- Fuzzy Finding Shortcuts
     { 'p>', '<cmd>lua require("telescope.builtin").find_files()<CR>' },
     { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<CR>' },
-    { 'b>', '<cmd>Telescope buffers<CR> ' },
-  }},
+  } },
 
+  { '<C-h>', {
+    { 'h', '<cmd> lua require("harpoon.mark").add_file()<CR>' },
+    { 'm', '<cmd> lua require("harpoon.ui").toggle_quick_menu()<CR>' },
+  } },
   -- Extended Fuzzy Finding
   { 't', {
     { 'hh', '<cmd>Telescope help_tags<CR>' },
     { 'km', '<cmd>Telescope keymaps<CR>' },
     { 'jj', '<cmd>Telescope lsp_document_symbols<CR>' },
     { 'dd', '<cmd>Telescope lsp_document_diagnostics<CR>' },
+    { 'o', '<cmd>Telescope buffers<CR>' },
 
     { 'e', { -- Edit Config
-      { 'e', '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
-      { 'g', '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
-    }},
+      { 'e',
+        '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
+      { 'g',
+        '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
+    } },
 
     { 'gs', '<cmd>lua require("telescope.builtin").grep_string()<CR>' },
     { 'kk', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<CR>' },
-  }},
+  } },
 
   -- Debugging
-  { '<F2>',  '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
-  { '<F3>',  '<cmd>lua require("dap.ui.widgets").hover()<CR>' },
-  { '<F4>',  '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<CR>' },
-  { '<F5>',  '<cmd>lua require("dap").continue()<CR>' },
-  { '<F6>',  '<cmd>lua require("dap").run()<CR>' },
-  { '<F8>',  '<cmd>lua require("dap").step_into()<CR>' },
-  { '<F9>',  '<cmd>lua require("dap").step_over()<CR>' },
+  { '<F2>', '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
+  { '<F3>', '<cmd>lua require("dap.ui.widgets").hover()<CR>' },
+  { '<F4>', '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<CR>' },
+  { '<F5>', '<cmd>lua require("dap").continue()<CR>' },
+  { '<F6>', '<cmd>lua require("dap").run()<CR>' },
+  { '<F8>', '<cmd>lua require("dap").step_into()<CR>' },
+  { '<F9>', '<cmd>lua require("dap").step_over()<CR>' },
   { '<F10>', '<cmd>lua require("dap").step_out()<CR>' },
-	{ '<F11>', '<cmd>lua require("dap").run_to_cursor()<CR>' },
+  { '<F11>', '<cmd>lua require("dap").run_to_cursor()<CR>' },
 
   { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
 
@@ -229,45 +240,50 @@ require('nest').applyKeymaps{
     { 't', {
       { 't', '<cmd>GitGutterSignsToggle<CR>' },
       { 'f', '<cmd>GitGutterFold<CR>' },
-    }},
+    } },
 
     { 'h', { -- GitGutter Hunk Actions
       { 'p', '<cmd>GitGutterPrevHunk<CR>' }, -- Move to Previous
       { 'n', '<cmd>GitGutterNextHunk<CR>' }, -- Move to Next
       { 's', '<cmd>GitGutterStageHunk<CR>' }, -- Stage
       { 'u', '<cmd>GitGutterUndoHunk<CR>' }, -- Undo
-    }},
+    } },
 
     { 'q', { -- Quickfix Actions
       { 'f', '<cmd>GitGutterQuickFixCurrentFile<CR>' },
       { 'q', '<cmd>GitGutterQuickFix<CR>' },
-    }},
-
-  }},
+    } },
+    { 'f', '<cmd>e <cfile><CR>' },
+  } },
 
   { "==", '<cmd>GitGutterPreviewHunk<CR>' },
 
-  { mode='i', {
+  { mode = 'i', {
     { '<A-', {
       { 'h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
-    }},
-  }},
+    } },
+  } },
 
 
   { mode = 'n', {
     { 'gcc', '<Plug>kommentary_line_default' },
     { 'gc', '<Plug>kommentary_motion_default' },
-  }},
+  } },
   { mode = 'v', {
     { 'gc', '<Plug>kommentary_visual_default<CR>' },
-  }},
+  } },
   { mode = 'vn', {
     { 'ga', '<cmd>EasyAlign<CR>' },
-  }},
-  { mode = 'n', options= { noremap = false }, {
+  } },
+  { mode = 'n', options = { noremap = false }, {
     { '<leader>lb', '<Plug>HInsertLineBreak' },
-  }}
+  } },
+  -- { mode = 'i', options = { noremap = true, silent = true },
+  --   { "<Tab>", "<cmd>lua require('my_funcs').tab_complete()<CR>" },
+  --   { "<S-Tab>", "<cmd>lua require('my_funcs').s_tab_complete()<CR>" },
+  -- }
 }
+
 
 -- Extend text objects
 local surround_pairs = {
@@ -285,10 +301,10 @@ local surround_pairs = {
 for key, value in pairs(surround_pairs) do
   for _, action in ipairs({ "c", "d", "v", "y" }) do
     api.nvim_set_keymap("n", action .. 'i' .. key,
-                                 'T' .. key .. action .. 't' .. value,
-                                 { noremap = true, silent = false })
+      'T' .. key .. action .. 't' .. value,
+      { noremap = true, silent = false })
     api.nvim_set_keymap("n", action .. 'a' .. key,
-                                 'F' .. key .. action .. 'f' .. value,
-                                 { noremap = true, silent = false })
+      'F' .. key .. action .. 'f' .. value,
+      { noremap = true, silent = false })
   end
 end

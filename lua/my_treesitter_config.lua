@@ -1,11 +1,11 @@
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   ensure_installed = { "python", "c", "cpp", "bibtex", "json", "bash", "lua", "rust", "comment" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true, -- false will disable the whole extension
   },
   playground = {
-    enable = true,
+    enable = false,
     disable = {},
     updatetime = 25,
     persis_queries = false,
@@ -21,10 +21,7 @@ require'nvim-treesitter.configs'.setup {
       goto_node = '<cr>',
       show_help = '?',
     }
-  }
-}
-
-require('nvim-treesitter.configs').setup {
+  },
   textobjects = {
     select = {
       enable = true,
@@ -75,5 +72,8 @@ require('nvim-treesitter.configs').setup {
 
       }
     }
+  },
+  nt_cpp_tools = {
+    enable = true,
   }
 }

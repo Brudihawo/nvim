@@ -10,15 +10,16 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text=true;
-        underline=true;
-    }
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    virtual_text = true;
+    underline = true;
+  }
 )
 
 
-require("lspconfig").pylsp.setup{
-  coq.lsp_ensure_capabilities{
+require("lspconfig").pylsp.setup {
+  coq.lsp_ensure_capabilities {
     capabilities = capabilities,
     -- on_attach = require('lsp_signature').on_attach("pylsp"),
     settings = {
@@ -28,6 +29,9 @@ require("lspconfig").pylsp.setup{
           pydocstyle = {
             enabled = true,
             convention = 'google'
+          },
+          pyls_isort = {
+            enabled = true
           },
           jedi_completion = {
             enabled = true,
@@ -50,8 +54,8 @@ require("lspconfig").pylsp.setup{
   }
 }
 
-require("lspconfig").rust_analyzer.setup{
-  coq.lsp_ensure_capabilities{
+require("lspconfig").rust_analyzer.setup {
+  coq.lsp_ensure_capabilities {
     capabilities = capabilities,
     settings = {
       ["rust-analyzer"] = {
@@ -71,34 +75,35 @@ require("lspconfig").rust_analyzer.setup{
 }
 
 require("lspconfig").sumneko_lua.setup {
-  cmd = {"lua-language-server"},
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
+  coq.lsp_ensure_capabilities {
+    cmd = { "lua-language-server" },
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+          -- Setup your lua path
+          path = runtime_path,
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = { 'vim' },
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
+        },
       },
     },
-  },
+  }
 }
 
-
-require("lspconfig").texlab.setup{
-  coq.lsp_ensure_capabilities{
+require("lspconfig").texlab.setup {
+  coq.lsp_ensure_capabilities {
     capabilities = capabilities,
     cmd = { "texlab" },
     filetypes = { "tex", "bib" },
@@ -127,7 +132,7 @@ require("lspconfig").texlab.setup{
         }
       }
     }
-  },
+  }
 }
 
 
@@ -144,17 +149,12 @@ require("lspconfig").texlab.setup{
 --   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
 -- }
 
-require("lspconfig").clangd.setup{
-  capabilities = coq.lsp_ensure_capabilities{
+require("lspconfig").clangd.setup {
+  coq.lsp_ensure_capabilities {
     capabilities = capabilities,
-  },
-  rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
-  filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
-}
-
-require("lspconfig").cmake.setup{
-  coq.lsp_ensure_capabilities{
-    capabilities = capabilities,
+    rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
+    cmd = { "/common/homes/students/hoefer/local/bin/clangd" },
+    filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp", "tpp" },
   }
 }
 
@@ -173,7 +173,7 @@ vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
 
 -- VimTeX
 vim.g.vimtex_mappings_disable = {
-  n = {'<leader>ls', '<leader>ll', '<leader>lv' },
+  n = { '<leader>ls', '<leader>ll', '<leader>lv' },
 }
 vim.g.vimtex_quickfix_open_on_warning = false
 vim.g.vimtex_quickfix_ignore_filters = {
@@ -182,37 +182,37 @@ vim.g.vimtex_quickfix_ignore_filters = {
   "float specifier",
 }
 
-vim.g.tex_flavour = 'latex'
-vim.g.vimtex_compiler_name = 'nvr'
+vim.g.tex_flavour = 'luatex'
 vim.g.vimtex_compiler_method = 'latexmk'
-vim.g.vimtex_view_general_viewer = 'zathura'
-vim.g.vimtex_view_method = 'zathura'
-vim.g.vimtex_compiler_latexmk_engines = {
-  ['_']                = '-lualatex',
-  ['pdflatex']         = '-pdf',
-  ['dvipdfex']         = '-pdfdvi',
-  ['lualatex']         = '-lualatex',
-  ['xelatex']          = '-xelatex',
-  ['context (pdftex)'] = '-pdf -pdflatex=texexec',
-  ['context (luatex)'] = '-pdf -pdflatex=context',
-  ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
-}
+vim.g.vimtex_view_method = 'general'
+vim.g.vimtex_view_general_viewer = 'okular'
+vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+-- vim.g.vimtex_compiler_latexmk_engines = {
+--   ['_']                = '',
+--   ['pdflatex']         = '-pdf',
+--   ['dvipdfex']         = '-pdfdvi',
+--   ['lualatex']         = '-lualatex',
+--   ['xelatex']          = '-xelatex',
+--   ['context (pdftex)'] = '-pdf -pdflatex=texexec',
+--   ['context (luatex)'] = '-pdf -pdflatex=context',
+--   ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
+-- }
 
 vim.g.vimtex_compiler_latexmk = {
-  ['executable']   = 'latexmk',
-  ['callback']     = 1,
-  ['hooks']        = {},
-  ['options']      = {
-     '-file-line-error',
-     '-synctex=1',
-     '-interaction=nonstopmode',
+  ['executable'] = 'latexmk',
+  ['callback']   = 1,
+  ['hooks']      = {},
+  ['options']    = {
+    '-file-line-error',
+    '-synctex=1',
+    '-interaction=nonstopmode',
   },
 }
 
 return {
   print_response = function(err, method, result, client_id, bufnr, config)
     print("Config: " .. vim.inspect(config) .. " " ..
-          "Method: " .. vim.inspect(method) .. " " ..
-          "Result: " .. vim.inspect(result))
+      "Method: " .. vim.inspect(method) .. " " ..
+      "Result: " .. vim.inspect(result))
   end
 }

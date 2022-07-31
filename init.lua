@@ -8,6 +8,12 @@ vim.o.linebreak = true
 vim.o.wrap = true
 vim.o.hidden = true
 vim.o.compatible = false
+vim.o.ignorecase = true
+vim.o.noswapfile = true
+vim.o.title = true
+vim.o.titlestring = "%F"
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 vim.o.backspace = 'indent,eol,start'
 vim.o.display = 'lastline'
@@ -18,13 +24,8 @@ vim.o.ttimeout = true
 vim.o.ttimeoutlen = 200
 vim.o.pastetoggle = '<F10>'
 
-vim.o.shell = "/usr/bin/bash"
-
--- UltiSnips Config
-vim.g.UltiSnipsExpandTrigger = "<M-X>"
-vim.g.UltiSnipsJumpForwardTrigger = "<M-n>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<M-m>"
-vim.g.UltiSnipsEditSplit = "context"
+vim.o.shell = "/bin/bash"
+vim.o.grepprg = "rg -i --vimgrep"
 
 -- Markdown Preview
 vim.g.mkdp_browser = 'firefox'
@@ -56,34 +57,45 @@ vim.g.coq_settings = {
     ["tags.enabled"] = false,
     ["tree_sitter.enabled"] = false,
     ["snippets.enabled"] = false,
+    lsp = {
+      enabled = true,
+      weight_adjust = 1.5,
+    }
   }
 }
-local coq = require('coq')
 
+require('coq')
 vim.cmd[[COQnow -s]]
 vim.o.completeopt = "menuone,noselect"
+
+--- UltiSnips Config
+vim.g.UltiSnipsExpandTrigger = "<M-X>"
+vim.g.UltiSnipsJumpForwardTrigger = "<M-n>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<M-m>"
+vim.g.UltiSnipsEditSplit = "context"
 
 require('my_autocommands')
 require('my_keymapping')
 
--- LIGHTSPEED_LOADED = false or LIGHTSPEED_LOADED
--- if not LIGHTSPEED_LOADED then
---   require('lightspeed').setup {
---     ignore_case = true,
---     jump_to_unique_chars = true,
---     limit_ft_matches = 7,
---   }
---   vim.cmd('nunmap F')
---   vim.cmd('nunmap f')
 
---   LIGHTSPEED_LOADED = true
--- end
+require('harpoon').setup()
+
 local leap = require('leap')
 leap.setup {
-  case_insensitive = true, 
+  case_insensitive = true,
 }
 leap.set_default_keymaps()
-leap.init_highlight(true)
+-- leap.init_highlight(true)
+
+local function leap_all_windows()
+  require'leap'.leap {
+    ['target-windows'] = vim.tbl_filter(
+      function (win) return vim.api.nvim_win_get_config(win).focusable end,
+      vim.api.nvim_tabpage_list_wins(0)
+    )
+  }
+end
+vim.keymap.set('n', 's', leap_all_windows, { silent = true })
 
 -- Kommentary Config
 require('kommentary.config').configure_language('default', {
@@ -141,6 +153,7 @@ require('my_treesitter_config')
 require('my_lsp_config')
 require('my_debugging')
 require('my_ui_visuals')
+require('my_funcs')
 
 -- Neogit Highlighting
 vim.cmd("hi NeogitDiffAdd guibg='#78997a' guifg='#f4f0ed'")
@@ -148,15 +161,6 @@ vim.cmd("hi NeogitDiffDelete guibg='#7d2a2f' guifg='#f4f0ed'")
 vim.cmd("hi NeogitDiffContextHighlight guibg='#4d453e'")
 
 vim.cmd("hi NeogitHunkHeaderHighlight guibg='#697893'")
-
--- IRON.nvim
-local iron = require('iron')
-
-iron.core.set_config {
-  preferred = {
-    python = 'ipython',
-  }
-}
 
 -- Zotcite
 vim.cmd[[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]
