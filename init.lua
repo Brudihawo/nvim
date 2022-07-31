@@ -34,7 +34,7 @@ vim.g.mkdp_browser = 'firefox'
 vim.o.updatetime = 800
 
 -- Vim-cmake
-vim.g.cmake_generate_options ={ '-G', 'Ninja', '-B', 'build' }
+vim.g.cmake_generate_options = { '-G', 'Ninja', '-B', 'build' }
 
 -- Autocompletion
 vim.g.coq_settings = {
@@ -48,9 +48,12 @@ vim.g.coq_settings = {
     ghost_text = {
       enabled = true,
     },
+    pum = {
+      kind_context = { "  ", " " },
+      source_context = { " [", "]" },
+    },
     icons = {
-      spacing = 2,
-      mode = "short"
+      mode = "short",
     }
   },
   clients = {
@@ -65,7 +68,7 @@ vim.g.coq_settings = {
 }
 
 require('coq')
-vim.cmd[[COQnow -s]]
+vim.cmd([[COQnow -s]])
 vim.o.completeopt = "menuone,noselect"
 
 --- UltiSnips Config
@@ -113,7 +116,7 @@ require('neogit').setup {
   disable_builtin_notifications = false,
   use_magit_keybindings = false,
   commit_popup = {
-      kind = "split",
+    kind = "split",
   },
   -- Change the default way of opening neogit
   kind = "tab",
@@ -130,21 +133,21 @@ require('neogit').setup {
   -- Setting any section to `false` will make the section not render at all
   sections = {
     untracked = { folded = false },
-     unstaged = { folded = false },
-       staged = { folded = false },
-      stashes = { folded = true },
-     unpulled = { folded = true },
-     unmerged = { folded = false },
-       recent = { folded = true },
+    unstaged = { folded = false },
+    staged = { folded = false },
+    stashes = { folded = true },
+    unpulled = { folded = true },
+    unmerged = { folded = false },
+    recent = { folded = true },
   },
   -- override/add mappings
   mappings = { status = {
-      ["B"] = "BranchPopup",
-      ["o"] = "GoToFile",
-      ["="] = "Toggle",
-      ["L"] = "LogPopup",
-      ["r"] = "RefreshBuffer",
-    }
+    ["B"] = "BranchPopup",
+    ["o"] = "GoToFile",
+    ["="] = "Toggle",
+    ["L"] = "LogPopup",
+    ["r"] = "RefreshBuffer",
+  }
   }
 }
 
@@ -163,4 +166,4 @@ vim.cmd("hi NeogitDiffContextHighlight guibg='#4d453e'")
 vim.cmd("hi NeogitHunkHeaderHighlight guibg='#697893'")
 
 -- Zotcite
-vim.cmd[[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]
+vim.cmd [[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]

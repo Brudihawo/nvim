@@ -150,6 +150,14 @@ require("lspconfig").texlab.setup {
 -- }
 
 require("lspconfig").clangd.setup {
+  capabilities = coq.lsp_ensure_capabilities {
+    capabilities = capabilities,
+  },
+  rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
+  filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
+}
+
+require("lspconfig").cmake.setup {
   coq.lsp_ensure_capabilities {
     capabilities = capabilities,
     rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
@@ -208,6 +216,9 @@ vim.g.vimtex_compiler_latexmk = {
     '-interaction=nonstopmode',
   },
 }
+
+require("lspconfig").ltex.setup {}
+
 
 return {
   print_response = function(err, method, result, client_id, bufnr, config)

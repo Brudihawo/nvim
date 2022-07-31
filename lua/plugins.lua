@@ -9,6 +9,8 @@ return require('packer').startup(function()
   use 'rktjmp/lush.nvim'
   use 'savq/melange'
 
+  use { 'ms-jpq/coq_nvim', run = ":COQdeps" }
+
   use 'norcalli/nvim-colorizer.lua'
 
   use 'b3nj5m1n/kommentary'
@@ -35,7 +37,8 @@ return require('packer').startup(function()
   use 'lervag/vimtex'
   use 'jalvesaq/zotcite'
 
-  use { 'iamcco/markdown-preview.nvim', run = "<cmd>call mkdp#util#install()<CR>" }
+  use { 'inkarkat/vim-SpellCheck', requires = { {'inkarkat/vim-ingo-library'} } }
+  use { 'iamcco/markdown-preview.nvim', run = ":call mkdp#util#install()" }
 
   use 'karb94/neoscroll.nvim'
   use 'LionC/nest.nvim'
