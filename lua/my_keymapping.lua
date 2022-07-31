@@ -184,7 +184,8 @@ require('nest').applyKeymaps {
     -- Fuzzy Finding Shortcuts
     { 'p>', '<cmd>lua require("telescope.builtin").find_files()<CR>' },
     { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<CR>' },
-  } },
+    { 'b>', '<cmd>Telescope buffers<CR>' },
+  }},
 
   { '<C-h>', {
     { 'h', '<cmd> lua require("harpoon.mark").add_file()<CR>' },

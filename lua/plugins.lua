@@ -70,5 +70,4 @@ return require('packer').startup(function()
   use 'TimUntersberger/Neogit'
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-git'
-  -- use 'gisphm/vim-gitignore'
 end)
