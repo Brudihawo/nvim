@@ -239,25 +239,25 @@ require('nest').applyKeymaps {
 
     -- Git (-gutter)
     { 't', {
-      { 't', '<cmd>GitGutterSignsToggle<CR>' },
-      { 'f', '<cmd>GitGutterFold<CR>' },
+      { 't', '<cmd>Gitsigns toggle_signs<CR>' },
+      { 'f', '<cmd>Gitsigns <CR>' },
     } },
 
     { 'h', { -- GitGutter Hunk Actions
-      { 'p', '<cmd>GitGutterPrevHunk<CR>' }, -- Move to Previous
-      { 'n', '<cmd>GitGutterNextHunk<CR>' }, -- Move to Next
-      { 's', '<cmd>GitGutterStageHunk<CR>' }, -- Stage
-      { 'u', '<cmd>GitGutterUndoHunk<CR>' }, -- Undo
+      { 'p', '<cmd>Gitsigns prev_hunk<CR>' }, -- Move to Previous
+      { 'n', '<cmd>Gitsigns next_hunk<CR>' }, -- Move to Next
+      { 's', '<cmd>Gitsigns stage_hunk<CR>' }, -- Stage
+      { 'u', '<cmd>Gitsigns undo_stage_hunk<CR>' }, -- Undo Stage 
+      { 'r', '<cmd>Gitsigns reset_hunk<CR>' }, -- Undo Stage 
     } },
 
     { 'q', { -- Quickfix Actions
-      { 'f', '<cmd>GitGutterQuickFixCurrentFile<CR>' },
-      { 'q', '<cmd>GitGutterQuickFix<CR>' },
+      { 'q', '<cmd>Gitsigns setqflist<CR>' },
     } },
     { 'f', '<cmd>e <cfile><CR>' },
   } },
 
-  { "==", '<cmd>GitGutterPreviewHunk<CR>' },
+  { "==", '<cmd>Gitsigns preview_hunk<CR>' },
 
   { mode = 'i', {
     { '<A-', {

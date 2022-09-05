@@ -1,4 +1,3 @@
-
 syn match execution '\[.+\]'
 syn keyword DiagnosicKeywords error warning warn note
 syn keyword Compilers g++ gcc cc cc1 cc1plus cc1plusplus ninja

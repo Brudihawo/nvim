@@ -9,8 +9,6 @@ return require('packer').startup(function()
   use 'rktjmp/lush.nvim'
   use 'savq/melange'
 
-  use { 'ms-jpq/coq_nvim', run = ":COQdeps" }
-
   use 'norcalli/nvim-colorizer.lua'
 
   use 'b3nj5m1n/kommentary'
@@ -24,10 +22,9 @@ return require('packer').startup(function()
   use 'folke/lsp-colors.nvim'
   use 'ray-x/lsp_signature.nvim'
   use 'vhdirk/vim-cmake'
-  use { 'inkarkat/vim-SpellCheck', requires = { { 'inkarkat/vim-ingo-library' } } }
 
   -- autocompletion
-  use 'ms-jpq/coq_nvim'
+  use { 'ms-jpq/coq_nvim', run = ":COQdeps" }
 
   use 'SirVer/UltiSnips'
 
@@ -62,8 +59,6 @@ return require('packer').startup(function()
   -- Telescope
   use 'nvim-telescope/telescope.nvim'
 
-  use 'L3MON4D3/LuaSnip'
-
   -- Quality of life
   use 'junegunn/vim-easy-align'
   use 'tpope/vim-repeat'
@@ -71,6 +66,6 @@ return require('packer').startup(function()
 
   -- Git
   use 'TimUntersberger/Neogit'
-  use 'airblade/vim-gitgutter'
+  use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-git'
 end)
