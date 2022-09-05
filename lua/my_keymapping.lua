@@ -237,19 +237,17 @@ require('nest').applyKeymaps {
     { 'd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
     { 'i', '<cmd>lua vim.lsp.buf.implementation()<CR>' },
 
-    -- Git (-gutter)
-    { 't', {
-      { 't', '<cmd>Gitsigns toggle_signs<CR>' },
-      { 'f', '<cmd>Gitsigns <CR>' },
-    } },
+    -- Gitgutter
+    { 't', '<cmd>Gitsigns toggle_signs<CR>' },
 
-    { 'h', { -- GitGutter Hunk Actions
+    { 'h', { -- Gitsigns Hunk Actions
       { 'p', '<cmd>Gitsigns prev_hunk<CR>' }, -- Move to Previous
       { 'n', '<cmd>Gitsigns next_hunk<CR>' }, -- Move to Next
       { 's', '<cmd>Gitsigns stage_hunk<CR>' }, -- Stage
       { 'u', '<cmd>Gitsigns undo_stage_hunk<CR>' }, -- Undo Stage 
       { 'r', '<cmd>Gitsigns reset_hunk<CR>' }, -- Undo Stage 
     } },
+    { 'b', '<cmd>Gitsigns blame_line<CR>' },
 
     { 'q', { -- Quickfix Actions
       { 'q', '<cmd>Gitsigns setqflist<CR>' },
