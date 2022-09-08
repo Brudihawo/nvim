@@ -89,8 +89,21 @@ local function search_to_loclist()
     '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
 end
 
+local dap = require('dap')
+
+local function load_debug_configs()
+  local config_path = require('my_funcs').find_in_parents("launch.json")
+  if config_path ~= nil then
+    require("dap.ext.vscode").load_launchjs(config_path, { lldb = { "cpp", "c" } })
+    print("Loaded " .. config_path)
+  else
+    print("Could not find launch.json")
+  end
+end
+
 require('nest').applyKeymaps {
   { '<leader>', {
+    { 'f', function() print(vim.fn.bufname()) end },
     { 'mm', function() require('my_funcs').man_split() end },
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
     { 'cw', function() highlight_trailws() end },
@@ -119,8 +132,9 @@ require('nest').applyKeymaps {
       { 'v', '<plug>(vimtex-view>' },
     } },
 
-    -- Code Minimap
-    { 'mt', '<cmd>MinimapToggle<CR>' },
+    { 'r', { -- Refactoring.nvim
+      { 'r', require('refactoring').select_refactor, mode = 'v' },
+    } },
 
     -- Create dot / neato Graph
     { 'gd', function() graphviz_graph("dot") end },
@@ -144,33 +158,32 @@ require('nest').applyKeymaps {
     { 'L>', '<cmd>vertical resize +3<CR>' },
 
     { 't>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
-
-
-    { 'Enter>', '^g$a<Enter><Esc>' }, -- Add line break so that it fits on screen
   } },
 
   { 'L', {
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
-    { 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>' },
+    { 'rn', vim.lsp.buf.rename },
+    { 'rr', vim.lsp.buf.references },
 
-    { 'h', '<cmd>lua vim.lsp.buf.hover()<CR>' },
+    { 'h', vim.lsp.buf.hover },
 
     { 'pd', peek_def },
 
-    { 'ci', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>' },
-    { 'co', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>' },
+    { 'ci', vim.lsp.buf.incoming_calls },
+    { 'ca', vim.lsp.buf.code_action },
+    { 'co', vim.lsp.buf.outgoing_calls },
 
-    { 'sr', '<cmd>lua vim.lsp.buf.references()<CR>' },
-    { 'dn', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
-    { 'dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
+    { 'sr', vim.lsp.buf.references },
+    { 'dn', vim.diagnostic.goto_next },
+    { 'dp', vim.diagnostic.goto_prev },
 
     { 'p', { -- Populate Quickfix / Locallist
-      { 'l', '<cmd>lua vim.diagnostic.setloclist()<CR>' },
-      { 'q', '<cmd>lua vim.diagnostic.setqflist()<CR>' },
+      { 'l', vim.diagnostic.setloclist },
+      { 'q', vim.diagnostic.setqflist },
     } },
 
-    { 'ld', '<cmd>lua vim.diagnostic.open_float(0, { scope="line" })<CR>' },
-    { 'f', '<cmd>lua vim.lsp.buf.format{async=true}<CR>' },
+    { 'ld', function() vim.diagnostic.open_float(0, { scope = "line" }) end },
+    { 'f', function() vim.lsp.buf.format { async = true } end },
   } },
 
   { '<C-', {
@@ -182,15 +195,16 @@ require('nest').applyKeymaps {
     { 'x>', '<cmd>bdelete<CR>' },
 
     -- Fuzzy Finding Shortcuts
-    { 'p>', '<cmd>lua require("telescope.builtin").find_files()<CR>' },
-    { 'g>', '<cmd>lua require("telescope.builtin").live_grep()<CR>' },
+    { 'p>', require("telescope.builtin").find_files },
+    { 'g>', require("telescope.builtin").live_grep },
     { 'b>', '<cmd>Telescope buffers<CR>' },
-  }},
+  } },
 
   { '<C-h>', {
-    { 'h', '<cmd> lua require("harpoon.mark").add_file()<CR>' },
-    { 'm', '<cmd> lua require("harpoon.ui").toggle_quick_menu()<CR>' },
+    { 'h', require("harpoon.mark").add_file },
+    { 'm', require("harpoon.ui").toggle_quick_menu },
   } },
+
   -- Extended Fuzzy Finding
   { 't', {
     { 'hh', '<cmd>Telescope help_tags<CR>' },
@@ -201,25 +215,29 @@ require('nest').applyKeymaps {
 
     { 'e', { -- Edit Config
       { 'e',
-        '<cmd>lua require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
+        function() require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim",
+            file_ignore_patterns = { "pack/*", ".git/*" } })
+        end },
       { 'g',
-        '<cmd>lua require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim", file_ignore_patterns = { "pack/*", ".git/*" }})<CR>' },
+        function() require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim",
+            file_ignore_patterns = { "pack/*", ".git/*" } })
+        end },
     } },
 
-    { 'gs', '<cmd>lua require("telescope.builtin").grep_string()<CR>' },
-    { 'kk', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sort="ascending"})<CR>' },
+    { 'gs', require("telescope.builtin").grep_string },
+    { 'kk', function() require("telescope.builtin").current_buffer_fuzzy_find({ sort = "ascending" }) end },
   } },
 
   -- Debugging
-  { '<F2>', '<cmd>lua require("dap").toggle_breakpoint()<CR>' },
-  { '<F3>', '<cmd>lua require("dap.ui.widgets").hover()<CR>' },
-  { '<F4>', '<cmd>lua require("dap").disconnect()<CR>:lua require("dap").close()<CR>' },
-  { '<F5>', '<cmd>lua require("dap").continue()<CR>' },
-  { '<F6>', '<cmd>lua require("dap").run()<CR>' },
-  { '<F8>', '<cmd>lua require("dap").step_into()<CR>' },
-  { '<F9>', '<cmd>lua require("dap").step_over()<CR>' },
-  { '<F10>', '<cmd>lua require("dap").step_out()<CR>' },
-  { '<F11>', '<cmd>lua require("dap").run_to_cursor()<CR>' },
+  { '<F2>', dap.toggle_breakpoint },
+  { '<F3>', require('dapui').eval },
+  { '<F4>', dap.disconnect },
+  { '<F5>', dap.continue },
+  { '<F6>', load_debug_configs },
+  { '<F8>', dap.step_into },
+  { '<F9>', dap.step_over },
+  { '<F10>', dap.step_out },
+  { '<F11>', dap.run_to_cursor },
 
   { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
 
@@ -233,9 +251,9 @@ require('nest').applyKeymaps {
 
   { 'g', { -- ga ... for vim-easy-align
     -- Go to Declaration / Definition
-    { 'D', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
-    { 'd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
-    { 'i', '<cmd>lua vim.lsp.buf.implementation()<CR>' },
+    { 'D', vim.lsp.buf.declaration },
+    { 'd', vim.lsp.buf.definition },
+    { 'i', vim.lsp.buf.implementation },
 
     -- Gitgutter
     { 't', '<cmd>Gitsigns toggle_signs<CR>' },
@@ -259,7 +277,7 @@ require('nest').applyKeymaps {
 
   { mode = 'i', {
     { '<A-', {
-      { 'h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
+      { 'h>', vim.lsp.buf.signature_help },
     } },
   } },
 
@@ -278,8 +296,8 @@ require('nest').applyKeymaps {
     { '<leader>lb', '<Plug>HInsertLineBreak' },
   } },
   -- { mode = 'i', options = { noremap = true, silent = true },
-  --   { "<Tab>", "<cmd>lua require('my_funcs').tab_complete()<CR>" },
-  --   { "<S-Tab>", "<cmd>lua require('my_funcs').s_tab_complete()<CR>" },
+  --   { "<Tab>", require('my_funcs').tab_complete },
+  --   { "<S-Tab>", require('my_funcs').s_tab_complete },
   -- }
 }
 

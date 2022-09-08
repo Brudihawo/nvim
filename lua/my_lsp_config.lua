@@ -158,12 +158,7 @@ require("lspconfig").clangd.setup {
 }
 
 require("lspconfig").cmake.setup {
-  coq.lsp_ensure_capabilities {
-    capabilities = capabilities,
-    rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
-    cmd = { "/common/homes/students/hoefer/local/bin/clangd" },
-    filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp", "tpp" },
-  }
+  coq.lsp_ensure_capabilities { capabilities = capabilities, }
 }
 
 require("lsp-colors").setup({

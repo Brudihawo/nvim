@@ -1,10 +1,22 @@
-syn match execution '\[.+\]'
-syn keyword DiagnosicKeywords error warning warn note
-syn keyword Compilers g++ gcc cc cc1 cc1plus cc1plusplus ninja
-syn match translationUnit ' .*\.c'
-syn match translationUnit ' .*\.cpp'
+syntax match Progress "\[.\+\]"
+syn keyword DiagnosticError error FAILED
+syn keyword DiagnosticWarn warning warn 
+syn keyword DiagnosticInfo note
+syn match DiagnosticError "\^\~\+"
+syn keyword Actions Building Linking Generating
+syn match Compilers "[a-zA-Z0-9/\.\_\-+]\+g++\(-\d\+\)\{0,1\}" 
+syn match Compilers "[a-zA-Z0-9/\.\_\-+]\+gcc\(-\d\+\)\{0,1\}" 
+syn match Compilers "[a-zA-Z0-9/\.\_\-+]\+cc\(-\d\+\)\{0,1\}" 
+syn match Compilers "[a-zA-Z0-9/\.\_\-+]\+clang\(-\d\+\)\{0,1\}" 
+syn match Compilers "[a-zA-Z0-9/\.\_\-+]\+clang++\(-\d\+\)\{0,1\}" 
+syn match Launcher "[a-zA-Z0-9/\.\_\-+]\+ccache\(-\d\+\)\{0,1\}" 
+syn keyword TargetType executable library object C CXX
 
-hi def link execution Constant
-hi def link DiagnosicKeywords PreProc
-hi def link Compilers Statement
-hi def link translationUnit Type
+syn match translationUnit '[a-zA-Z0-9/\.\_\-+]\+\.\(cpp\|cxx\|c\|hpp\|hxx\.gch\|hxx\|h\)\(\.o\)\{0,1\}\(:\d\+\)\{0,2\}'
+
+hi def link Progress PreProc
+hi def link Actions Statement
+hi def link Compilers Character
+hi def link Launcher Compilers
+hi def link translationUnit Directory
+hi def link TargetType Statement

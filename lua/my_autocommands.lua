@@ -15,3 +15,12 @@ vim.api.nvim_exec('autocmd FileType tex nnoremap <buffer> <leader>B ciW\\textbf{
 
 -- Autocomplete
 vim.api.nvim_exec('autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc', true)
+
+vim.api.nvim_create_autocmd({ "BufEnter" },
+  {
+    pattern = "CMakeBuild Output",
+    callback = function()
+      vim.cmd("set ft=CMakeOutput")
+    end
+  }
+)

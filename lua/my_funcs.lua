@@ -7,15 +7,6 @@ end
 
 M = {}
 
-M.goto_c_h = function()
-  local uri = vim.uri_from_bufnr(0)
-  if string:ends(uri, ".c") then
-    print(uri:sub(1, -1) .. "h")
-  elseif string.ends(uri, ".h") then
-    print(uri:sub(1, -1) .. "c")
-  end
-end
-
 M.new_buf_cmd = function(bufname)
   local command = vim.fn.input("Execute Command: ", "", 'shellcmd')
   bufname = bufname or "command"
@@ -106,6 +97,22 @@ M.s_tab_complete = function()
   return
 end
 
+M.find_in_parents = function(name, isdir)
+  for dir in vim.fs.parents(vim.api.nvim_buf_get_name(0)) do
+    local path = dir .. "/" .. name
+    if isdir then
+      if vim.fn.isdirectory(path) == 1 then
+        return path
+      end
+    else
+      if vim.fn.filereadable(path) == 1 then
+        return path
+      end
+    end
+  end
+  return nil
+end
+
 M.find_cmake_dir = function()
   for dir in vim.fs.parents(vim.api.nvim_buf_get_name(0)) do
     if vim.fn.isdirectory(dir .. "/build") == 1 then
@@ -148,6 +155,7 @@ M.cmake_build_proj = function()
     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
   else
     bufnr = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
     if bufnr == 0 then
       print("Error, could not create buffer")
       return
@@ -165,9 +173,9 @@ M.cmake_build_proj = function()
   else
     local cmd = "cmake --build " .. base_dir
     vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, { "Executing " .. cmd })
-    vim.fn.jobstart(vim.fn.split(cmd, " "), {
-      stdout_buffered = true,
-      stderr_buffered = true,
+    vim.fn.jobstart("/usr/bin/time --format='Took %Es' -- " .. cmd, {
+      stdout_buffered = false,
+      stderr_buffered = false,
       on_stdout = function(_, data)
         vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, data)
       end,
@@ -176,7 +184,8 @@ M.cmake_build_proj = function()
       end,
       on_exit = function(_, data)
         vim.api.nvim_buf_set_lines(bufnr, -1, -1, false,
-          { "=====================================================", "Finished!" })
+          { "=====================================================",
+            "Finished!" })
       end
     })
   end

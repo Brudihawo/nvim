@@ -40,7 +40,7 @@ vim.g.cmake_generate_options = { '-G', 'Ninja', '-B', 'build' }
 vim.g.coq_settings = {
   auto_start = "shut-up",
   weights = {
-    edit_distance = 3,
+    edit_distance = 0.75,
     proximity = 0.75,
     recency = 0.75,
   },
@@ -53,7 +53,7 @@ vim.g.coq_settings = {
       source_context = { " [", "]" },
     },
     icons = {
-      mode = "short",
+      mode = "long",
     }
   },
   clients = {
@@ -63,12 +63,33 @@ vim.g.coq_settings = {
     lsp = {
       enabled = true,
       weight_adjust = 1.5,
+    },
+    paths = {
+      enabled = true,
+      always_on_top = false,
+      weight_adjust = 0.3,
     }
   }
 }
 
 require('coq')
+
+-- COQsources = COQsources or {}
+-- COQsources["<random uid>"] = {
+--   name = "spell",
+--   fn = function (args, callback)
+--     local row, col = unpack(args.pos)
+
+--   end
+-- }
+
 vim.cmd([[COQnow -s]])
+
+require('coq_3p') {
+  { src = "nvimlua", short_name = "nLUA", conf_only = false },
+}
+
+
 vim.o.completeopt = "menuone,noselect"
 
 --- UltiSnips Config
@@ -82,7 +103,6 @@ require('my_keymapping')
 
 
 require('harpoon').setup()
-
 local leap = require('leap')
 leap.setup {
   case_insensitive = true,

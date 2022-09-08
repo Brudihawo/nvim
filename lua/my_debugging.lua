@@ -65,25 +65,25 @@ dap.configurations.python = {
 -- DAP-UI
 local dapui = require("dapui")
 dapui.setup { layouts = {
-    {
-      elements = {
-        'scopes',
-        'breakpoints',
-        'stacks',
-        'watches',
-      },
-      size = 40,
-      position = 'left',
+  {
+    elements = {
+      'scopes',
+      'breakpoints',
+      'stacks',
+      'watches',
     },
-    {
-      elements = {
-        'repl',
-        'console',
-      },
-      size = 10,
-      position = 'bottom',
-    },
+    size = 0.3,
+    position = 'left',
   },
+  {
+    elements = {
+      'repl',
+      'console',
+    },
+    size = 0.2,
+    position = 'bottom',
+  },
+},
 }
 
 dap.listeners.after.event_initialized["dapui_config"] = function()

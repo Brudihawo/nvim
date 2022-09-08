@@ -102,14 +102,6 @@ vim.o.cmdheight = 1
 vim.o.laststatus = 2
 vim.o.ambiwidth = 'single'
 
--- Minimap
-vim.g.minimap_git_colors = true
-vim.g.minimap_highlight_search = true
-
-
--- dashboard-nvim
-vim.g.dashboard_default_executive = 'telescope'
-
 -- listchars   
 vim.o.listchars='eol:↲'
 

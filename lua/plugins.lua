@@ -22,19 +22,26 @@ return require('packer').startup(function()
   use 'folke/lsp-colors.nvim'
   use 'ray-x/lsp_signature.nvim'
   use 'vhdirk/vim-cmake'
+  use { 'ThePrimeagen/refactoring.nvim',
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" }
+    }
+  }
+
+  use { 'inkarkat/vim-SpellCheck', requires = { { 'inkarkat/vim-ingo-library' } } }
 
   -- autocompletion
-  use { 'ms-jpq/coq_nvim', run = ":COQdeps" }
-
+  use {
+    'ms-jpq/coq_nvim',
+    requires = { { "ms-jpq/coq.thirdparty", branch = "3p" } },
+    run = ":COQdeps"
+  }
   use 'SirVer/UltiSnips'
-
-  -- C / CPP switch between header and source
-  use { 'jakemason/ouroboros', requires = { { 'nvim-lua/plenary.nvim' } } }
 
   use 'lervag/vimtex'
   use 'jalvesaq/zotcite'
 
-  use { 'inkarkat/vim-SpellCheck', requires = { {'inkarkat/vim-ingo-library'} } }
   use { 'iamcco/markdown-preview.nvim', run = ":call mkdp#util#install()" }
 
   use 'karb94/neoscroll.nvim'
