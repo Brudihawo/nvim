@@ -193,4 +193,74 @@ end
 
 vim.api.nvim_create_user_command("CMakeBuild", M.cmake_build_proj, {})
 
+M.insert_docstring_comment = function()
+  local query_str = {
+    cpp = [[
+(function_declarator
+  (parameter_list
+    (parameter_declaration
+      (identifier)* @param
+      (reference_declarator (identifier) @param)*
+      (pointer_declarator (identifier) @param)*
+    )
+  )
+)
+]]   ,
+  }
+  local function_decl_str = {
+    cpp = "function_declarator"
+  }
+
+  local ftype = vim.bo.filetype
+  if query_str[ftype] == nil or function_decl_str[ftype] == nil then
+    print("Not implemented for " .. ftype)
+    return
+  end
+
+  local pos = vim.api.nvim_win_get_cursor(0)
+
+  local tsparser = vim.treesitter.get_parser(0)
+  local root = tsparser:parse()[1]:root()
+  local current = root:descendant_for_range(pos[1], pos[0], pos[1], pos[0])
+  while current:type() ~= function_decl_str[ftype] do
+    if current:type() == "function_definition" then
+      break
+    end
+
+    current = current:parent()
+    if current == nil then
+      print("Not in function definition or declaration")
+      return
+    end
+  end
+
+  local indent_node = current:parent()
+  if current:type() == "function_definition" then
+    indent_node = current
+  end
+  local _, indentation, _ = indent_node:range()
+  local indentstr = (" "):rep(indentation)
+
+  local query = vim.treesitter.parse_query(ftype, query_str[ftype])
+  local docstring_comment = {
+    indentstr .. "/*",
+    indentstr .. "* @brief ",
+    indentstr .. "*"
+  }
+
+  for _, match, _ in query:iter_matches(current, 0, 0, 0) do
+    for id, node in pairs(match) do
+      local startr, startc, endr, endc = node:range()
+      table.insert(docstring_comment, indentstr .. "* @param " ..
+        vim.api.nvim_buf_get_text(0, startr, startc, endr, endc, {})[1] .. " ")
+    end
+  end
+  table.insert(docstring_comment, indentstr .. "*/")
+  local sr, sc, _ = indent_node:range()
+  vim.api.nvim_buf_set_lines(0, sr, sr, true, docstring_comment)
+  vim.api.nvim_win_set_cursor(0, { sr, sc })
+end
+
+vim.api.nvim_create_user_command("TSDocComment", M.insert_docstring_comment, {})
+
 return M
