@@ -34,7 +34,21 @@ dap.configurations.cpp = {
   },
 }
 
-dap.configurations.c = dap.configurations.cpp
+dap.configurations.c = {
+  {
+    name = 'Launch',
+    type = 'lldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = true,
+    runInTerminal = false,
+    args = function() return splitstr(vim.fn.input('Args: ', '', 'file')) end,
+  },
+}
+
 dap.configurations.rust = dap.configurations.cpp
 
 -- Python
@@ -99,4 +113,4 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 require('nvim-dap-virtual-text').setup()
-vim.fn.sign_define('DapBreakpoint', { text = '🛑' })
+vim.fn.sign_define('DapBreakpoint', { text = 'B' })
