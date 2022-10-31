@@ -120,12 +120,6 @@ require('nest').applyKeymaps {
       { 's', search_to_loclist },
     } },
 
-    { 's', { -- Ouroboros
-      { 'w', '<cmd>Ouroboros<CR>' },
-      { 's', '<cmd>vsplit | Ouroboros<CR>' },
-      { 'h', '<cmd>split | Ouroboros<CR>' },
-    } },
-
     -- Vimtex
     { 'v', {
       { 'c', '<plug>(vimtex-compile>' },
@@ -177,9 +171,14 @@ require('nest').applyKeymaps {
     { 'dn', vim.diagnostic.goto_next },
     { 'dp', vim.diagnostic.goto_prev },
 
-    { 'p', { -- Populate Quickfix / Locallist
-      { 'l', vim.diagnostic.setloclist },
-      { 'q', vim.diagnostic.setqflist },
+    { 'p', { -- Populate Quickfixlist
+      { 'w', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN }) end },
+      { 'e', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end },
+    } },
+
+    { 'l', { -- Populate Locallist
+      { 'w', function() vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.WARN }) end },
+      { 'e', function() vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR }) end },
     } },
 
     { 'ld', function() vim.diagnostic.open_float(0, { scope = "line" }) end },
@@ -209,7 +208,7 @@ require('nest').applyKeymaps {
   { 't', {
     { 'hh', '<cmd>Telescope help_tags<CR>' },
     { 'km', '<cmd>Telescope keymaps<CR>' },
-    { 'jj', '<cmd>Telescope lsp_document_symbols<CR>' },
+    { 's', '<cmd>Telescope lsp_document_symbols<CR>' },
     { 'dd', '<cmd>Telescope lsp_document_diagnostics<CR>' },
     { 'o', '<cmd>Telescope buffers<CR>' },
 
@@ -262,8 +261,8 @@ require('nest').applyKeymaps {
       { 'p', '<cmd>Gitsigns prev_hunk<CR>' }, -- Move to Previous
       { 'n', '<cmd>Gitsigns next_hunk<CR>' }, -- Move to Next
       { 's', '<cmd>Gitsigns stage_hunk<CR>' }, -- Stage
-      { 'u', '<cmd>Gitsigns undo_stage_hunk<CR>' }, -- Undo Stage 
-      { 'r', '<cmd>Gitsigns reset_hunk<CR>' }, -- Undo Stage 
+      { 'u', '<cmd>Gitsigns undo_stage_hunk<CR>' }, -- Undo Stage
+      { 'r', '<cmd>Gitsigns reset_hunk<CR>' }, -- Undo Stage
     } },
     { 'b', '<cmd>Gitsigns blame_line<CR>' },
 
