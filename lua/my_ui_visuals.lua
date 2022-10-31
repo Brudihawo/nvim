@@ -23,7 +23,7 @@ vim.o.colorcolumn = "80"
 -------------------------------------------------------------------------------
 
 -- Colorscheme
-vim.cmd[[
+vim.cmd [[
 if has('termguicolors')
   set termguicolors
 endif
@@ -45,12 +45,12 @@ if colorscheme == "seoul256" then
   lualine_theme = "seoul256"
 
 elseif colorscheme == "gruvbox" then
-  vim.o.background='dark'
-  vim.g.gruvbox_material_background='hard'
-  vim.g.gruvbox_material_enable_italic=true
-  vim.g.gruvbox_material_ui_contrast='high'
-  vim.g.gruvbox_material_diagnostic_text_highlight=true
-  vim.g.gruvbox_material_palette='material'
+  vim.o.background = 'dark'
+  vim.g.gruvbox_material_background = 'hard'
+  vim.g.gruvbox_material_enable_italic = true
+  vim.g.gruvbox_material_ui_contrast = 'high'
+  vim.g.gruvbox_material_diagnostic_text_highlight = true
+  vim.g.gruvbox_material_palette = 'material'
 
   vim.cmd([[
     colorscheme gruvbox-material
@@ -102,33 +102,34 @@ vim.o.cmdheight = 1
 vim.o.laststatus = 2
 vim.o.ambiwidth = 'single'
 
--- listchars   
-vim.o.listchars='eol:↲'
+-- listchars
+vim.o.listchars = 'eol:↲'
 
 require('neoscroll').setup {
-    -- All these keys will be mapped. Pass an empty table ({}) for no mappings
-    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-                '<C-y>', '<C-e>'},
-    hide_cursor = true,          -- Hide cursor while scrolling
-    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-    cursor_scrolls_alone = true,  -- The cursor will keep on scrolling even if the window cannot scroll further
-    easing_function = 'sine'
+  -- All these keys will be mapped. Pass an empty table ({}) for no mappings
+  mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
+    '<C-y>', '<C-e>' },
+  hide_cursor = true, -- Hide cursor while scrolling
+  stop_eof = true, -- Stop at <EOF> when scrolling downwards
+  respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+  cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+  easing_function = 'sine'
 }
 
 require('lualine').setup {
-  options= {
+  options = {
     theme = lualine_theme,
     section_separators = "",
     component_separators = "│",
+    path = 1,
+    shorting_target = 50
   },
-   sections = {
-     lualine_a = {{'mode', lower=false}},
-     lualine_b = {'branch'},
-     lualine_c = {'filename'},
-     lualine_x = {'encoding'},
-     lualine_y = {'filetype'},
-     lualine_z = {'location', 'progress'},
-   },
+  sections = {
+    lualine_a = { { 'mode', lower = false } },
+    lualine_b = { 'branch' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'encoding' },
+    lualine_y = { 'filetype' },
+    lualine_z = { 'location', 'progress' },
+  },
 }
-
