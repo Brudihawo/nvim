@@ -108,6 +108,10 @@ require('nest').applyKeymaps {
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
     { 'cw', function() highlight_trailws() end },
     { 'nb', function() require('my_funcs').new_buf_cmd() end },
+    { 'h', {
+      { 'h', require("harpoon.mark").add_file },
+      { 'm', require("harpoon.ui").toggle_quick_menu },
+    } },
 
     -- Quickfix / Locallist Open / Close
     { 'c', {
@@ -199,10 +203,6 @@ require('nest').applyKeymaps {
     { 'b>', '<cmd>Telescope buffers<CR>' },
   } },
 
-  { '<C-h>', {
-    { 'h', require("harpoon.mark").add_file },
-    { 'm', require("harpoon.ui").toggle_quick_menu },
-  } },
 
   -- Extended Fuzzy Finding
   { 't', {
