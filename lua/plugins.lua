@@ -28,6 +28,7 @@ return require('packer').startup(function()
       { "nvim-treesitter/nvim-treesitter" }
     }
   }
+  use 'simrat39/symbols-outline.nvim'
 
   use { 'inkarkat/vim-SpellCheck', requires = { { 'inkarkat/vim-ingo-library' } } }
 

@@ -41,7 +41,7 @@ require("lspconfig").pylsp.setup {
           black = {
             enabled = true,
             args = {
-              '-l', '80'
+              '-l', '90'
             }
           },
           flake8 = {
@@ -214,6 +214,26 @@ vim.g.vimtex_compiler_latexmk = {
 
 require("lspconfig").ltex.setup {}
 
+require('symbols-outline').setup({
+  symbol_blacklist = {
+    'Property',
+    'Field',
+    'Variable',
+    'Constant',
+    'String',
+    'Number',
+    'Boolean',
+    'Object',
+    'Key',
+    'Null',
+    'EnumMember',
+    'Event',
+    'Operator',
+    'TypeParameter',
+    'Component',
+    'Fragment',
+  },
+})
 
 return {
   print_response = function(err, method, result, client_id, bufnr, config)
