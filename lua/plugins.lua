@@ -41,6 +41,7 @@ return require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
 
   use 'lervag/vimtex'
+  use 'jbyuki/nabla.nvim'
   use 'jalvesaq/zotcite'
 
   use { 'iamcco/markdown-preview.nvim', run = ":call mkdp#util#install()" }

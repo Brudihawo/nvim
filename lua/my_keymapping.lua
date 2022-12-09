@@ -103,6 +103,7 @@ end
 
 require('nest').applyKeymaps {
   { '<leader>', {
+    { 'p', function() require('nabla').popup() end },
     { 'f', function() print(vim.fn.bufname()) end },
     { 'mm', function() require('my_funcs').man_split() end },
     { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
