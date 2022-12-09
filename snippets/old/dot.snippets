@@ -1,0 +1,20 @@
+snippet #nn New Node
+	$1 [label="$2"];
+	$0
+
+snippet #ng New Graph
+	digraph $1 {
+		rankdir=LR;
+		dpi=160;
+		node [shape=box];
+		$2
+	}
+	$0
+
+snippet #sg Subgraph
+	subgraph cluster$1 {
+		style=${2:style};
+		fillcolor=${3:fillcolor};
+		label="${4:label}";
+		$5
+	}

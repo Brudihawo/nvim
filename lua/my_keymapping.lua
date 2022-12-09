@@ -276,6 +276,11 @@ require('nest').applyKeymaps {
 
   { mode = 'i', {
     { '<A-', {
+      { 'n>', function() require('luasnip').jump(1) end },
+      { 'p>', function() require('luasnip').jump(-1) end },
+      { 'x>', function() require('luasnip').expand() end },
+    } },
+    { '<A-', {
       { 'h>', vim.lsp.buf.signature_help },
     } },
   } },

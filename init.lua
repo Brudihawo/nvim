@@ -92,12 +92,6 @@ require('coq_3p') {
 
 vim.o.completeopt = "menuone,noselect"
 
---- UltiSnips Config
-vim.g.UltiSnipsExpandTrigger = "<M-X>"
-vim.g.UltiSnipsJumpForwardTrigger = "<M-n>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<M-m>"
-vim.g.UltiSnipsEditSplit = "context"
-
 require('my_autocommands')
 require('my_keymapping')
 
@@ -217,6 +211,12 @@ require('my_lsp_config')
 require('my_debugging')
 require('my_ui_visuals')
 require('my_funcs')
+
+require("luasnip").setup {
+  enable_autosnippets = true
+}
+require("luasnip.loaders.from_snipmate").lazy_load()
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/lua" })
 
 -- Neogit Highlighting
 vim.cmd("hi NeogitDiffAdd guibg='#78997a' guifg='#f4f0ed'")

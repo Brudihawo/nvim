@@ -38,7 +38,7 @@ return require('packer').startup(function()
     requires = { { "ms-jpq/coq.thirdparty", branch = "3p" } },
     run = ":COQdeps"
   }
-  use 'SirVer/UltiSnips'
+  use 'L3MON4D3/LuaSnip'
 
   use 'lervag/vimtex'
   use 'jalvesaq/zotcite'
