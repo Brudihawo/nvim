@@ -166,15 +166,11 @@ require('nest').applyKeymaps {
 
     { 'h', vim.lsp.buf.hover },
 
-    { 'pd', peek_def },
+    { 'v', peek_def }, -- View
 
     { 'ci', vim.lsp.buf.incoming_calls },
-    { 'ca', vim.lsp.buf.code_action },
     { 'co', vim.lsp.buf.outgoing_calls },
-
-    { 'sr', vim.lsp.buf.references },
-    { 'dn', vim.diagnostic.goto_next },
-    { 'dp', vim.diagnostic.goto_prev },
+    { 'ca', vim.lsp.buf.code_action },
 
     { 'p', { -- Populate Quickfixlist
       { 'w', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN }) end },
@@ -186,7 +182,7 @@ require('nest').applyKeymaps {
       { 'e', function() vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR }) end },
     } },
 
-    { 'ld', function() vim.diagnostic.open_float(0, { scope = "line" }) end },
+    { 'd', function() vim.diagnostic.open_float(0, { scope = "line" }) end },
     { 'f', function() vim.lsp.buf.format { async = true } end },
   } },
 

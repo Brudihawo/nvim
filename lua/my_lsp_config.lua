@@ -9,13 +9,13 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics,
-  {
-    virtual_text = true;
-    underline = true;
-  }
-)
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics,
+--   {
+--     virtual_text = true;
+--     underline = true;
+--   }
+-- )
 
 
 require("lspconfig").pylsp.setup {
@@ -65,9 +65,20 @@ require("lspconfig").rust_analyzer.setup {
         },
         cargo = {
           loadOutDirsFromCheck = true,
+          ["buildScripts.enable"] = true
         },
         procMacro = {
           enable = true,
+        },
+        inlayHints = {
+          ["chainingHints.enable"] = true,
+          auto = true,
+          show_parameter_hints = true,
+          closingBraceHints = {
+            minLines = 4,
+            enable = true
+          },
+          ["typeHints.enable"] = true
         }
       }
     }
@@ -187,8 +198,7 @@ vim.g.vimtex_quickfix_ignore_filters = {
 
 vim.g.tex_flavour = 'luatex'
 vim.g.vimtex_compiler_method = 'latexmk'
-vim.g.vimtex_view_method = 'general'
-vim.g.vimtex_view_general_viewer = 'okular'
+vim.g.vimtex_view_method = 'zathura'
 vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
 -- vim.g.vimtex_compiler_latexmk_engines = {
 --   ['_']                = '',
