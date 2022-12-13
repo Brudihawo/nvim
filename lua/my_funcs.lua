@@ -263,4 +263,20 @@ end
 
 vim.api.nvim_create_user_command("TSDocComment", M.insert_docstring_comment, {})
 
+M.todos_qflist = function()
+  local f = assert(io.popen("tdf --quickfix .", "r"))
+  local s = assert(f:read('*a'))
+  f:close()
+  local i = 0;
+  local qflist = {}
+  for line in s:gmatch("([^\n]*)\n") do
+    i = i + 1;
+    local file, lineno, text = line:match("(.-); (%d+); (.*)")
+    table.insert(qflist, {filename=file, lnum=lineno, text=text})
+    -- print("file: " .. file .. "; line: ")
+  end
+  vim.fn.setqflist(qflist)
+  vim.cmd("copen")
+end
+
 return M

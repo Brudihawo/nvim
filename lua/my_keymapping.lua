@@ -125,11 +125,8 @@ require('nest').applyKeymaps {
       { 's', search_to_loclist },
     } },
 
-    -- Vimtex
-    { 'v', {
-      { 'c', '<plug>(vimtex-compile>' },
-      { 'v', '<plug>(vimtex-view>' },
-    } },
+    -- todos to quickfix
+    { 't', function() require('my_funcs').todos_qflist() end },
 
     { 'r', { -- Refactoring.nvim
       { 'r', require('refactoring').select_refactor, mode = 'v' },
@@ -139,13 +136,6 @@ require('nest').applyKeymaps {
     { 'gd', function() graphviz_graph("dot") end },
     { 'gn', function() graphviz_graph("neato") end },
     { 'gt', function() graphviz_graph("twopi") end },
-
-    -- LazyGit
-    { 'gg', '<cmd>LazyGit<CR>' },
-
-    -- Tagbar
-    { 'bo', ':Tagbar<CR>' }, -- Bar open
-    { 'st', ':TagbarShowTag<CR>' }, -- " Show tag
 
   } },
 
