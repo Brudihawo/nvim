@@ -44,6 +44,8 @@ return require('packer').startup(function()
   use 'jbyuki/nabla.nvim'
   use 'jalvesaq/zotcite'
 
+  use 'rareitems/anki.nvim'
+
   use { 'iamcco/markdown-preview.nvim', run = ":call mkdp#util#install()" }
 
   use 'karb94/neoscroll.nvim'
