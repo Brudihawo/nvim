@@ -121,12 +121,13 @@ end
 
 require('nest').applyKeymaps {
   { '<leader>', {
-    { 'p', function() require('nabla').popup() end },
+    { 'N', require('nabla').toggle_virt },
+    { 'p', require('nabla').popup },
     { 'f', function() print(vim.fn.bufname()) end },
-    { 'mm', function() require('my_funcs').man_split() end },
-    { 'ct', '<cmd>ColorizerToggle' }, -- Toggle Coloring of Hex-Values etc
-    { 'cw', function() highlight_trailws() end },
-    { 'nb', function() require('my_funcs').new_buf_cmd() end },
+    { 'mm', require('my_funcs').man_split },
+    { 'ct', '<cmd>ColorizerToggle<CR>' }, -- Toggle Coloring of Hex-Values etc
+    { 'cw', highlight_trailws },
+    { 'nb', require('my_funcs').new_buf_cmd },
     { 'h', {
       { 'h', require("harpoon.mark").add_file },
       { 'm', require("harpoon.ui").toggle_quick_menu },
@@ -259,8 +260,8 @@ require('nest').applyKeymaps {
     { 'd', vim.lsp.buf.definition },
     { 'i', vim.lsp.buf.implementation },
 
-    -- Gitgutter
-    { 't', '<cmd>Gitsigns toggle_signs<CR>' },
+    -- Gitsigns
+    { 's', '<cmd>Gitsigns toggle_signs<CR>' },
 
     { 'h', { -- Gitsigns Hunk Actions
       { 'p', '<cmd>Gitsigns prev_hunk<CR>' }, -- Move to Previous
