@@ -14,7 +14,7 @@ if local_defs == nil then
 else
   local retval = {}
   for k, v in pairs(defaults) do
-    table.insert(retval, k, local_defs[k] or v)
+    retval[k] = local_defs[k] or v
   end
   return retval
 end
