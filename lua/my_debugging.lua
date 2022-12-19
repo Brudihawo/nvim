@@ -16,7 +16,7 @@ end
 -- Rust, C, C++
 dap.adapters.lldb = {
   type = 'executable',
-  command = '/usr/bin/lldb-vscode'
+  command = require('local').lldb_vscode_path
 }
 
 dap.configurations.cpp = {
@@ -71,7 +71,7 @@ dap.configurations.python = {
     elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
       return cwd .. '/.venv/bin/python'
     else
-      return '/home/hawo/miniconda3/bin/python'
+      return require('local').python3_host_prog
     end
   end,
 }

@@ -9,15 +9,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics,
---   {
---     virtual_text = true;
---     underline = true;
---   }
--- )
-
-
 require("lspconfig").pylsp.setup {
   coq.lsp_ensure_capabilities {
     capabilities = capabilities,
@@ -123,7 +114,7 @@ require("lspconfig").texlab.setup {
         auxDirectory = ".",
         bibtexFormatter = "texlab",
         build = {
-          args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
+          args = { "-pdflatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
           executable = "latexmk",
           forwardSearchAfter = false,
           onSave = false
@@ -145,20 +136,6 @@ require("lspconfig").texlab.setup {
     }
   }
 }
-
-
--- require("lspconfig").ccls.setup{
---   capabilities = coq.lsp_ensure_capabilities{
---     capabilities = capabilities,
---   },
---   init_options = {
---     index = { threads = 0; },
---     cache = { directory = "/tmp/ccls"; },
---     clang = { extraArgs = { "-Wmaybe-uninitialized", "-Wunused-variable", "-Wunknown-pragmas" } },
---   },
---   rootPatterns = { ".ccls", "compile_commands.json", ".git/", ".hg/" },
---   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
--- }
 
 require("lspconfig").clangd.setup {
   capabilities = coq.lsp_ensure_capabilities {
@@ -184,60 +161,6 @@ vim.api.nvim_command("sign define LspDiagnosticsSignError text=\\ ☠")
 vim.api.nvim_command("sign define LspDiagnosticsSignWarning text=⚠")
 vim.api.nvim_command("sign define LspDiagnosticsSignInformation text=ⓘ")
 vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
-
--- VimTeX
-vim.g.vimtex_mappings_disable = {
-  n = { '<leader>ls', '<leader>ll', '<leader>lv' },
-}
-vim.g.vimtex_quickfix_open_on_warning = false
-vim.g.vimtex_fold_enabled = true
-vim.g.vimtex_syntax_conceal = {
-  accents = true,
-  ligatures = true,
-  cites = true,
-  fancy = true,
-  greek = true,
-  math_bounds = true,
-  math_delimiters = true,
-  math_fracs = true,
-  math_super_sub = true,
-  math_symbols = true,
-  sections = true,
-  styles = true,
-}
-vim.g.vimtex_quickfix_ignore_filters = {
-  "Overfull",
-  "Underfull",
-  "float specifier",
-}
-
-vim.g.tex_flavour = 'luatex'
-vim.g.vimtex_compiler_method = 'latexmk'
-vim.g.vimtex_view_method = 'zathura'
-vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
--- vim.g.vimtex_compiler_latexmk_engines = {
---   ['_']                = '',
---   ['pdflatex']         = '-pdf',
---   ['dvipdfex']         = '-pdfdvi',
---   ['lualatex']         = '-lualatex',
---   ['xelatex']          = '-xelatex',
---   ['context (pdftex)'] = '-pdf -pdflatex=texexec',
---   ['context (luatex)'] = '-pdf -pdflatex=context',
---   ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
--- }
-
-vim.g.vimtex_compiler_latexmk = {
-  ['executable'] = 'latexmk',
-  ['callback']   = 1,
-  ['hooks']      = {},
-  ['options']    = {
-    '-file-line-error',
-    '-synctex=1',
-    '-interaction=nonstopmode',
-  },
-}
-
-require("lspconfig").ltex.setup {}
 
 require('symbols-outline').setup({
   symbol_blacklist = {

@@ -1,5 +1,6 @@
--- Formatting
+vim.g.python3_host_prog = require('local').python3_host_prog
 require('plugins')
+
 vim.o.encoding = 'utf-8'
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
@@ -9,7 +10,7 @@ vim.o.wrap = true
 vim.o.hidden = true
 vim.o.compatible = false
 vim.o.ignorecase = true
-vim.o.noswapfile = true
+vim.o.conceallevel = 2
 vim.o.title = true
 vim.o.titlestring = "%F"
 vim.o.splitright = true
@@ -187,7 +188,7 @@ require('gitsigns').setup({
   current_line_blame_opts      = {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-    delay = 1000,
+    delay = 100,
     ignore_whitespace = false,
   },
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
@@ -208,6 +209,7 @@ require('gitsigns').setup({
 require('my_telescope_config')
 require('my_treesitter_config')
 require('my_lsp_config')
+require('my_vimtex')
 require('my_debugging')
 require('my_ui_visuals')
 require('my_funcs')
