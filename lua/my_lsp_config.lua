@@ -98,7 +98,7 @@ require("lspconfig").sumneko_lua.setup {
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = { 'vim' },
+          globals = { { 'vim' } },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
@@ -190,6 +190,21 @@ vim.g.vimtex_mappings_disable = {
   n = { '<leader>ls', '<leader>ll', '<leader>lv' },
 }
 vim.g.vimtex_quickfix_open_on_warning = false
+vim.g.vimtex_fold_enabled = true
+vim.g.vimtex_syntax_conceal = {
+  accents = true,
+  ligatures = true,
+  cites = true,
+  fancy = true,
+  greek = true,
+  math_bounds = true,
+  math_delimiters = true,
+  math_fracs = true,
+  math_super_sub = true,
+  math_symbols = true,
+  sections = true,
+  styles = true,
+}
 vim.g.vimtex_quickfix_ignore_filters = {
   "Overfull",
   "Underfull",
