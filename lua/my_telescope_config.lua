@@ -43,6 +43,4 @@ require('telescope').setup {
       }
     }
   },
-  -- extensions = {
-  -- }
 }
