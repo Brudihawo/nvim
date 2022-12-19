@@ -279,4 +279,10 @@ M.todos_qflist = function()
   vim.cmd("copen")
 end
 
+M.clear_registers = function()
+  for i = 34, 122 do
+    pcall(function() vim.fn.setreg(string.char(i), {}) end)
+  end
+end
+
 return M

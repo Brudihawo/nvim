@@ -37,6 +37,7 @@ end
 
 vim.api.nvim_create_user_command("ReloadConfig", reload_config, {})
 vim.api.nvim_create_user_command("GetVisual", get_visual_selection, {})
+vim.api.nvim_create_user_command("ClearRegisters", require('my_funcs').clear_registers, {})
 
 local function graphviz_graph(engine)
   local fname = vim.fn.bufname()
