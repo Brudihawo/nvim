@@ -213,11 +213,9 @@ require('nest').applyKeymaps {
 
   -- Extended Fuzzy Finding
   { 't', {
-    { 'hh', '<cmd>Telescope help_tags<CR>' },
+    { 'h', '<cmd>Telescope help_tags<CR>' },
     { 'km', '<cmd>Telescope keymaps<CR>' },
     { 's', '<cmd>Telescope lsp_document_symbols<CR>' },
-    { 'dd', '<cmd>Telescope lsp_document_diagnostics<CR>' },
-    { 'o', '<cmd>Telescope buffers<CR>' },
 
     { 'e', { -- Edit Config
       { 'e',
@@ -230,7 +228,6 @@ require('nest').applyKeymaps {
         end },
     } },
 
-    { 'gs', require("telescope.builtin").grep_string },
     { 'kk', function() require("telescope.builtin").current_buffer_fuzzy_find({ sort = "ascending" }) end },
   } },
 
@@ -282,13 +279,13 @@ require('nest').applyKeymaps {
   { "==", '<cmd>Gitsigns preview_hunk<CR>' },
 
   { mode = 'i', {
-    { '<A-', {
+    { '<C-', {
       { 'n>', function() require('luasnip').jump(1) end },
       { 'p>', function() require('luasnip').jump(-1) end },
       { 'x>', function() require('luasnip').expand() end },
     } },
-    { '<A-', {
-      { 'h>', vim.lsp.buf.signature_help },
+    { '<C-', {
+      { 's>', vim.lsp.buf.signature_help },
     } },
   } },
 
