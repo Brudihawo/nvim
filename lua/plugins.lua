@@ -72,6 +72,7 @@ return require('packer').startup(function()
 
   -- Quality of life
   use 'junegunn/vim-easy-align'
+  use 'junegunn/vim-peekaboo'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
 
