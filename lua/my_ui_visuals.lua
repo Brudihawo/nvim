@@ -125,11 +125,11 @@ require('lualine').setup {
     shorting_target = 50
   },
   sections = {
-    lualine_a = { { 'mode', lower = false } },
-    lualine_b = { 'branch' },
+    lualine_a = { 'branch' },
+    lualine_b = {},
     lualine_c = { 'filename' },
-    lualine_x = { 'encoding' },
-    lualine_y = { 'filetype' },
-    lualine_z = { 'location', 'progress' },
+    lualine_x = { 'filetype' },
+    lualine_y = { 'location' },
+    lualine_z = { 'progress' },
   },
 }
