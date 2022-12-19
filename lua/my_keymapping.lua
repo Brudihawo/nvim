@@ -20,6 +20,24 @@ local function file_exists(fname)
   end
 end
 
+local function get_visual_selection()
+  local start = vim.fn.getpos("'<")
+  local end_val = vim.fn.getpos("'>")
+  print(vim.inspect(start) .. "\n" .. vim.inspect(end_val))
+end
+
+local function reload_config()
+  for pkg, _ in pairs(package.loaded) do
+    if string.match(pkg, '^my') then
+      package.loaded[pkg] = nil
+      require(pkg)
+    end
+  end
+end
+
+vim.api.nvim_create_user_command("ReloadConfig", reload_config, {})
+vim.api.nvim_create_user_command("GetVisual", get_visual_selection, {})
+
 local function graphviz_graph(engine)
   local fname = vim.fn.bufname()
   local outfile_name = vim.fn.input("Output Filename: ", "", "file")
