@@ -101,12 +101,12 @@ return {},
       }),
 
       s({ trig = "#oenv", name = "Environment with Options" }, {
-        t [[\begin{]], i(1), t "}[", i(2, "option"), t "]",
+        t [[\begin{]], i(1), t "}[", i(2, "option"), t { "]", "" },
         isn(3, i(1, "content"), "$PARENT_INDENT  "),
         t { "", [[\end{]] }, d(4, function(args) return sn(nil, { i(1, args[1]) }) end, { 1 }), t [[}]],
       }),
       s({ trig = "#env", name = "Environment with Options" }, {
-        t [[\begin{]], i(1), t "}",
+        t [[\begin{]], i(1), t { "}", "" },
         isn(2, i(1, "content"), "$PARENT_INDENT  "),
         t { "", [[\end{]] }, d(3, function(args) return sn(nil, { i(1, args[1]) }) end, { 1 }), t [[}]],
       }),
@@ -117,13 +117,13 @@ return {},
       }),
 
       s({ trig = "#imz", name = "Itemize" }, {
-        t [[\begin{itemize}]],
+        t { [[\begin{itemize}]], "" },
         isn(1, i(1, "content"), "$PARENT_INDENT  "),
         t { "", [[\end{itemize}]] },
       }),
 
       s({ trig = "#enum", name = "Enumerate" }, {
-        t [[\begin{enumerate}]],
+        t { [[\begin{enumerate}]], "" },
         isn(1, i(1, "content"), "$PARENT_INDENT  "),
         t { "", [[\end{enumerate}]] },
       }),
@@ -150,14 +150,16 @@ return {},
         t [[}]],
         i(2),
       }),
-      s({ trig = "__", name = "subscript" }, {
-        t [[_\text{]],
+      s({ trig = "(.*)__", name = "subscript", regTrig = true }, {
+        f(function(args, snip) return snip.captures[1] .. [[_\text{]]
+        end, {}),
         i(1, "subscript"),
         t [[}]],
         i(2),
       }),
-      s({ trig = "__", name = "superscript" }, {
-        t [[^\text{]],
+      s({ trig = "(.*)^^", name = "superscript", regTrig = true }, {
+        f(function(args, snip) return snip.captures[1] .. [[^\text{]]
+        end, {}),
         i(1, "superscript"),
         t [[}]],
         i(2),
@@ -185,14 +187,14 @@ return {},
       }),
 
       s({ trig = "#tbx", name = "tabularx" }, {
-        t [[\begin{tabularx}{]], i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t "}",
+        t [[\begin{tabularx}{]], i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t { "}", "" },
         isn(3, i(1, "content"), "$PARENT_INDENT  "),
         t("", [[\end{tabularx}]], ""),
         i(4),
       }),
 
       s({ trig = "#tbl", name = "table float" }, {
-        t "\\begin{table}[h]",
+        t { "\\begin{table}[h]", "" },
         isn(1, {
           t [[\begin{tabularx}{]], i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t "}",
           isn(3, i(1, "content"), "$PARENT_INDENT  "),
@@ -212,20 +214,20 @@ return {},
         i(3, "image path"), t "}"
       }),
 
-      s({ trig = "#(", name = "leftright(" }, {
-        t [[\left(]],
+      s({ trig = "(.*)#%(", name = "leftright(", regTrig = true }, {
+        f(function(args, snip) return snip.captures[1] .. [[\left(]] end, {}),
         i(1),
         t [[\right)]],
         i(2),
       }),
-      s({ trig = "#[", name = "leftright[" }, {
-        t "\\left[",
+      s({ trig = "(.*)#%[", name = "leftright[", regTrig = true }, {
+        f(function(args, snip) return snip.captures[1] .. "\\left[" end, {}),
         i(1),
-        t "\right[",
+        t "\\right]",
         i(2),
       }),
-      s({ trig = "#{", name = "leftright{" }, {
-        t [[\left{]],
+      s({ trig = "(.*)#{", name = "leftright{", regTrig = true }, {
+        f(function(args, snip) return snip.captures[1] .. [[\left{]] end, {}),
         i(1),
         t [[\right}]],
         i(2),
@@ -241,27 +243,24 @@ return {},
       s({ trig = "##>", name = "double rightarrow" }, t [[$\Rightarrow$]]),
       s({ trig = "<##", name = "double leftarrow" }, t [[$\Leftarrow$]]),
 
-      s({ trig = [[""]], name = "enquote" }, {
+      s({ trig = [["(.*)"]], name = "enquote", regTrig = true }, {
         t [[\enquote{]],
-        i(1),
-        t [[}]],
-        i(2)
+        f(function(args, snip) return snip.captures[1] end, {}),
+        t "}",
       }),
 
-      s({ trig = [[////]], name = "emph" }, {
+      s({ trig = [[//(.+)//]], name = "emph", regTrig = true }, {
         t [[\emph{]],
-        i(1),
+        f(function(args, snip) return snip.captures[1] end, {}),
         t [[}]],
-        i(2),
       }),
 
-      s({ trig = [[#mf]], name = "frac" }, {
+      s({ trig = [[|(.+)/(.+)|]], name = "frac", regTrig = true }, {
         t [[\frac{]],
-        i(1),
+        f(function(args, snip) return snip.captures[1] end, {}),
         t [[}{]],
-        i(2),
+        f(function(args, snip) return snip.captures[2] end, {}),
         t [[}]],
-        i(3)
       }),
 
       -- snippet #Sum Sum
