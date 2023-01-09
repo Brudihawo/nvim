@@ -162,6 +162,43 @@ vim.api.nvim_command("sign define LspDiagnosticsSignWarning text=⚠")
 vim.api.nvim_command("sign define LspDiagnosticsSignInformation text=ⓘ")
 vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
 
+-- VimTeX
+vim.g.vimtex_mappings_disable = {
+  n = { '<leader>ls', '<leader>ll', '<leader>lv' },
+}
+vim.g.vimtex_quickfix_open_on_warning = false
+vim.g.vimtex_quickfix_ignore_filters = {
+  "Overfull",
+  "Underfull",
+  "float specifier",
+}
+
+vim.g.tex_flavour = 'luatex'
+vim.g.vimtex_compiler_method = 'latexmk'
+vim.g.vimtex_view_method = 'zathura'
+vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+-- vim.g.vimtex_compiler_latexmk_engines = {
+--   ['_']                = '',
+--   ['pdflatex']         = '-pdf',
+--   ['dvipdfex']         = '-pdfdvi',
+--   ['lualatex']         = '-lualatex',
+--   ['xelatex']          = '-xelatex',
+--   ['context (pdftex)'] = '-pdf -pdflatex=texexec',
+--   ['context (luatex)'] = '-pdf -pdflatex=context',
+--   ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
+-- }
+
+vim.g.vimtex_compiler_latexmk = {
+  ['executable'] = 'latexmk',
+  ['callback']   = 1,
+  ['hooks']      = {},
+  ['options']    = {
+    '-file-line-error',
+    '-synctex=1',
+    '-interaction=nonstopmode',
+  },
+}
+
 require('symbols-outline').setup({
   symbol_blacklist = {
     'Property',

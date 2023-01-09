@@ -42,7 +42,7 @@ return require('packer').startup(function()
 
   use 'lervag/vimtex'
   use 'jbyuki/nabla.nvim'
-  use 'jalvesaq/zotcite'
+  -- use 'jalvesaq/zotcite'
 
   use 'rareitems/anki.nvim'
 

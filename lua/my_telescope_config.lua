@@ -12,10 +12,12 @@ require('telescope').setup {
       '--trim',
       '--vimgrep'
     },
-    layout_strategy = "vertical",
+    layout_strategy = "bottom_pane",
     layout_config = {
-      vertical = { width = 0.7, height = 0.8 }
-
+      bottom_pane = {
+        height = 0.3,
+        prompt_position = "bottom"
+      }
     },
     prompt_prefix = "≫  ",
     selection_caret = "⟿  ",
