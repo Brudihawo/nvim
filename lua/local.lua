@@ -7,14 +7,15 @@ local defaults = {
   vimtex_view_options = ''
 }
 
-local local_defs = require('local_vals')
+local local_defs, _ = loadfile('local_vals')
 
 if local_defs == nil then
   return defaults
 else
   local retval = {}
+  local file_contents = local_defs()
   for k, v in pairs(defaults) do
-    retval[k] = local_defs[k] or v
+    retval[k] = file_contents[k] or v
   end
   return retval
 end
