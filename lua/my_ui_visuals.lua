@@ -77,11 +77,6 @@ vim.cmd("highlight LspSagaRenameBorder guifg='#d79921'")
 vim.o.signcolumn = 'yes'
 vim.g.gitgutter_signs = false
 
--- LazyGit
-vim.g.lazygit_floating_window_winblend = 0
-vim.g.lazygit_floating_window_use_plenary = 0
-
-
 -------------------------------------------------------------------------------
 -- OTHER UI STUFF
 -------------------------------------------------------------------------------
@@ -107,14 +102,27 @@ vim.o.listchars = 'eol:↲'
 
 require('neoscroll').setup {
   -- All these keys will be mapped. Pass an empty table ({}) for no mappings
-  mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
-    '<C-y>', '<C-e>' },
+  mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>' },
   hide_cursor = true, -- Hide cursor while scrolling
   stop_eof = true, -- Stop at <EOF> when scrolling downwards
   respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
   cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-  easing_function = 'sine'
+  easing_function = 'sine',
 }
+
+local speed_half = '125'
+local speed_whole = '250'
+
+local scroll_mappings = {
+  ['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', speed_half } },
+  ['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', speed_half } },
+  ['<C-b>'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', speed_whole } },
+  ['<C-f>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', speed_whole } },
+  ['<C-y>'] = { 'scroll', { '-0.1', 'false', '100' } },
+  ['<C-e>'] = { 'scroll', { '0.1', 'false', '100' } }
+}
+
+require('neoscroll.config').set_mappings(scroll_mappings)
 
 require('lualine').setup {
   options = {
