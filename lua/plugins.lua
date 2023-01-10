@@ -61,7 +61,13 @@ return require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'nvim-treesitter/playground'
   use { 'Badhi/nvim-treesitter-cpp-tools', requires = { "nvim-treesitter/nvim-treesitter" } }
-
+  use {
+    'danymat/neogen',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('neogen').setup {}
+    end
+  }
 
   -- More used libraries
   use 'nvim-lua/plenary.nvim'
