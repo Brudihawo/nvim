@@ -37,7 +37,7 @@ end
 
 vim.api.nvim_create_user_command("ReloadConfig", reload_config, {})
 vim.api.nvim_create_user_command("GetVisual", get_visual_selection, {})
-vim.api.nvim_create_user_command("ClearRegisters", require('my_funcs').clear_registers, {})
+vim.api.nvim_create_user_command("RegClear", require('my_funcs').clear_registers, {})
 
 local function graphviz_graph(engine)
   local fname = vim.fn.bufname()
@@ -207,13 +207,13 @@ require('nest').applyKeymaps {
     -- Fuzzy Finding Shortcuts
     { 'p>', require("telescope.builtin").find_files },
     { 'g>', require("telescope.builtin").live_grep },
-    { 'b>', '<cmd>Telescope buffers<CR>' },
   } },
 
 
   -- Extended Fuzzy Finding
   { 't', {
     { 'h', '<cmd>Telescope help_tags<CR>' },
+    { 'o', '<cmd>Telescope buffers<CR>' },
     { 'km', '<cmd>Telescope keymaps<CR>' },
     { 's', '<cmd>Telescope lsp_document_symbols<CR>' },
 
