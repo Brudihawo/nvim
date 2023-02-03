@@ -78,7 +78,6 @@ return require('packer').startup(function()
 
   -- Quality of life
   use 'junegunn/vim-easy-align'
-  use 'junegunn/vim-peekaboo'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
 
@@ -86,4 +85,6 @@ return require('packer').startup(function()
   use 'TimUntersberger/Neogit'
   use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-git'
+
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 end)

@@ -35,10 +35,6 @@ local function reload_config()
   end
 end
 
-vim.api.nvim_create_user_command("ReloadConfig", reload_config, {})
-vim.api.nvim_create_user_command("GetVisual", get_visual_selection, {})
-vim.api.nvim_create_user_command("RegClear", require('my_funcs').clear_registers, {})
-
 local function graphviz_graph(engine)
   local fname = vim.fn.bufname()
   local outfile_name = vim.fn.input("Output Filename: ", "", "file")
@@ -120,25 +116,28 @@ local function load_debug_configs()
   end
 end
 
+vim.api.nvim_create_user_command("ReloadConfig", reload_config, {})
+vim.api.nvim_create_user_command("GetVisual", get_visual_selection, {})
+vim.api.nvim_create_user_command("RegClear", require('my_funcs').clear_registers, {})
+vim.api.nvim_create_user_command("GraphDot", function() graphviz_graph("dot") end, {})
+vim.api.nvim_create_user_command("GraphNeato", function() graphviz_graph("neato") end, {})
+vim.api.nvim_create_user_command("GraphTwopi", function() graphviz_graph("twopi") end, {})
+
+
 require('nest').applyKeymaps {
   { '<leader>', {
     { 'N', require('nabla').toggle_virt },
     { 'p', require('nabla').popup },
     { 'f', function() print(vim.fn.bufname()) end },
-    { 'mm', require('my_funcs').man_split },
+    { 'm', require('my_funcs').man_split },
     { 'ct', '<cmd>ColorizerToggle<CR>' }, -- Toggle Coloring of Hex-Values etc
     { 'cw', highlight_trailws },
-    { 'nb', require('my_funcs').new_buf_cmd },
     { 'h', {
+      { 'n', require('my_funcs').new_buf_cmd },
       { 'h', require("harpoon.mark").add_file },
       { 'm', require("harpoon.ui").toggle_quick_menu },
     } },
 
-    -- Quickfix / Locallist Open / Close
-    { 'c', {
-      { 'o', '<cmd>copen<CR>' },
-      { 'c', '<cmd>cclose<CR>' },
-    } },
     { 'l', {
       { 'o', '<cmd>lopen<CR>' },
       { 'c', '<cmd>lclose<CR>' },
@@ -157,6 +156,12 @@ require('nest').applyKeymaps {
     { 'gn', function() graphviz_graph("neato") end },
     { 'gt', function() graphviz_graph("twopi") end },
 
+  } },
+
+  -- Quickfix / Locallist Open / Close
+  { 'c', {
+    { 'o', '<cmd>copen<CR>' },
+    { 'd', '<cmd>cclose<CR>' },
   } },
 
   { '<A-', {
@@ -232,15 +237,19 @@ require('nest').applyKeymaps {
   } },
 
   -- Debugging
+  { '<F1>', function()
+    load_debug_configs()
+    dap.continue()
+  end },
   { '<F2>', dap.toggle_breakpoint },
   { '<F3>', require('dapui').eval },
   { '<F4>', dap.disconnect },
   { '<F5>', dap.continue },
-  { '<F6>', load_debug_configs },
-  { '<F8>', dap.step_into },
-  { '<F9>', dap.step_over },
-  { '<F10>', dap.step_out },
-  { '<F11>', dap.run_to_cursor },
+  { '<F6>', require('dapui').eval },
+  { '<F7>', dap.step_into },
+  { '<F8>', dap.step_over },
+  { '<F9>', dap.step_out },
+  { '<F10>', dap.run_to_cursor },
 
   { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
 
@@ -260,6 +269,7 @@ require('nest').applyKeymaps {
 
     -- Gitsigns
     { 's', '<cmd>Gitsigns toggle_signs<CR>' },
+    { 'l', get_visual_selection },
 
     { 'h', { -- Gitsigns Hunk Actions
       { 'p', '<cmd>Gitsigns prev_hunk<CR>' }, -- Move to Previous
@@ -280,12 +290,12 @@ require('nest').applyKeymaps {
 
   { mode = 'i', {
     { '<C-', {
-      { 'n>', function() require('luasnip').jump(1) end },
-      { 'p>', function() require('luasnip').jump(-1) end },
+      { 't>', function() require('luasnip').jump(1) end },
+      { 's>', function() require('luasnip').jump(-1) end },
       { 'x>', function() require('luasnip').expand() end },
     } },
     { '<C-', {
-      { 's>', vim.lsp.buf.signature_help },
+      { 'h>', vim.lsp.buf.signature_help },
     } },
   } },
 

@@ -117,11 +117,11 @@ require("lspconfig").texlab.setup {
           args = { "-pdflatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
           executable = "latexmk",
           forwardSearchAfter = false,
-          onSave = false
+          onSave = true
         },
         chktex = {
           onEdit = false,
-          onOpenAndSave = false
+          onOpenAndSave = true
         },
         diagnosticsDelay = 100,
         formatterLineLength = 80,

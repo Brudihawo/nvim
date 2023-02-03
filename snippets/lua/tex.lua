@@ -57,7 +57,7 @@ return {},
         i(5)
       }),
 
-      s({ trig = "#svg", name = "Image Figure" }, {
+      s({ trig = "#Svg", name = "Image Figure" }, {
         t("\\begin{figure}[h]"),
         isn(1, {
           t({ "\\centering",
@@ -100,31 +100,37 @@ return {},
         i(2),
       }),
 
+      s({ trig = "#frm", name = "Beamer frame" }, {
+        t [[\begin{frame}{]], i(1, "frametitle"), t { "}", "  " },
+        isn(2, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
+        t { "", [[\end{frame}]] }
+      }),
+
       s({ trig = "#oenv", name = "Environment with Options" }, {
-        t [[\begin{]], i(1), t "}[", i(2, "option"), t { "]", "" },
-        isn(3, i(1, "content"), "$PARENT_INDENT  "),
+        t [[\begin{]], i(1), t "}[", i(2, "option"), t { "]", "  " },
+        isn(3, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t { "", [[\end{]] }, d(4, function(args) return sn(nil, { i(1, args[1]) }) end, { 1 }), t [[}]],
       }),
-      s({ trig = "#env", name = "Environment with Options" }, {
+      s({ trig = "#env", name = "Environment" }, {
         t [[\begin{]], i(1), t { "}", "" },
-        isn(2, i(1, "content"), "$PARENT_INDENT  "),
+        isn(2, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t { "", [[\end{]] }, d(3, function(args) return sn(nil, { i(1, args[1]) }) end, { 1 }), t [[}]],
       }),
       s({ trig = "#eqn", name = "Equation" }, {
-        t [[\begin{equation}]],
-        isn(1, i(1, "content"), "$PARENT_INDENT  "),
+        t { [[\begin{equation}]], ""},
+        isn(1, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t { "", [[\end{equation}]] },
       }),
 
       s({ trig = "#imz", name = "Itemize" }, {
         t { [[\begin{itemize}]], "" },
-        isn(1, i(1, "content"), "$PARENT_INDENT  "),
+        isn(1, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t { "", [[\end{itemize}]] },
       }),
 
       s({ trig = "#enum", name = "Enumerate" }, {
         t { [[\begin{enumerate}]], "" },
-        isn(1, i(1, "content"), "$PARENT_INDENT  "),
+        isn(1, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t { "", [[\end{enumerate}]] },
       }),
 
@@ -164,6 +170,10 @@ return {},
         t [[}]],
         i(2),
       }),
+      s({ trig = "%*(.*)%*", name = "bold", regTrig = true }, {
+        f(function(args, snip) return [[\textbf{]] .. snip.captures[1] .. [[}]]
+        end, {}),
+      }),
       s({ trig = "#bf", name = "bold" }, {
         t [[\textbf{]],
         i(1, "bold"),
@@ -188,7 +198,7 @@ return {},
 
       s({ trig = "#tbx", name = "tabularx" }, {
         t [[\begin{tabularx}{]], i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t { "}", "" },
-        isn(3, i(1, "content"), "$PARENT_INDENT  "),
+        isn(3, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t("", [[\end{tabularx}]], ""),
         i(4),
       }),
@@ -197,7 +207,7 @@ return {},
         t { "\\begin{table}[h]", "" },
         isn(1, {
           t [[\begin{tabularx}{]], i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t "}",
-          isn(3, i(1, "content"), "$PARENT_INDENT  "),
+          isn(3, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
           t("", [[\end{tabularx}]], ""),
           t [[\caption{]], i(4, "caption"), t({ "}", "" }),
         }, "$PARENT_INDENT  "),
@@ -207,7 +217,7 @@ return {},
 
       s({ trig = "°", name = "degrees" }, t [[^{\circ}]]),
       s({ trig = "#Scb", name = "subcaptionbox" }, {
-        t [[\subcaptionbox{]], i(1, "caption"), t "}{", i(2, "content"), t "}", i(3)
+        t [[\subcaptionbox{]], i(1, "caption"), t "}{", { t { "  " }, i(2, "content") }, t "}", i(3)
       }),
       s({ trig = "#Sci", name = "subcaptionbox image" }, {
         t [[\subcaptionbox{]], i(1, "caption"), t "}{\\includegraphics[width=", i(2, "width"), t "\textwidth]{",

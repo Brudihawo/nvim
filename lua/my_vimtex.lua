@@ -4,6 +4,7 @@ vim.g.vimtex_mappings_disable = {
 
 vim.g.vimtex_quickfix_open_on_warning = false
 vim.g.vimtex_fold_enabled = true
+vim.o.foldlevel = 10
 vim.g.vimtex_syntax_conceal = {
   accents = true,
   ligatures = true,
@@ -18,6 +19,7 @@ vim.g.vimtex_syntax_conceal = {
   sections = true,
   styles = true,
 }
+
 vim.g.vimtex_quickfix_ignore_filters = {
   "Overfull",
   "Underfull",
@@ -25,14 +27,16 @@ vim.g.vimtex_quickfix_ignore_filters = {
 }
 
 vim.g.vimtex_compiler_method = 'latexmk'
-
 vim.g.tex_flavour = require('local').vimtex_tex_flavor
-vim.g.vimtex_view_general_viewer = require('local').vimtex_viewer
-vim.g.vimtex_view_general_options = require('local').vimtex_view_options
+vim.g.vimtex_view_method = require('local').vimtex_view_method
+vim.g.vimtex_view_general_viewer = require('local').vimtex_view_general_viewer
+vim.g.vimtex_view_general_options = require('local').vimtex_view_general_options
+
 vim.g.vimtex_compiler_latexmk = {
   ['executable'] = 'latexmk',
   ['callback']   = 1,
   ['hooks']      = {},
+  ['build_dir']  = "./build",
   ['options']    = {
     '-file-line-error',
     '-synctex=1',
@@ -40,4 +44,3 @@ vim.g.vimtex_compiler_latexmk = {
     '--shell-escape',
   },
 }
-
