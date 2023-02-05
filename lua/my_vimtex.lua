@@ -44,3 +44,8 @@ vim.g.vimtex_compiler_latexmk = {
     '--shell-escape',
   },
 }
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = "*.tex",
+  callback = function() vim.cmd("setlocal indentexpr=GetTexIndent()") end,
+})
