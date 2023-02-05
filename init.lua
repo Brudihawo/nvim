@@ -59,11 +59,15 @@ vim.g.coq_settings = {
   },
   clients = {
     ["tags.enabled"] = false,
-    ["tree_sitter.enabled"] = false,
+    ["tree_sitter"] = { enabled = false },
     ["snippets.enabled"] = false,
     lsp = {
       enabled = true,
       weight_adjust = 1.5,
+    },
+    buffers = {
+      enabled = true,
+      weight_adjust = 0.5,
     },
     paths = {
       enabled = true,
