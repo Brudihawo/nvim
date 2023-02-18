@@ -48,7 +48,6 @@ return require('packer').startup(function()
 
   use { 'iamcco/markdown-preview.nvim', run = ":call mkdp#util#install()" }
 
-  -- use 'karb94/neoscroll.nvim'
   use 'mrjones2014/legendary.nvim'
 
   -- Debugging
