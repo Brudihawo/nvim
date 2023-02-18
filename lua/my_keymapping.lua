@@ -101,7 +101,7 @@ local function search_to_loclist()
   local term = vim.fn.input("Search String: ", "")
   vim.cmd("lexpr []")
   vim.cmd(":g/" .. term ..
-    '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
+  '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
 end
 
 local dap = require('dap')
