@@ -47,6 +47,7 @@ vim.g.coq_settings = {
   },
   display = {
     ghost_text = {
+      context = { "<", ">" },
       enabled = true,
     },
     pum = {
@@ -55,6 +56,18 @@ vim.g.coq_settings = {
     },
     icons = {
       mode = "long",
+    },
+    preview = {
+      border = {
+        { "", "NormalFloat" }, -- top left
+        { "", "NormalFloat" }, -- top
+        { "", "NormalFloat" }, -- top right
+        { "", "NormalFloat" }, -- right
+        { "", "NormalFloat" }, -- bottom right
+        { "", "NormalFloat" }, -- bottom
+        { "", "NormalFloat" }, -- bottom left
+        { "", "NormalFloat" }, -- left
+      },
     }
   },
   clients = {
