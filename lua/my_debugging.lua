@@ -76,7 +76,7 @@ dap.configurations.python = {
   end,
 }
 
--- DAP-UI
+--[[ -- DAP-UI
 local dapui = require("dapui")
 dapui.setup { layouts = {
   {
@@ -113,4 +113,4 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 require('nvim-dap-virtual-text').setup()
-vim.fn.sign_define('DapBreakpoint', { text = 'B' })
+vim.fn.sign_define('DapBreakpoint', { text = 'B' }) ]]

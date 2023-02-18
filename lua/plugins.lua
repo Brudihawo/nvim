@@ -1,89 +1,100 @@
-return require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git", "clone", "--filter=blob:none", "--branch=stable", "https://github.com/folke/lazy.nvim.git",
+    lazypath
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
+require('lazy').setup {
+  "folke/lazy.nvim",
   -- UI
-  use 'hoob3rt/lualine.nvim'
-  use 'kyazdani42/nvim-web-devicons'
+  'hoob3rt/lualine.nvim',
+  'kyazdani42/nvim-web-devicons',
 
   -- Colorscheme
-  use 'rktjmp/lush.nvim'
-  use 'savq/melange'
+  'rktjmp/lush.nvim',
+  'savq/melange',
 
-  use 'norcalli/nvim-colorizer.lua'
+  'norcalli/nvim-colorizer.lua',
 
-  use 'b3nj5m1n/kommentary'
+  'b3nj5m1n/kommentary',
 
   -- Movement
-  use 'ggandor/leap.nvim'
-  use { 'ThePrimeagen/harpoon', requires = { { 'nvim-lua/plenary.nvim' } } }
+  'ggandor/leap.nvim',
+  { 'ThePrimeagen/harpoon',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- LSP-y / Language specific stuff
-  use 'neovim/nvim-lspconfig'
-  use 'folke/lsp-colors.nvim'
-  use 'ray-x/lsp_signature.nvim'
-  use 'vhdirk/vim-cmake'
-  use { 'ThePrimeagen/refactoring.nvim',
-    requires = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-treesitter/nvim-treesitter" }
+  'neovim/nvim-lspconfig',
+  'folke/lsp-colors.nvim',
+  'ray-x/lsp_signature.nvim',
+  'vhdirk/vim-cmake',
+  { 'ThePrimeagen/refactoring.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter"
     }
-  }
-  use 'simrat39/symbols-outline.nvim'
+  },
 
-  use { 'inkarkat/vim-SpellCheck', requires = { { 'inkarkat/vim-ingo-library' } } }
+  'simrat39/symbols-outline.nvim',
+
+  { 'inkarkat/vim-SpellCheck', dependencies = { 'inkarkat/vim-ingo-library' } },
 
   -- autocompletion
-  use {
+  {
     'ms-jpq/coq_nvim',
-    requires = { { "ms-jpq/coq.thirdparty", branch = "3p" } },
-    run = ":COQdeps"
-  }
-  use 'L3MON4D3/LuaSnip'
+    dependencies = { { "ms-jpq/coq.thirdparty", branch = "3p" } },
+    build = ":COQdeps"
+  },
+  'L3MON4D3/LuaSnip',
 
-  use 'lervag/vimtex'
-  use 'jbyuki/nabla.nvim'
-  -- use 'jalvesaq/zotcite'
+  'lervag/vimtex',
+  'jbyuki/nabla.nvim',
+  -- 'jalvesaq/zotcite',
 
-  use 'rareitems/anki.nvim'
+  'rareitems/anki.nvim',
 
-  use { 'iamcco/markdown-preview.nvim', run = ":call mkdp#util#install()" }
+  { 'iamcco/markdown-preview.nvim',                build = ":call mkdp#util#install()" },
 
-  use 'mrjones2014/legendary.nvim'
+  'mrjones2014/legendary.nvim',
 
   -- Debugging
-  use 'mfussenegger/nvim-dap'
-  use 'rcarriga/nvim-dap-ui'
-  use 'theHamsta/nvim-dap-virtual-text'
+  { 'mfussenegger/nvim-dap',                       lazy = false },
+  -- { 'rcarriga/nvim-dap-ui',                        dependencies = { "mfussenegger/nvim-dap" },          config = true, lazy = false },
+  { 'theHamsta/nvim-dap-virtual-text',             dependencies = { "mfussenegger/nvim-dap" } },
 
-  use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
-  use 'nvim-treesitter/nvim-treesitter-refactor'
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'nvim-treesitter/playground'
-  use { 'Badhi/nvim-treesitter-cpp-tools', requires = { "nvim-treesitter/nvim-treesitter" } }
-  use {
+  { 'nvim-treesitter/nvim-treesitter',             build = ":TSUpdate" },
+  { 'nvim-treesitter/nvim-treesitter-refactor',    dependencies = { 'nvim-treesitter/nvim-treesitter' } },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
+  { 'nvim-treesitter/playground',                  dependencies = { 'nvim-treesitter/nvim-treesitter' } },
+  { 'Badhi/nvim-treesitter-cpp-tools',             dependencies = { "nvim-treesitter/nvim-treesitter" } },
+  {
     'danymat/neogen',
-    requires = { 'nvim-treesitter/nvim-treesitter' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('neogen').setup {}
     end
-  }
+  },
 
   -- More used libraries
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-lua/popup.nvim'
+  'nvim-lua/plenary.nvim',
+  'nvim-lua/popup.nvim',
 
   -- Telescope
-  use 'nvim-telescope/telescope.nvim'
+  'nvim-telescope/telescope.nvim',
 
   -- Quality of life
-  use 'junegunn/vim-easy-align'
-  use 'tpope/vim-repeat'
-  use 'tpope/vim-surround'
+  'junegunn/vim-easy-align',
+  'tpope/vim-repeat',
+  'tpope/vim-surround',
+  'anuvyklack/hydra.nvim',
+  'folke/which-key.nvim',
 
   -- Git
-  use 'TimUntersberger/Neogit'
-  use 'lewis6991/gitsigns.nvim'
-  use 'tpope/vim-git'
+  'TimUntersberger/Neogit',
+  'lewis6991/gitsigns.nvim',
+  'tpope/vim-git',
 
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-end)
+  { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' }
+}

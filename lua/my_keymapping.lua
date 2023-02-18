@@ -143,6 +143,8 @@ hydra({
   }
 })
 
+-- local dapui = require('dapui')
+
 require('legendary').setup {
   keymaps = {
     { '<leader>N', require('nabla').toggle_virt },
@@ -256,10 +258,10 @@ require('legendary').setup {
       dap.continue()
     end },
     { '<F2>',  dap.toggle_breakpoint },
-    { '<F3>',  require('dapui').eval },
+    -- { '<F3>',  dapui.eval },
     { '<F4>',  dap.disconnect },
     { '<F5>',  dap.continue },
-    { '<F6>',  require('dapui').eval },
+    -- { '<F6>',  dapui.eval },
     { '<F7>',  dap.step_into },
     { '<F8>',  dap.step_over },
     { '<F9>',  dap.step_out },
