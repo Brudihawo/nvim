@@ -15,6 +15,7 @@ local defaults = {
   lldb_vscode_path = '/usr/bin/lldb-vscode',
   vimtex_tex_flavor = 'lualatex',
   vimtex_view_method = 'zathura',
+  vimtex_view_zathura_options = '',
   vimtex_view_general_viewer = 'okular',
   vimtex_view_general_options = '',
 }
