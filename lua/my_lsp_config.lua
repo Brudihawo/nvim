@@ -1,6 +1,4 @@
-local coq = require('coq')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true;
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
     'documentation',
@@ -10,35 +8,33 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 require("lspconfig").pylsp.setup {
-  coq.lsp_ensure_capabilities {
-    capabilities = capabilities,
-    -- on_attach = require('lsp_signature').on_attach("pylsp"),
-    settings = {
-      pylsp = {
-        configurationSources = { "flake8" },
-        plugins = {
-          pydocstyle = {
-            enabled = true,
-            convention = 'google'
-          },
-          pyls_isort = {
-            enabled = true
-          },
-          jedi_completion = {
-            enabled = true,
-            fuzzy = true,
-            eager = true
-          },
-          black = {
-            enabled = true,
-            args = {
-              '-l', '90'
-            }
-          },
-          flake8 = {
-            enabled = true,
-            args = { "--ignore=E203,W503" },
+  capabilities = capabilities,
+  -- on_attach = require('lsp_signature').on_attach("pylsp"),
+  settings = {
+    pylsp = {
+      configurationSources = { "flake8" },
+      plugins = {
+        pydocstyle = {
+          enabled = true,
+          convention = 'google'
+        },
+        pyls_isort = {
+          enabled = true
+        },
+        jedi_completion = {
+          enabled = true,
+          fuzzy = true,
+          eager = true
+        },
+        black = {
+          enabled = true,
+          args = {
+            '-l', '90'
           }
+        },
+        flake8 = {
+          enabled = true,
+          args = { "--ignore=E203,W503" },
         }
       }
     }
@@ -46,107 +42,96 @@ require("lspconfig").pylsp.setup {
 }
 
 require("lspconfig").rust_analyzer.setup {
-  coq.lsp_ensure_capabilities {
-    capabilities = capabilities,
-    settings = {
-      ["rust-analyzer"] = {
-        assist = {
-          importGranularity = "module",
-          importPrefix = "by_self",
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+        ["buildScripts.enable"] = true
+      },
+      procMacro = {
+        enable = true,
+      },
+      inlayHints = {
+        ["chainingHints.enable"] = true,
+        auto = true,
+        show_parameter_hints = true,
+        closingBraceHints = {
+          minLines = 4,
+          enable = true
         },
-        cargo = {
-          loadOutDirsFromCheck = true,
-          ["buildScripts.enable"] = true
-        },
-        procMacro = {
-          enable = true,
-        },
-        inlayHints = {
-          ["chainingHints.enable"] = true,
-          auto = true,
-          show_parameter_hints = true,
-          closingBraceHints = {
-            minLines = 4,
-            enable = true
-          },
-          ["typeHints.enable"] = true
-        }
+        ["typeHints.enable"] = true
       }
     }
   }
 }
 
-require("lspconfig").sumneko_lua.setup {
-  coq.lsp_ensure_capabilities {
-    cmd = { "lua-language-server" },
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = runtime_path,
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { { 'vim' } },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
+require 'lspconfig'.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
       },
     },
-  }
+  },
 }
 
 require("lspconfig").texlab.setup {
-  coq.lsp_ensure_capabilities {
-    capabilities = capabilities,
-    cmd = { "texlab" },
-    filetypes = { "tex", "bib" },
-    settings = {
-      texlab = {
-        auxDirectory = ".",
-        bibtexFormatter = "texlab",
-        build = {
-          args = { "-pdflatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
-          executable = "latexmk",
-          forwardSearchAfter = false,
-          onSave = true
-        },
-        chktex = {
-          onEdit = false,
-          onOpenAndSave = true
-        },
-        diagnosticsDelay = 100,
-        formatterLineLength = 80,
-        forwardSearch = {
-          args = {}
-        },
-        latexFormatter = "latexindent",
-        latexindent = {
-          modifyLineBreaks = false
-        }
+  capabilities = capabilities,
+  cmd = { "texlab" },
+  filetypes = { "tex", "bib" },
+  settings = {
+    texlab = {
+      auxDirectory = ".",
+      bibtexFormatter = "texlab",
+      build = {
+        args = { "-pdflatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
+        executable = "latexmk",
+        forwardSearchAfter = false,
+        onSave = true
+      },
+      chktex = {
+        onEdit = false,
+        onOpenAndSave = true
+      },
+      diagnosticsDelay = 100,
+      formatterLineLength = 80,
+      forwardSearch = {
+        args = {}
+      },
+      latexFormatter = "latexindent",
+      latexindent = {
+        modifyLineBreaks = false
       }
     }
   }
 }
 
 require("lspconfig").clangd.setup {
-  capabilities = coq.lsp_ensure_capabilities {
-    capabilities = capabilities,
-  },
+  capabilities = capabilities,
   rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
 }
 
 require("lspconfig").cmake.setup {
-  coq.lsp_ensure_capabilities { capabilities = capabilities, }
+  capabilities = capabilities,
 }
 
 require("lsp-colors").setup({
@@ -223,7 +208,7 @@ require('symbols-outline').setup({
 return {
   print_response = function(err, method, result, client_id, bufnr, config)
     print("Config: " .. vim.inspect(config) .. " " ..
-      "Method: " .. vim.inspect(method) .. " " ..
-      "Result: " .. vim.inspect(result))
+    "Method: " .. vim.inspect(method) .. " " ..
+    "Result: " .. vim.inspect(result))
   end
 }
