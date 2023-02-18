@@ -124,6 +124,24 @@ vim.api.nvim_create_user_command("GraphNeato", function() graphviz_graph("neato"
 vim.api.nvim_create_user_command("GraphTwopi", function() graphviz_graph("twopi") end, {})
 
 
+local hydra = require('hydra')
+hydra({
+  name = "Window Edit Mode",
+  node = "n",
+  body = "<C-w>",
+  heads = {
+    { "<Esc>", nil,                          { exit = true } },
+    { 'J',     '<cmd>resize +3<CR>' },
+    { 'K',     '<cmd>resize -3<CR>' },
+    { 'H',     '<cmd>vertical resize -3<CR>' },
+    { 'L',     '<cmd>vertical resize +3<CR>' },
+
+    { 'j',     '<C-w>j' },
+    { 'k',     '<C-w>k' },
+    { 'h',     '<C-w>h' },
+    { 'l',     '<C-w>l' },
+  }
+})
 
 require('legendary').setup {
   keymaps = {
@@ -159,22 +177,13 @@ require('legendary').setup {
     { 'co',         '<cmd>copen<CR>' },
     { 'cd',         '<cmd>cclose<CR>' },
 
-    -- Resizing
-    { '<A-J>',      '<cmd>resize +3<CR>' },
-    { '<A-K>',      '<cmd>resize -3<CR>' },
-    { '<A-H>',      '<cmd>vertical resize -3<CR>' },
-    { '<A-L>',      '<cmd>vertical resize +3<CR>' },
-
     { '<A-t>',      '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
     { 'Lrn',        vim.lsp.buf.rename },
     { 'Lrr',        vim.lsp.buf.references },
-
     { 'Lh',         vim.lsp.buf.hover },
-
     { 'Lv',         peek_def }, -- View
-
     { 'Lci',        vim.lsp.buf.incoming_calls },
     { 'Lco',        vim.lsp.buf.outgoing_calls },
     { 'Lca',        vim.lsp.buf.code_action },
@@ -204,9 +213,9 @@ require('legendary').setup {
 
     { '<C-q>', '<C-x>',                                  desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
     -- Buffer management
-    { '<C-j>',  '<cmd>bnext<CR>' },
-    { '<C-k>',  '<cmd>bprev<CR>' },
-    { '<C-x>',  '<cmd>bdelete<CR>' },
+    { '<C-j>', '<cmd>bnext<CR>' },
+    { '<C-k>', '<cmd>bprev<CR>' },
+    { '<C-x>', '<cmd>bdelete<CR>' },
 
 
 
