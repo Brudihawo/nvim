@@ -124,199 +124,191 @@ vim.api.nvim_create_user_command("GraphNeato", function() graphviz_graph("neato"
 vim.api.nvim_create_user_command("GraphTwopi", function() graphviz_graph("twopi") end, {})
 
 
-require('nest').applyKeymaps {
-  { '<leader>', {
-    { 'N', require('nabla').toggle_virt },
-    { 'p', require('nabla').popup },
-    { 'f', function() print(vim.fn.bufname()) end },
-    { 'm', require('my_funcs').man_split },
-    { 'ct', '<cmd>ColorizerToggle<CR>' }, -- Toggle Coloring of Hex-Values etc
-    { 'cw', highlight_trailws },
-    { 'h', {
-      { 'n', require('my_funcs').new_buf_cmd },
-      { 'h', require("harpoon.mark").add_file },
-      { 'm', require("harpoon.ui").toggle_quick_menu },
-    } },
 
-    { 'l', {
-      { 'o', '<cmd>lopen<CR>' },
-      { 'c', '<cmd>lclose<CR>' },
-      { 's', search_to_loclist },
-    } },
+require('legendary').setup {
+  keymaps = {
+    { '<leader>N', require('nabla').toggle_virt },
+    { '<leader>p', require('nabla').popup },
+    { '<leader>f', function()
+      print(vim.fn.bufname())
+    end },
+    { '<leader>m',  require('my_funcs').man_split },
+    { '<leader>ct', '<cmd>ColorizerToggle<CR>' }, -- Toggle Coloring of Hex-Values etc
+    { '<leader>cw', highlight_trailws },
+    { '<leader>hn', require('my_funcs').new_buf_cmd },
+    { '<leader>hh', require("harpoon.mark").add_file },
+    { '<leader>hm', require("harpoon.ui").toggle_quick_menu },
+
+    { '<leader>lo', '<cmd>lopen<CR>' },
+    { '<leader>lc', '<cmd>lclose<CR>' },
+    { '<leader>ls', search_to_loclist },
 
     -- todos to quickfix
-    { 't', function() require('my_funcs').todos_qflist() end },
+    { '<leader>t', function()
+      require('my_funcs').todos_qflist()
+    end },
 
-    { 'r', { -- Refactoring.nvim
-      { 'r', require('refactoring').select_refactor, mode = 'v' },
-    } },
+    { 'r<leader>',  require('refactoring').select_refactor, mode = 'v' },
 
     -- Create dot / neato Graph
-    { 'gd', function() graphviz_graph("dot") end },
-    { 'gn', function() graphviz_graph("neato") end },
-    { 'gt', function() graphviz_graph("twopi") end },
+    { '<leader>gd', function() graphviz_graph("dot") end },
+    { '<leader>gn', function() graphviz_graph("neato") end },
+    { '<leader>gt', function() graphviz_graph("twopi") end },
 
-  } },
+    -- Quickfix / Locallist Open / Close
+    { 'co',         '<cmd>copen<CR>' },
+    { 'cd',         '<cmd>cclose<CR>' },
 
-  -- Quickfix / Locallist Open / Close
-  { 'c', {
-    { 'o', '<cmd>copen<CR>' },
-    { 'd', '<cmd>cclose<CR>' },
-  } },
-
-  { '<A-', {
     -- Resizing
-    { 'J>', '<cmd>resize +3<CR>' },
-    { 'K>', '<cmd>resize -3<CR>' },
-    { 'H>', '<cmd>vertical resize -3<CR>' },
-    { 'L>', '<cmd>vertical resize +3<CR>' },
+    { '<A-J>',      '<cmd>resize +3<CR>' },
+    { '<A-K>',      '<cmd>resize -3<CR>' },
+    { '<A-H>',      '<cmd>vertical resize -3<CR>' },
+    { '<A-L>',      '<cmd>vertical resize +3<CR>' },
 
-    { 't>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
-  } },
+    { '<A-t>',      '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
-  { 'L', {
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
-    { 'rn', vim.lsp.buf.rename },
-    { 'rr', vim.lsp.buf.references },
+    { 'Lrn',        vim.lsp.buf.rename },
+    { 'Lrr',        vim.lsp.buf.references },
 
-    { 'h', vim.lsp.buf.hover },
+    { 'Lh',         vim.lsp.buf.hover },
 
-    { 'v', peek_def }, -- View
+    { 'Lv',         peek_def }, -- View
 
-    { 'ci', vim.lsp.buf.incoming_calls },
-    { 'co', vim.lsp.buf.outgoing_calls },
-    { 'ca', vim.lsp.buf.code_action },
+    { 'Lci',        vim.lsp.buf.incoming_calls },
+    { 'Lco',        vim.lsp.buf.outgoing_calls },
+    { 'Lca',        vim.lsp.buf.code_action },
 
-    { 'p', { -- Populate Quickfixlist
-      { 'w', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN }) end },
-      { 'e', function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end },
-    } },
+    -- Populate Quickfixlist
+    { 'Lpw', function()
+      vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN })
+    end },
+    { 'Lpe', function()
+      vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+    end },
 
-    { 'l', { -- Populate Locallist
-      { 'w', function() vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.WARN }) end },
-      { 'e', function() vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR }) end },
-    } },
+    -- Populate Locallist
+    { 'Llw', function()
+      vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.WARN })
+    end },
+    { 'Lle', function()
+      vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR })
+    end },
 
-    { 'd', function() vim.diagnostic.open_float(0, { scope = "line" }) end },
-    { 'f', function() vim.lsp.buf.format { async = true } end },
-  } },
+    { 'Ld', function()
+      vim.diagnostic.open_float(0, { scope = "line" })
+    end },
+    { 'Lf', function()
+      vim.lsp.buf.format { async = true }
+    end },
 
-  { '<C-', {
-    { 'q>', '<C-x>' }, -- Decrement Number
-
+    { '<C-q>', '<C-x>',                                  desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
     -- Buffer management
-    { 'j>', '<cmd>bnext<CR>' },
-    { 'k>', '<cmd>bprev<CR>' },
-    { 'x>', '<cmd>bdelete<CR>' },
+    { '<C-j>',  '<cmd>bnext<CR>' },
+    { '<C-k>',  '<cmd>bprev<CR>' },
+    { '<C-x>',  '<cmd>bdelete<CR>' },
+
+
 
     -- Fuzzy Finding Shortcuts
-    { 'p>', require("telescope.builtin").find_files },
-    { 'g>', require("telescope.builtin").live_grep },
-  } },
+    { '<C-p>', require("telescope.builtin").find_files },
+    { '<C-g>', require("telescope.builtin").live_grep },
 
 
-  -- Extended Fuzzy Finding
-  { 't', {
-    { 'h', '<cmd>Telescope help_tags<CR>' },
-    { 'o', '<cmd>Telescope buffers<CR>' },
-    { 'km', '<cmd>Telescope keymaps<CR>' },
-    { 's', '<cmd>Telescope lsp_document_symbols<CR>' },
+    -- Extended Fuzzy Finding
+    { 'th',    '<cmd>Telescope help_tags<CR>' },
+    { 'to',    '<cmd>Telescope buffers<CR>' },
+    { 'tkm',   '<cmd>Telescope keymaps<CR>' },
+    { 'ts',    '<cmd>Telescope lsp_document_symbols<CR>' },
 
-    { 'e', { -- Edit Config
-      { 'e',
-        function() require("telescope.builtin").find_files({ cwd = "~/dotfiles/nvim",
-            file_ignore_patterns = { "pack/*", ".git/*" } })
-        end },
-      { 'g',
-        function() require("telescope.builtin").live_grep({ cwd = "~/dotfiles/nvim",
-            file_ignore_patterns = { "pack/*", ".git/*" } })
-        end },
-    } },
+    -- Edit Config
+    { 'tee',
+      function()
+        require("telescope.builtin").find_files({
+          cwd = "~/dotfiles/nvim",
+          file_ignore_patterns = { "pack/*", ".git/*" }
+        })
+      end },
+    { 'teg',
+      function()
+        require("telescope.builtin").live_grep({
+          cwd = "~/dotfiles/nvim",
+          file_ignore_patterns = { "pack/*", ".git/*" }
+        })
+      end },
 
-    { 'kk', function() require("telescope.builtin").current_buffer_fuzzy_find({ sort = "ascending" }) end },
-  } },
+    { 'tkk', function()
+      require("telescope.builtin").current_buffer_fuzzy_find({ sort = "ascending" })
+    end },
 
-  -- Debugging
-  { '<F1>', function()
-    load_debug_configs()
-    dap.continue()
-  end },
-  { '<F2>', dap.toggle_breakpoint },
-  { '<F3>', require('dapui').eval },
-  { '<F4>', dap.disconnect },
-  { '<F5>', dap.continue },
-  { '<F6>', require('dapui').eval },
-  { '<F7>', dap.step_into },
-  { '<F8>', dap.step_over },
-  { '<F9>', dap.step_out },
-  { '<F10>', dap.run_to_cursor },
+    -- Debugging
+    { '<F1>', function()
+      load_debug_configs()
+      dap.continue()
+    end },
+    { '<F2>',  dap.toggle_breakpoint },
+    { '<F3>',  require('dapui').eval },
+    { '<F4>',  dap.disconnect },
+    { '<F5>',  dap.continue },
+    { '<F6>',  require('dapui').eval },
+    { '<F7>',  dap.step_into },
+    { '<F8>',  dap.step_over },
+    { '<F9>',  dap.step_out },
+    { '<F10>', dap.run_to_cursor },
 
-  { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
+    { 'dAW',   ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
 
-  -- Quickfix and Locallist movement
-  { ',', '<cmd>cnext<CR>' },
-  { ';', '<cmd>cprev<CR>' },
+    -- Quickfix and Locallist movement
+    { ',',     '<cmd>cnext<CR>' },
+    { ';',     '<cmd>cprev<CR>' },
 
-  { 'ü', '<cmd>lnext<CR>' },
-  { 'Ü', '<cmd>lprev<CR>' },
+    { 'ü',    '<cmd>lnext<CR>' },
+    { 'Ü',    '<cmd>lprev<CR>' },
 
 
-  { 'g', { -- ga ... for vim-easy-align
+    -- ga ... for vim-easy-align
     -- Go to Declaration / Definition
-    { 'D', vim.lsp.buf.declaration },
-    { 'd', vim.lsp.buf.definition },
-    { 'i', vim.lsp.buf.implementation },
+    { 'gD',    vim.lsp.buf.declaration },
+    { 'gd',    vim.lsp.buf.definition },
+    { 'gi',    vim.lsp.buf.implementation },
 
     -- Gitsigns
-    { 's', '<cmd>Gitsigns toggle_signs<CR>' },
-    { 'l', get_visual_selection },
+    { 'gs',    '<cmd>Gitsigns toggle_signs<CR>' },
+    { 'gl',    get_visual_selection },
 
-    { 'h', { -- Gitsigns Hunk Actions
-      { 'p', '<cmd>Gitsigns prev_hunk<CR>' }, -- Move to Previous
-      { 'n', '<cmd>Gitsigns next_hunk<CR>' }, -- Move to Next
-      { 's', '<cmd>Gitsigns stage_hunk<CR>' }, -- Stage
-      { 'u', '<cmd>Gitsigns undo_stage_hunk<CR>' }, -- Undo Stage
-      { 'r', '<cmd>Gitsigns reset_hunk<CR>' }, -- Undo Stage
-    } },
-    { 'b', '<cmd>Gitsigns blame_line<CR>' },
+    -- TODO: Change these to something more ergonomic
+    -- Gitsigns Hunk Actions
+    { 'ghp',   '<cmd>Gitsigns prev_hunk<CR>' },
+    { 'ghn',   '<cmd>Gitsigns next_hunk<CR>' },
+    { 'ghs',   '<cmd>Gitsigns stage_hunk<CR>' },
+    { 'ghu',   '<cmd>Gitsigns undo_stage_hunk<CR>' },
+    { 'ghr',   '<cmd>Gitsigns reset_hunk<CR>' },
+    { 'gb',    '<cmd>Gitsigns blame_line<CR>' },
+    { "==",    '<cmd>Gitsigns preview_hunk<CR>' },
 
-    { 'q', { -- Quickfix Actions
-      { 'q', '<cmd>Gitsigns setqflist<CR>' },
-    } },
-    { 'f', '<cmd>e <cfile><CR>' },
-  } },
-
-  { "==", '<cmd>Gitsigns preview_hunk<CR>' },
-
-  { mode = 'i', {
-    { '<C-', {
-      { 't>', function() require('luasnip').jump(1) end },
-      { 's>', function() require('luasnip').jump(-1) end },
-      { 'x>', function() require('luasnip').expand() end },
-    } },
-    { '<C-', {
-      { 'h>', vim.lsp.buf.signature_help },
-    } },
-  } },
+    -- Quickfix Actions
+    { 'gq',    '<cmd>Gitsigns setqflist<CR>' },
+    { 'gf',    '<cmd>e <cfile><CR>' },
 
 
-  { mode = 'n', {
-    { 'gcc', '<Plug>kommentary_line_default' },
-    { 'gc', '<Plug>kommentary_motion_default' },
-  } },
-  { mode = 'v', {
-    { 'gc', '<Plug>kommentary_visual_default<CR>' },
-  } },
-  { mode = 'vn', {
-    { 'ga', '<cmd>EasyAlign<CR>' },
-  } },
-  { mode = 'n', options = { noremap = false }, {
+    { '<C-t>', function()
+      require('luasnip').jump(1)
+    end, mode = 'i' },
+    { '<C-s>', function()
+      require('luasnip').jump( -1)
+    end, mode = 'i' },
+    { '<C-x>', function()
+      require('luasnip').expand()
+    end, mode = 'i' },
+    { '<C-h>',      vim.lsp.buf.signature_help,            mode = 'i' },
+
+
+    { 'gcc',        '<Plug>kommentary_line_default' },
+    { 'gc',         '<Plug>kommentary_motion_default' },
+    { 'gc',         '<Plug>kommentary_visual_default<CR>', mode = "v" },
+    { 'ga',         '<cmd>EasyAlign<CR>',                  mode = { 'v', 'n' } },
     { '<leader>lb', '<Plug>HInsertLineBreak' },
-  } },
-  -- { mode = 'i', options = { noremap = true, silent = true },
-  --   { "<Tab>", require('my_funcs').tab_complete },
-  --   { "<S-Tab>", require('my_funcs').s_tab_complete },
-  -- }
+  }
 }
 
 
