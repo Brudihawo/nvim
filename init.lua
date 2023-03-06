@@ -119,6 +119,7 @@ local leap = require('leap')
 leap.setup {
   case_insensitive = true,
 }
+leap.opts.safe_labels = {}
 leap.set_default_keymaps()
 -- leap.init_highlight(true)
 
