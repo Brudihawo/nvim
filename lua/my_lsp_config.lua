@@ -44,27 +44,27 @@ require("lspconfig").pylsp.setup {
 require("lspconfig").rust_analyzer.setup {
   capabilities = capabilities,
   settings = {
-    ["rust-analyzer"] = {
+        ["rust-analyzer"] = {
       assist = {
         importGranularity = "module",
         importPrefix = "by_self",
       },
       cargo = {
         loadOutDirsFromCheck = true,
-        ["buildScripts.enable"] = true
+            ["buildScripts.enable"] = true
       },
       procMacro = {
         enable = true,
       },
       inlayHints = {
-        ["chainingHints.enable"] = true,
+            ["chainingHints.enable"] = true,
         auto = true,
         show_parameter_hints = true,
         closingBraceHints = {
           minLines = 4,
           enable = true
         },
-        ["typeHints.enable"] = true
+            ["typeHints.enable"] = true
       }
     }
   }
