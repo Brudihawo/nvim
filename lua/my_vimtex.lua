@@ -35,13 +35,23 @@ vim.g.vimtex_view_general_options = require('local').vimtex_view_general_options
 vim.g.vimtex_compiler_latexmk = {
   ['executable'] = 'latexmk',
   ['callback']   = 1,
+  ['continuous']   = 1,
   ['hooks']      = {},
-  ['build_dir']  = "./build",
+  ['build_dir']  = ".latexmk.build",
   ['options']    = {
+    '-pdf',
     '-file-line-error',
     '-synctex=1',
     '-interaction=nonstopmode',
     '--shell-escape',
+  },
+}
+
+vim.g.vimtex_compiler_latexrun = {
+  ['build_dir']  = ".latexrun.build",
+  ['options']    = {
+    '-verbose-cmds',
+    '--latex-args="-synctex=1 --file-line-error -interaction=nonstopmode --shell-escape --extra-mem-bot=10000000"',
   },
 }
 

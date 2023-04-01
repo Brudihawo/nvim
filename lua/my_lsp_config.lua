@@ -94,17 +94,49 @@ require 'lspconfig'.lua_ls.setup {
   },
 }
 
+local arduino_ls_capabilities = vim.lsp.protocol.make_client_capabilities()
+arduino_ls_capabilities.semanticTokensProvider = nil
+
+-- arduino_ls_capabilities.textDocument.completion.completionItem.resolveSupport = {
+--   properties = {
+--     'documentation',
+--     'detail',
+--   }
+-- }
+require 'lspconfig'.arduino_language_server.setup {
+  on_attach = function(client)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+  cmd = {
+    "/usr/bin/arduino-language-server",
+    "-cli-config", "/home/hawo/.arduino15/arduino-cli.yaml",
+    "-cli", "/home/hawo/.local/bin/arduino-cli",
+    "-clangd", "/usr/bin/clangd",
+    "-fqbn", "esp32:esp32:lolin32-lite",
+  }
+}
+
+local texlab_cap = vim.lsp.protocol.make_client_capabilities()
+texlab_cap.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+texlab_cap.textDocument.publishDiagnostics = nil
+
 require("lspconfig").texlab.setup {
   capabilities = capabilities,
   cmd = { "texlab" },
   filetypes = { "tex", "bib" },
   settings = {
     texlab = {
-      auxDirectory = ".",
+      auxDirectory = "./tbuild",
       bibtexFormatter = "texlab",
       build = {
-        args = { "-pdflatex", "-interaction=nonstopmode", "-synctex=1", "%f" },
         executable = "latexmk",
+        args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f", "-output-directory=.texlab_build"},
         forwardSearchAfter = false,
         onSave = true
       },
@@ -112,7 +144,6 @@ require("lspconfig").texlab.setup {
         onEdit = false,
         onOpenAndSave = true
       },
-      diagnosticsDelay = 100,
       formatterLineLength = 80,
       forwardSearch = {
         args = {}
@@ -122,25 +153,21 @@ require("lspconfig").texlab.setup {
         modifyLineBreaks = false
       }
     }
+  },
+  diagnostics = {
+    ignoredPatterns = {".*"}
   }
 }
 
 require("lspconfig").clangd.setup {
   capabilities = capabilities,
   rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
-  filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp" },
+  filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp", "cuda" },
 }
 
 require("lspconfig").cmake.setup {
   capabilities = capabilities,
 }
-
-require("lsp-colors").setup({
-  Error = "#cc241d",
-  Warning = "#d79921",
-  Information = "#b16286",
-  Hint = "#689d6a"
-})
 
 -- Set lsp diagnostic signs
 vim.api.nvim_command("sign define LspDiagnosticsSignError text=\\ ☠")
@@ -175,41 +202,20 @@ vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
 -- }
 
 vim.g.vimtex_compiler_latexmk = {
-  ['executable'] = 'latexmk',
-  ['callback']   = 1,
-  ['hooks']      = {},
-  ['options']    = {
+      ['executable'] = 'latexmk',
+      ['callback'] = 1,
+      ['hooks']  = {},
+      ['options'] = {
     '-file-line-error',
     '-synctex=1',
     '-interaction=nonstopmode',
   },
 }
 
-require('symbols-outline').setup({
-  symbol_blacklist = {
-    'Property',
-    'Field',
-    'Variable',
-    'Constant',
-    'String',
-    'Number',
-    'Boolean',
-    'Object',
-    'Key',
-    'Null',
-    'EnumMember',
-    'Event',
-    'Operator',
-    'TypeParameter',
-    'Component',
-    'Fragment',
-  },
-})
-
 return {
   print_response = function(err, method, result, client_id, bufnr, config)
     print("Config: " .. vim.inspect(config) .. " " ..
-    "Method: " .. vim.inspect(method) .. " " ..
-    "Result: " .. vim.inspect(result))
+      "Method: " .. vim.inspect(method) .. " " ..
+      "Result: " .. vim.inspect(result))
   end
 }
