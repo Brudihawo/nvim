@@ -106,6 +106,12 @@ return {},
         t { "", [[\end{frame}]] }
       }),
 
+      s({ trig = "#mp", name = "Minipage" }, {
+        t { [[\begin{minipage}[c]{0.5\textwidth}]], "" },
+        isn(1, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
+        t { "", [[\end{minipage}]] },
+      }),
+
       s({ trig = "#oenv", name = "Environment with Options" }, {
         t [[\begin{]], i(1), t "}[", i(2, "option"), t { "]", "  " },
         isn(3, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
@@ -117,7 +123,7 @@ return {},
         t { "", [[\end{]] }, d(3, function(args) return sn(nil, { i(1, args[1]) }) end, { 1 }), t [[}]],
       }),
       s({ trig = "#eqn", name = "Equation" }, {
-        t { [[\begin{equation}]], ""},
+        t { [[\begin{equation}]], "" },
         isn(1, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
         t { "", [[\end{equation}]] },
       }),
@@ -206,13 +212,12 @@ return {},
       s({ trig = "#tbl", name = "table float" }, {
         t { "\\begin{table}[h]", "" },
         isn(1, {
-          t [[\begin{tabularx}{]], i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t "}",
+          t { [[\centering]], [[\begin{tabularx}{]] }, i(1, "width"), t [[\textwidth}{]], i(2, "alignment"), t { "}", "" },
           isn(3, { t { "  " }, i(1, "content") }, "$PARENT_INDENT  "),
-          t("", [[\end{tabularx}]], ""),
-          t [[\caption{]], i(4, "caption"), t({ "}", "" }),
+          t { "", [[\end{tabularx}]], "" },
+          t [[\caption{]], i(4, "caption"), t({ "}" }),
         }, "$PARENT_INDENT  "),
         t { "", [[\end{table}]] },
-        i(5),
       }),
 
       s({ trig = "°", name = "degrees" }, t [[^{\circ}]]),
