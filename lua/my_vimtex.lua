@@ -23,7 +23,9 @@ vim.g.vimtex_syntax_conceal = {
 vim.g.vimtex_quickfix_ignore_filters = {
   "Overfull",
   "Underfull",
+  "Missing",
   "float specifier",
+  "Warning"
 }
 
 vim.g.vimtex_compiler_method = 'latexmk'

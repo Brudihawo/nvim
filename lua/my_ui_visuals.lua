@@ -59,6 +59,7 @@ elseif colorscheme == "gruvbox" then
 elseif colorscheme == "melange" then
 
   vim.cmd("colorscheme melange")
+  vim.api.nvim_set_hl(0, "Visual", { bg = "#CC5500", fg = "#FFFFFF" })
   lualine_theme = "auto"
 end
 

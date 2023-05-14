@@ -77,6 +77,7 @@ vim.g.coq_settings = {
     lsp = {
       enabled = true,
       weight_adjust = 1.5,
+      always_on_top = {},
     },
     buffers = {
       enabled = true,
@@ -115,12 +116,14 @@ require('my_keymapping')
 
 
 require('harpoon').setup()
+
 local leap = require('leap')
 leap.setup {
   case_insensitive = true,
+  safe_labels = {},
 }
 leap.set_default_keymaps()
--- leap.init_highlight(true)
+-- LeapLabelPrimary xxx cterm=nocombine ctermfg=0 ctermbg=9 gui=nocombine guifg=Black guibg=#ccff88
 
 local function leap_all_windows()
   require 'leap'.leap {
