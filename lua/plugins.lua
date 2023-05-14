@@ -27,8 +27,6 @@ require('lazy').setup {
 
   -- LSP-y / Language specific stuff
   'neovim/nvim-lspconfig',
-  'folke/lsp-colors.nvim',
-  'ray-x/lsp_signature.nvim',
   'vhdirk/vim-cmake',
   { 'ThePrimeagen/refactoring.nvim',
     dependencies = {
@@ -36,8 +34,6 @@ require('lazy').setup {
       "nvim-treesitter/nvim-treesitter"
     }
   },
-
-  'simrat39/symbols-outline.nvim',
 
   { 'inkarkat/vim-SpellCheck', dependencies = { 'inkarkat/vim-ingo-library' } },
 

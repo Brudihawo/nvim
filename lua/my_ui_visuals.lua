@@ -61,14 +61,8 @@ elseif colorscheme == "melange" then
   vim.cmd("colorscheme melange")
   vim.api.nvim_set_hl(0, "Visual", { bg = "#CC5500", fg = "#FFFFFF" })
   lualine_theme = "auto"
+  vim.api.nvim_set_hl(0, "Visual", {bg = "#CC5500", fg="#FFFFFF"})
 end
-
--- Do i need this?
--- LSPSaga Highlighting
-vim.cmd("highlight LspSagaDefPreviewBorder guifg='#ebdbb2'")
-vim.cmd("highlight clear LspFloatWinBorder")
-vim.cmd("highlight link LspFloatWinBorder LspSagaDefPreviewBorder")
-vim.cmd("highlight LspSagaRenameBorder guifg='#d79921'")
 
 -------------------------------------------------------------------------------
 -- GIT

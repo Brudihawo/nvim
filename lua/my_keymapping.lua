@@ -130,16 +130,21 @@ hydra({
   node = "n",
   body = "<C-w>",
   heads = {
-    { "<Esc>", nil, { exit = true } },
-    { 'J', '<cmd>resize +3<CR>' },
-    { 'K', '<cmd>resize -3<CR>' },
-    { 'H', '<cmd>vertical resize -3<CR>' },
-    { 'L', '<cmd>vertical resize +3<CR>' },
+    { "<Esc>", nil,                          { exit = true } },
+    { 'J',     '<cmd>resize +3<CR>' },
+    { 'K',     '<cmd>resize -3<CR>' },
+    { 'H',     '<cmd>vertical resize -3<CR>' },
+    { 'L',     '<cmd>vertical resize +3<CR>' },
 
-    { 'j', '<C-w>j' },
-    { 'k', '<C-w>k' },
-    { 'h', '<C-w>h' },
-    { 'l', '<C-w>l' },
+    { 'j',     '<C-w>j' },
+    { 'k',     '<C-w>k' },
+    { 'h',     '<C-w>h' },
+    { 'l',     '<C-w>l' },
+
+    { '<C-j>',     '<C-w>J' },
+    { '<C-k>',     '<C-w>K' },
+    { '<C-h>',     '<C-w>H' },
+    { '<C-l>',     '<C-w>L' },
   }
 })
 
