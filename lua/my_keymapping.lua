@@ -101,7 +101,7 @@ local function search_to_loclist()
   local term = vim.fn.input("Search String: ", "")
   vim.cmd("lexpr []")
   vim.cmd(":g/" .. term ..
-  '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
+    '/laddexpr expand("%") . ":" . line(".") . ":" . getline(".")')
 end
 
 local dap = require('dap')
@@ -130,16 +130,16 @@ hydra({
   node = "n",
   body = "<C-w>",
   heads = {
-    { "<Esc>", nil,                          { exit = true } },
-    { 'J',     '<cmd>resize +3<CR>' },
-    { 'K',     '<cmd>resize -3<CR>' },
-    { 'H',     '<cmd>vertical resize -3<CR>' },
-    { 'L',     '<cmd>vertical resize +3<CR>' },
+    { "<Esc>", nil, { exit = true } },
+    { 'J', '<cmd>resize +3<CR>' },
+    { 'K', '<cmd>resize -3<CR>' },
+    { 'H', '<cmd>vertical resize -3<CR>' },
+    { 'L', '<cmd>vertical resize +3<CR>' },
 
-    { 'j',     '<C-w>j' },
-    { 'k',     '<C-w>k' },
-    { 'h',     '<C-w>h' },
-    { 'l',     '<C-w>l' },
+    { 'j', '<C-w>j' },
+    { 'k', '<C-w>k' },
+    { 'h', '<C-w>h' },
+    { 'l', '<C-w>l' },
   }
 })
 
@@ -148,11 +148,12 @@ hydra({
 require('legendary').setup {
   keymaps = {
     { '<leader>N', require('nabla').toggle_virt },
-    { '<leader>p', require('nabla').popup },
+    { '<leader>p', '<cmd>diffput<CR>' },
+    { '<leader>g', '<cmd>diffget<CR>' },
     { '<leader>f', function()
       print(vim.fn.bufname())
     end },
-    { '<leader>m',  require('my_funcs').man_split },
+    { '<leader>m', require('my_funcs').man_split },
     { '<leader>ct', '<cmd>ColorizerToggle<CR>' }, -- Toggle Coloring of Hex-Values etc
     { '<leader>cw', highlight_trailws },
     { '<leader>hn', require('my_funcs').new_buf_cmd },
@@ -168,7 +169,7 @@ require('legendary').setup {
       require('my_funcs').todos_qflist()
     end },
 
-    { 'r<leader>',  require('refactoring').select_refactor, mode = 'v' },
+    { '<leader>r', require('refactoring').select_refactor, mode = 'v', desc = "refactoring" },
 
     -- Create dot / neato Graph
     { '<leader>gd', function() graphviz_graph("dot") end },
@@ -176,19 +177,19 @@ require('legendary').setup {
     { '<leader>gt', function() graphviz_graph("twopi") end },
 
     -- Quickfix / Locallist Open / Close
-    { 'co',         '<cmd>copen<CR>' },
-    { 'cd',         '<cmd>cclose<CR>' },
+    { 'co', '<cmd>copen<CR>' },
+    { 'cd', '<cmd>cclose<CR>' },
 
-    { '<A-t>',      '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
+    { '<A-t>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
-    { 'Lrn',        vim.lsp.buf.rename },
-    { 'Lrr',        vim.lsp.buf.references },
-    { 'Lh',         vim.lsp.buf.hover },
-    { 'Lv',         peek_def }, -- View
-    { 'Lci',        vim.lsp.buf.incoming_calls },
-    { 'Lco',        vim.lsp.buf.outgoing_calls },
-    { 'Lca',        vim.lsp.buf.code_action },
+    { 'Lrn', vim.lsp.buf.rename },
+    { 'Lrr', vim.lsp.buf.references },
+    { 'Lh', vim.lsp.buf.hover },
+    { 'Lv', peek_def }, -- View
+    { 'Lci', vim.lsp.buf.incoming_calls },
+    { 'Lco', vim.lsp.buf.outgoing_calls },
+    { 'Lca', vim.lsp.buf.code_action },
 
     -- Populate Quickfixlist
     { 'Lpw', function()
@@ -213,7 +214,7 @@ require('legendary').setup {
       vim.lsp.buf.format { async = true }
     end },
 
-    { '<C-q>', '<C-x>',                                  desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
+    { '<C-q>', '<C-x>', desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
     -- Buffer management
     { '<C-j>', '<cmd>bnext<CR>' },
     { '<C-k>', '<cmd>bprev<CR>' },
@@ -227,10 +228,10 @@ require('legendary').setup {
 
 
     -- Extended Fuzzy Finding
-    { 'th',    '<cmd>Telescope help_tags<CR>' },
-    { 'to',    '<cmd>Telescope buffers<CR>' },
-    { 'tkm',   '<cmd>Telescope keymaps<CR>' },
-    { 'ts',    '<cmd>Telescope lsp_document_symbols<CR>' },
+    { 'th', '<cmd>Telescope help_tags<CR>' },
+    { 'to', '<cmd>Telescope buffers<CR>' },
+    { 'tkm', '<cmd>Telescope keymaps<CR>' },
+    { 'ts', '<cmd>Telescope lsp_document_symbols<CR>' },
 
     -- Edit Config
     { 'tee',
@@ -257,67 +258,67 @@ require('legendary').setup {
       load_debug_configs()
       dap.continue()
     end },
-    { '<F2>',  dap.toggle_breakpoint },
+    { '<F2>', dap.toggle_breakpoint },
     -- { '<F3>',  dapui.eval },
-    { '<F4>',  dap.disconnect },
-    { '<F5>',  dap.continue },
+    { '<F4>', dap.disconnect },
+    { '<F5>', dap.continue },
     -- { '<F6>',  dapui.eval },
-    { '<F7>',  dap.step_into },
-    { '<F8>',  dap.step_over },
-    { '<F9>',  dap.step_out },
+    { '<F7>', dap.step_into },
+    { '<F8>', dap.step_over },
+    { '<F9>', dap.step_out },
     { '<F10>', dap.run_to_cursor },
 
-    { 'dAW',   ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
+    { 'dAW', ':%s/\\s\\+$//g<CR>' }, -- Delete all whitespace
 
     -- Quickfix and Locallist movement
-    { ',',     '<cmd>cnext<CR>' },
-    { ';',     '<cmd>cprev<CR>' },
+    { ',', '<cmd>cnext<CR>' },
+    { ';', '<cmd>cprev<CR>' },
 
-    { 'ü',    '<cmd>lnext<CR>' },
-    { 'Ü',    '<cmd>lprev<CR>' },
+    { 'ü', '<cmd>lnext<CR>' },
+    { 'Ü', '<cmd>lprev<CR>' },
 
 
     -- ga ... for vim-easy-align
     -- Go to Declaration / Definition
-    { 'gD',    vim.lsp.buf.declaration },
-    { 'gd',    vim.lsp.buf.definition },
-    { 'gi',    vim.lsp.buf.implementation },
+    { 'gD', vim.lsp.buf.declaration },
+    { 'gd', vim.lsp.buf.definition },
+    { 'gi', vim.lsp.buf.implementation },
 
     -- Gitsigns
-    { 'gs',    '<cmd>Gitsigns toggle_signs<CR>' },
-    { 'gl',    get_visual_selection },
+    { 'gs', '<cmd>Gitsigns toggle_signs<CR>' },
+    { 'gl', get_visual_selection },
 
     -- TODO: Change these to something more ergonomic
     -- Gitsigns Hunk Actions
-    { 'ghp',   '<cmd>Gitsigns prev_hunk<CR>' },
-    { 'ghn',   '<cmd>Gitsigns next_hunk<CR>' },
-    { 'ghs',   '<cmd>Gitsigns stage_hunk<CR>' },
-    { 'ghu',   '<cmd>Gitsigns undo_stage_hunk<CR>' },
-    { 'ghr',   '<cmd>Gitsigns reset_hunk<CR>' },
-    { 'gb',    '<cmd>Gitsigns blame_line<CR>' },
-    { "==",    '<cmd>Gitsigns preview_hunk<CR>' },
+    { 'ghp', '<cmd>Gitsigns prev_hunk<CR>' },
+    { 'ghn', '<cmd>Gitsigns next_hunk<CR>' },
+    { 'ghs', '<cmd>Gitsigns stage_hunk<CR>' },
+    { 'ghu', '<cmd>Gitsigns undo_stage_hunk<CR>' },
+    { 'ghr', '<cmd>Gitsigns reset_hunk<CR>' },
+    { 'gb', '<cmd>Gitsigns blame_line<CR>' },
+    { "==", '<cmd>Gitsigns preview_hunk<CR>' },
 
     -- Quickfix Actions
-    { 'gq',    '<cmd>Gitsigns setqflist<CR>' },
-    { 'gf',    '<cmd>e <cfile><CR>' },
+    { 'gq', '<cmd>Gitsigns setqflist<CR>' },
+    { 'gf', '<cmd>e <cfile><CR>' },
 
 
     { '<C-t>', function()
       require('luasnip').jump(1)
     end, mode = 'i' },
     { '<C-s>', function()
-      require('luasnip').jump( -1)
+      require('luasnip').jump(-1)
     end, mode = 'i' },
     { '<C-x>', function()
       require('luasnip').expand()
     end, mode = 'i' },
-    { '<C-h>',      vim.lsp.buf.signature_help,            mode = 'i' },
+    { '<C-h>', vim.lsp.buf.signature_help, mode = 'i' },
 
 
-    { 'gcc',        '<Plug>kommentary_line_default' },
-    { 'gc',         '<Plug>kommentary_motion_default' },
-    { 'gc',         '<Plug>kommentary_visual_default<CR>', mode = "v" },
-    { 'ga',         '<cmd>EasyAlign<CR>',                  mode = { 'v', 'n' } },
+    { 'gcc', '<Plug>kommentary_line_default' },
+    { 'gc', '<Plug>kommentary_motion_default' },
+    { 'gc', '<Plug>kommentary_visual_default<CR>', mode = "v" },
+    { 'ga', '<cmd>EasyAlign<CR>', mode = { 'v', 'n' } },
     { '<leader>lb', '<Plug>HInsertLineBreak' },
   }
 }
