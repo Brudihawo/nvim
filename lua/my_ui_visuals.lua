@@ -77,14 +77,7 @@ vim.g.gitgutter_signs = false
 -------------------------------------------------------------------------------
 
 -- colorizer
-require('colorizer').setup {
-  ['*'] = {
-    RGB = true,
-    RRGGBB = true,
-    RRGGBBAA = true,
-    names = false,
-  }
-}
+require('colorizer').setup {}
 
 -- layout
 vim.o.number = true
