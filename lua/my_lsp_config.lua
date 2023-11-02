@@ -44,27 +44,28 @@ require("lspconfig").pylsp.setup {
 require("lspconfig").rust_analyzer.setup {
   capabilities = capabilities,
   settings = {
-        ["rust-analyzer"] = {
+    ["rust-analyzer"] = {
       assist = {
         importGranularity = "module",
         importPrefix = "by_self",
       },
       cargo = {
         loadOutDirsFromCheck = true,
-            ["buildScripts.enable"] = true
+        allFeatures=true,
+        ["buildScripts.enable"] = true
       },
       procMacro = {
         enable = true,
       },
       inlayHints = {
-            ["chainingHints.enable"] = true,
+        ["chainingHints.enable"] = true,
         auto = true,
         show_parameter_hints = true,
         closingBraceHints = {
           minLines = 4,
           enable = true
         },
-            ["typeHints.enable"] = true
+        ["typeHints.enable"] = true
       }
     }
   }
@@ -108,9 +109,9 @@ require 'lspconfig'.arduino_language_server.setup {
     client.server_capabilities.semanticTokensProvider = nil
   end,
   cmd = {
-    "/usr/bin/arduino-language-server",
+    "/opt/arduino-language-server/bin/arduino-language-server",
     "-cli-config", "/home/hawo/.arduino15/arduino-cli.yaml",
-    "-cli", "/home/hawo/.local/bin/arduino-cli",
+    "-cli", "/opt/arduino-cli/bin/arduino-cli",
     "-clangd", "/usr/bin/clangd",
     "-fqbn", "esp32:esp32:lolin32-lite",
   }
@@ -136,7 +137,7 @@ require("lspconfig").texlab.setup {
       bibtexFormatter = "texlab",
       build = {
         executable = "latexmk",
-        args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f", "-output-directory=.texlab_build"},
+        args = { "-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f", "-output-directory=.texlab_build" },
         forwardSearchAfter = false,
         onSave = true
       },
@@ -155,7 +156,7 @@ require("lspconfig").texlab.setup {
     }
   },
   diagnostics = {
-    ignoredPatterns = {".*"}
+    ignoredPatterns = { ".*" }
   }
 }
 
@@ -201,11 +202,12 @@ vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
 --   ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
 -- }
 
+
 vim.g.vimtex_compiler_latexmk = {
-      ['executable'] = 'latexmk',
-      ['callback'] = 1,
-      ['hooks']  = {},
-      ['options'] = {
+  ['executable'] = 'latexmk',
+  ['callback']   = 1,
+  ['hooks']      = {},
+  ['options']    = {
     '-file-line-error',
     '-synctex=1',
     '-interaction=nonstopmode',
