@@ -76,41 +76,6 @@ dap.configurations.python = {
   end,
 }
 
---[[ -- DAP-UI
-local dapui = require("dapui")
-dapui.setup { layouts = {
-  {
-    elements = {
-      'scopes',
-      'breakpoints',
-      'stacks',
-      'watches',
-    },
-    size = 0.3,
-    position = 'left',
-  },
-  {
-    elements = {
-      'repl',
-      'console',
-    },
-    size = 0.2,
-    position = 'bottom',
-  },
-},
-}
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
-
-dap.listeners.before.event_event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
-end
-
-require('nvim-dap-virtual-text').setup()
-vim.fn.sign_define('DapBreakpoint', { text = 'B' }) ]]
+-- DAP-UI
+require("dapui").setup()
+vim.fn.sign_define('DapBreakpoint', { text = 'B' })
