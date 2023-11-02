@@ -11,7 +11,7 @@ local function loadfile_path(name)
 end
 
 local defaults = {
-  python3_host_prog = '/usr/bin/python3.10',
+  python3_host_prog = '/usr/bin/python3',
   lldb_vscode_path = '/usr/bin/lldb-vscode',
   vimtex_tex_flavor = 'lualatex',
   vimtex_view_method = 'zathura',
