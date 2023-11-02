@@ -152,7 +152,6 @@ hydra({
 
 require('legendary').setup {
   keymaps = {
-    { '<leader>N', require('nabla').toggle_virt },
     { '<leader>p', '<cmd>diffput<CR>' },
     { '<leader>g', '<cmd>diffget<CR>' },
     { '<leader>f', function()

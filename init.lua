@@ -178,8 +178,8 @@ require('neogit').setup {
     unstaged = { folded = false },
     staged = { folded = false },
     stashes = { folded = true },
-    unpulled = { folded = true },
-    unmerged = { folded = false },
+    unpulled = { folded = true, hidden = false },
+    unmerged = { folded = false, hidden = false},
     recent = { folded = true },
   },
 }
