@@ -28,7 +28,8 @@ require('lazy').setup {
   -- LSP-y / Language specific stuff
   'neovim/nvim-lspconfig',
   'vhdirk/vim-cmake',
-  { 'ThePrimeagen/refactoring.nvim',
+  {
+    'ThePrimeagen/refactoring.nvim',
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter"
@@ -46,18 +47,23 @@ require('lazy').setup {
   'L3MON4D3/LuaSnip',
 
   'lervag/vimtex',
-  'jbyuki/nabla.nvim',
-  -- 'jalvesaq/zotcite',
-
-  'rareitems/anki.nvim',
-
-  { 'iamcco/markdown-preview.nvim',                build = ":call mkdp#util#install()" },
-
+  { 'iamcco/markdown-preview.nvim', build = ":call mkdp#util#install()" },
+  { 'nvim-neorg/neorg',             build = ":Neorg sync-parsers",      config = function() require("neorg").setup({
+    load = {
+      ["core.defaults"] = {},
+      ["core.concealer"] = {}
+    }
+  }) end },
   'mrjones2014/legendary.nvim',
 
   -- Debugging
   { 'mfussenegger/nvim-dap',                       lazy = false },
-  -- { 'rcarriga/nvim-dap-ui',                        dependencies = { "mfussenegger/nvim-dap" },          config = true, lazy = false },
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = true,
+    lazy = false
+  },
   { 'theHamsta/nvim-dap-virtual-text',             dependencies = { "mfussenegger/nvim-dap" } },
 
   { 'nvim-treesitter/nvim-treesitter',             build = ":TSUpdate" },
@@ -91,6 +97,7 @@ require('lazy').setup {
   'TimUntersberger/Neogit',
   'lewis6991/gitsigns.nvim',
   'tpope/vim-git',
+  'FabijanZulj/blame.nvim',
 
   { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' }
 }
