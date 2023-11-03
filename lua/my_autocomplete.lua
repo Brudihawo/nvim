@@ -23,5 +23,12 @@ return {
         ['<CR>'] = cmp.mapping.confirm(),
       }
     }
+    cmp.setup.cmdline({ '/', '?' }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' },
+        { name = 'path' },
+      }
+    })
   end
 }
