@@ -38,27 +38,27 @@ require('lazy').setup {
 
   { 'inkarkat/vim-SpellCheck', dependencies = { 'inkarkat/vim-ingo-library' } },
 
-  -- autocompletion
-  {
-    'ms-jpq/coq_nvim',
-    branch = "coq",
-    dependencies = { { "ms-jpq/coq.thirdparty", branch = "3p" } },
-    build = ":COQdeps"
-  },
-  'L3MON4D3/LuaSnip',
+  require('my_autocomplete'),
 
+  'L3MON4D3/LuaSnip',
   'lervag/vimtex',
   { 'iamcco/markdown-preview.nvim', build = ":call mkdp#util#install()" },
-  { 'nvim-neorg/neorg',             build = ":Neorg sync-parsers",      config = function() require("neorg").setup({
-    load = {
-      ["core.defaults"] = {},
-      ["core.concealer"] = {}
-    }
-  }) end },
+  {
+    'nvim-neorg/neorg',
+    build = ":Neorg sync-parsers",
+    config = function()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {},
+          ["core.concealer"] = {}
+        }
+      })
+    end
+  },
   'mrjones2014/legendary.nvim',
 
   -- Debugging
-  { 'mfussenegger/nvim-dap',                       lazy = false },
+  { 'mfussenegger/nvim-dap',        lazy = false },
   {
     'rcarriga/nvim-dap-ui',
     dependencies = { "mfussenegger/nvim-dap" },
@@ -80,7 +80,7 @@ require('lazy').setup {
     end
   },
 
-  -- More used libraries
+  -- libraries
   'nvim-lua/plenary.nvim',
   'nvim-lua/popup.nvim',
 
