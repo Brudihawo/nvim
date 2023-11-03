@@ -1,5 +1,4 @@
 vim.g.python3_host_prog = require('local').python3_host_prog
-print(vim.g.python3_host_prog)
 require('plugins')
 
 vim.o.encoding = 'utf-8'
