@@ -9,7 +9,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 require("lspconfig").pylsp.setup {
   capabilities = capabilities,
-  -- on_attach = require('lsp_signature').on_attach("pylsp"),
   settings = {
     pylsp = {
       configurationSources = { "flake8" },

@@ -41,6 +41,7 @@ require('lazy').setup {
   -- autocompletion
   {
     'ms-jpq/coq_nvim',
+    branch = "coq",
     dependencies = { { "ms-jpq/coq.thirdparty", branch = "3p" } },
     build = ":COQdeps"
   },

@@ -1,4 +1,5 @@
 vim.g.python3_host_prog = require('local').python3_host_prog
+print(vim.g.python3_host_prog)
 require('plugins')
 
 vim.o.encoding = 'utf-8'
@@ -23,7 +24,6 @@ vim.o.display = 'lastline'
 vim.o.confirm = true
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 200
-vim.o.pastetoggle = '<F10>'
 
 vim.o.shell = "/bin/bash"
 vim.o.grepprg = "rg -i --vimgrep"
