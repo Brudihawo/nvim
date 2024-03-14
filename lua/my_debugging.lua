@@ -54,7 +54,7 @@ dap.configurations.rust = dap.configurations.cpp
 -- Python
 dap.adapters.python = {
   type = 'executable',
-  command = 'python',
+  command = require('local').python3_host_prog,
   args = { '-m', 'debugpy.adapter' },
 }
 
@@ -63,7 +63,6 @@ dap.configurations.python = {
     type = 'python',
     request = 'launch',
     name = 'Launch File',
-
 
     program = '${file}',
     justMyCode = false,

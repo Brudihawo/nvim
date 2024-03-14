@@ -9,6 +9,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   "folke/lazy.nvim",
+
   -- UI
   'hoob3rt/lualine.nvim',
   'kyazdani42/nvim-web-devicons',

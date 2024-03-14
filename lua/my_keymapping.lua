@@ -282,9 +282,7 @@ require('legendary').setup {
     { 'gq', '<cmd>Gitsigns setqflist<CR>' },
     { 'gf', '<cmd>e <cfile><CR>' },
 
-
     { '<C-h>', vim.lsp.buf.signature_help, mode = 'i' },
-
 
     { 'gcc', '<Plug>kommentary_line_default' },
     { 'gc', '<Plug>kommentary_motion_default' },
