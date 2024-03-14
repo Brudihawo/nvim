@@ -7,38 +7,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-require("lspconfig").pylsp.setup {
-  capabilities = capabilities,
-  settings = {
-    pylsp = {
-      configurationSources = { "flake8" },
-      plugins = {
-        pydocstyle = {
-          enabled = true,
-          convention = 'google'
-        },
-        pyls_isort = {
-          enabled = true
-        },
-        jedi_completion = {
-          enabled = true,
-          fuzzy = true,
-          eager = true
-        },
-        black = {
-          enabled = true,
-          args = {
-            '-l', '90'
-          }
-        },
-        flake8 = {
-          enabled = true,
-          args = { "--ignore=E203,W503" },
-        }
-      }
-    }
-  }
-}
+require('lspconfig').pyright.setup { }
+
 
 require("lspconfig").rust_analyzer.setup {
   capabilities = capabilities,

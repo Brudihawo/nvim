@@ -124,30 +124,6 @@ vim.api.nvim_create_user_command("GraphNeato", function() graphviz_graph("neato"
 vim.api.nvim_create_user_command("GraphTwopi", function() graphviz_graph("twopi") end, {})
 
 
-local hydra = require('hydra')
-hydra({
-  name = "Window Edit Mode",
-  node = "n",
-  body = "<C-w>",
-  heads = {
-    { "<Esc>", nil,                          { exit = true } },
-    { 'J',     '<cmd>resize +3<CR>' },
-    { 'K',     '<cmd>resize -3<CR>' },
-    { 'H',     '<cmd>vertical resize -3<CR>' },
-    { 'L',     '<cmd>vertical resize +3<CR>' },
-
-    { 'j',     '<C-w>j' },
-    { 'k',     '<C-w>k' },
-    { 'h',     '<C-w>h' },
-    { 'l',     '<C-w>l' },
-
-    { '<C-j>',     '<C-w>J' },
-    { '<C-k>',     '<C-w>K' },
-    { '<C-h>',     '<C-w>H' },
-    { '<C-l>',     '<C-w>L' },
-  }
-})
-
 -- local dapui = require('dapui')
 
 require('legendary').setup {
@@ -157,12 +133,12 @@ require('legendary').setup {
     { '<leader>f', function()
       print(vim.fn.bufname())
     end },
-    { '<leader>m', require('my_funcs').man_split },
+    { '<leader>M', require('my_funcs').man_split },
     { '<leader>ct', '<cmd>ColorizerToggle<CR>' }, -- Toggle Coloring of Hex-Values etc
     { '<leader>cw', highlight_trailws },
-    { '<leader>hn', require('my_funcs').new_buf_cmd },
-    { '<leader>hh', require("harpoon.mark").add_file },
-    { '<leader>hm', require("harpoon.ui").toggle_quick_menu },
+    -- { '<leader>hn', require('my_funcs').new_buf_cmd },
+    { '<leader>m', require("harpoon.mark").add_file },
+    { '<leader>u', require("harpoon.ui").toggle_quick_menu },
 
     { '<leader>lo', '<cmd>lopen<CR>' },
     { '<leader>lc', '<cmd>lclose<CR>' },
@@ -175,10 +151,10 @@ require('legendary').setup {
 
     { '<leader>r', require('refactoring').select_refactor, mode = 'v', desc = "refactoring" },
 
-    -- Create dot / neato Graph
-    { '<leader>gd', function() graphviz_graph("dot") end },
-    { '<leader>gn', function() graphviz_graph("neato") end },
-    { '<leader>gt', function() graphviz_graph("twopi") end },
+    -- -- Create dot / neato Graph
+    -- { '<leader>gd', function() graphviz_graph("dot") end },
+    -- { '<leader>gn', function() graphviz_graph("neato") end },
+    -- { '<leader>gt', function() graphviz_graph("twopi") end },
 
     -- Quickfix / Locallist Open / Close
     { 'co', '<cmd>copen<CR>' },
@@ -187,19 +163,19 @@ require('legendary').setup {
     { '<A-t>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
-    { 'Lrn', vim.lsp.buf.rename },
-    { 'Lrr', vim.lsp.buf.references },
-    { 'Lh', vim.lsp.buf.hover },
-    { 'Lv', peek_def }, -- View
-    { 'Lci', vim.lsp.buf.incoming_calls },
-    { 'Lco', vim.lsp.buf.outgoing_calls },
-    { 'Lca', vim.lsp.buf.code_action },
+    { '<leader>r', vim.lsp.buf.rename },
+    { '<leader>R', vim.lsp.buf.references },
+    { '<leader>h', vim.lsp.buf.hover },
+    { '<leader>v', peek_def }, -- View
+    { '<leader>i', vim.lsp.buf.incoming_calls },
+    { '<leader>o', vim.lsp.buf.outgoing_calls },
+    { '<leader>a', vim.lsp.buf.code_action },
 
     -- Populate Quickfixlist
-    { 'Lpw', function()
+    { '<leader>w', function()
       vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.WARN })
     end },
-    { 'Lpe', function()
+    { '<leader>e', function()
       vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
     end },
 
@@ -279,7 +255,7 @@ require('legendary').setup {
     { ';', '<cmd>cprev<CR>' },
 
     { 'ü', '<cmd>lnext<CR>' },
-    { 'Ü', '<cmd>lprev<CR>' },
+    { 'ö', '<cmd>lprev<CR>' },
 
 
     -- ga ... for vim-easy-align
@@ -307,15 +283,6 @@ require('legendary').setup {
     { 'gf', '<cmd>e <cfile><CR>' },
 
 
-    { '<C-t>', function()
-      require('luasnip').jump(1)
-    end, mode = 'i' },
-    { '<C-s>', function()
-      require('luasnip').jump(-1)
-    end, mode = 'i' },
-    { '<C-x>', function()
-      require('luasnip').expand()
-    end, mode = 'i' },
     { '<C-h>', vim.lsp.buf.signature_help, mode = 'i' },
 
 

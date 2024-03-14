@@ -57,11 +57,14 @@ elseif colorscheme == "gruvbox" then
   ]])
   lualine_theme = "gruvbox_material"
 elseif colorscheme == "melange" then
-
   vim.cmd("colorscheme melange")
   vim.api.nvim_set_hl(0, "Visual", { bg = "#CC5500", fg = "#FFFFFF" })
+  vim.api.nvim_set_hl(0, "Search", { bg = "#CC5500", fg = "#FFFFFF" })
   lualine_theme = "auto"
-  vim.api.nvim_set_hl(0, "Visual", {bg = "#CC5500", fg="#FFFFFF"})
+  vim.api.nvim_set_hl(0, "DiffText", {bg = "#EBC06D", fg="#292522"})
+  vim.api.nvim_set_hl(0, "DiffAdd", {bg = "#85B695", fg="#292522"})
+  vim.api.nvim_set_hl(0, "DiffDelete", {bg = "#D47766", fg="#292522"})
+  vim.api.nvim_set_hl(0, "DiffChange", {bg = "#B380B0", fg="#292522"})
 end
 
 -------------------------------------------------------------------------------

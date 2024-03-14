@@ -1,0 +1,352 @@
+global !p
+def fix_indent(snip):
+	vim.eval('feedkeys("\<c-f>")')
+endglobal
+
+snippet #init "Document Header" Ai
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[width=16cm, height=21cm]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{bm}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{textcomp}
+
+\usepackage{fontspec}
+\defaultfontfeatures{Mapping=tex-text}
+\defaultfontfeatures{Ligatures=TeX}
+
+\begin{document}
+\author{Hawo Höfer}
+\title{${1:title}}
+\maketitle
+\tableofcontents
+\clearpage
+$2
+\end{document}
+endsnippet
+
+snippet #img "Graphic Figure" Ab
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=$1\textwidth]{$2}
+	\caption{$3}
+	\label{fig:$4}
+\end{figure}
+$5
+endsnippet
+
+snippet #fsvg "Inkscape svg Figure" Ab
+\begin{figure}[h]
+  \centering
+  \def\svgwidth{${1:size}\textwidth}
+  \input{${2:file}}
+  \caption{${3:caption}}
+  \label{${4:label}}
+\end{figure}
+endsnippet
+
+snippet #fpgf "pgf plot figure" Ab
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			width = ${1:width}\textwidth,
+			height = ${2:height}\textwidth,
+			samples = 100,
+			xlabel = {${3:xlabel}},
+			ylabel = {${4:ylabel}},
+      x label style = {at = {(axis description cs:1.0,0)}},
+      y label style = {at = {(axis description cs:0,1.0)}, rotate=90},
+			line width = 1pt,
+			axis y line = left,
+			axis x line = bottom,
+			axis line style = {->},
+      legend cell align = left,
+		]
+			$5
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #ppa "pgf add plot" Ai
+\addplot[${1:opts}]{${2:func}};
+endsnippet
+
+snippet #tw "textwidth" Ai
+\textwidth
+endsnippet
+
+snippet #s "Section Header" Ab
+\section{$1}
+$2
+endsnippet
+
+snippet #Ss "Subsection Header" Ab
+\subsection{$1}
+$2
+endsnippet
+
+snippet #SSs "Subsubsection Header" Ab
+\subsubsection{$1}
+$2
+endsnippet
+
+snippet #pa "Paragraph Header" Ai
+\paragraph{$1}
+$2
+endsnippet
+
+snippet #oenv "Environment with Options" Ab
+\begin{$1}[${2:option}]
+${3:content}
+\end{$1}
+$4
+endsnippet
+
+snippet #env "Environment" Ab
+\begin{$1}
+${2:content}
+\end{$1}
+$3
+endsnippet
+
+snippet #eqn "Equation" Ab
+\begin{equation}\label{eq:${1:label}}
+	$2
+\end{equation}
+endsnippet
+
+snippet #imz "Itemize" Ab
+\begin{itemize}
+	\item $1
+\end{itemize}
+endsnippet
+
+snippet #enum "Enumerate" Ab
+\begin{enumerate}
+	\item $1
+\end{enumerate}
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #ii "item" Ab
+\item 
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #io "item[]" Ab
+\item[$1] $2
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #i+ "item[+]" Ab
+\item[+] $1
+endsnippet
+
+post_expand "fix_indent(snip)"
+snippet #i- "item[-]" Ab
+\item[-] $1
+endsnippet
+
+snippet #tbx "tabularx" Ab
+\begin{tabularx}{${1:width}\textwidth}{${2:alignment}}
+	${3:content}
+\end{tabularx}
+endsnippet
+
+snippet #tbl "tabularx" Ab
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{${1:width}\textwidth}{${2:alignment}}
+		${3:content}
+	\end{tabularx}
+	\caption{${4:caption}}
+\end{table}
+endsnippet
+
+snippet l "label"
+\label{$1} $2
+endsnippet
+
+snippet r "reference"
+\ref{$1} $2
+endsnippet
+
+snippet c "citation"
+\cite{$1} $2
+endsnippet
+
+snippet __ "subscript" Ai
+_\mathrm{$1}$2
+endsnippet
+
+snippet ^^ "superscript" Ai
+^\mathrm{$1}$2
+endsnippet
+
+snippet #bf "textbf" Ai
+\textbf{$1}$2
+endsnippet
+
+snippet #mb "mathbf" Ai
+\bm{$1}$2
+endsnippet
+
+snippet #mr "mathrm" Ai
+\mathrm{$1}$2
+endsnippet
+
+snippet #cp "clearpage" Ai
+\clearpage
+endsnippet
+
+snippet #comptbl "comparison table" Ab
+\begin{tabularx}{\textwidth}{X X}
+	\toprule
+	\textbf{Vorteile} & \textbf{Nachteile} \\\\
+	\midrule
+	\begin{itemize}[label={+}, topsep=0pt]
+		\raggedright
+		\item ${1:positives}
+	\end{itemize}
+		&
+	\begin{itemize}[label={--}, topsep=0pt]
+		\raggedright
+		\item ${2:negatives}
+	\end{itemize}
+	\\\\
+	\bottomrule
+\end{tabularx}
+endsnippet
+
+snippet #deftbl "definition table" Ab
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{0.9\textwidth}{>{\bfseries\hsize=0.5\hsize}X >{\hsize=1.5\hsize}X}
+		\toprule
+		${1:content}
+		\bottomrule
+	\end{tabularx}
+	\caption{${2:caption}}
+\end{table}
+endsnippet
+
+snippet #mf "fraction" Ai
+\frac{$1}{$2}$3
+endsnippet
+
+snippet #Sum "Sum" Ai
+\sum_{${1:sub}}^{${2:super}}$3
+endsnippet
+
+snippet #SSum "Sum no super" Ai
+\sum_{${1:sub}}$3
+endsnippet
+
+snippet #prod "Product" Ai
+\prod_{${1:sub}}^{${2:super}}$3
+endsnippet
+
+snippet #int "Integral" Ai
+\int_{${1:sub}}^{${2:super}}$3
+endsnippet
+
+snippet ** "cdot" Ai
+\cdot
+endsnippet
+
+snippet #> "right arrow" Ai
+$\rightarrow$
+endsnippet
+
+snippet --> "right arrow" Ai
+\rightarrow
+endsnippet
+
+snippet #< "left arrow" Ai
+$\leftarrow$
+endsnippet
+
+snippet <-- "left arrow" Ai
+\leftarrow
+endsnippet
+
+snippet ==> "right double arrow" Ai
+\Rightarrow
+endsnippet
+
+snippet <== "left double arrow" Ai
+\Leftarrow
+endsnippet
+
+snippet "" "enquote" Ai
+\enquote{$1}$2
+endsnippet
+
+snippet //// "emph" Ai
+\emph{$1}$2
+endsnippet
+
+snippet #tikzf "Tikz picture Figure" Ai
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+		std/.style={ draw, rectangle, text width=8em },
+		line width=0.3mm,
+		align=center,
+		]
+		${1:content}
+	\end{tikzpicture}
+	\caption{${2:caption}}
+	\label{${3:label}}
+\end{figure}
+endsnippet
+
+snippet #tg "Tikz graph" Ai
+	\tikz [>={Stealth[round, sep]}]
+		\graph [layered layout,
+						components go right top aligned,
+						edges = rounded corners,
+						nodes = {rectangle, rounded corners, draw}] {
+		$1
+	};
+endsnippet
+
+snippet ° "degrees" Ai
+^{\circ}
+endsnippet
+
+snippet #Scb "subcaptionbox" Ai
+\subcaptionbox{${1:caption}}{${2:content}}
+endsnippet
+
+snippet #Sci "subcaptionbox image" Ai
+\subcaptionbox{${1:caption}}{\includegraphics[width=${2:width}\textwidth]{${3:imagepath}}}
+endsnippet
+
+snippet #( "leftright(" Ai
+\left($1\right)$2
+endsnippet
+
+snippet #{ "leftright{" Ai
+\left\{$1\right\}$2
+endsnippet
+
+snippet #[ "leftright[" Ai
+\left[$1\right]$2
+endsnippet
+

@@ -59,23 +59,44 @@ dap.adapters.python = {
 }
 
 dap.configurations.python = {
-  type = 'python',
-  request = 'launch',
-  name = 'Launch File',
+  {
+    type = 'python',
+    request = 'launch',
+    name = 'Launch File',
 
-  program = '${file}',
-  pythonPath = function()
-    local cwd = vim.fn.getcwd()
-    if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-      return cwd .. '/venv/bin/python'
-    elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-      return cwd .. '/.venv/bin/python'
-    else
-      return require('local').python3_host_prog
-    end
-  end,
+
+    program = '${file}',
+    justMyCode = false,
+    pythonPath = function()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      else
+        return require('local').python3_host_prog
+      end
+    end,
+  }
 }
 
 -- DAP-UI
 require("dapui").setup()
 vim.fn.sign_define('DapBreakpoint', { text = 'B' })
+
+local dap, dapui = require("dap"), require("dapui")
+
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end

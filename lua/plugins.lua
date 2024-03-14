@@ -22,7 +22,12 @@ require('lazy').setup {
   'b3nj5m1n/kommentary',
 
   -- Movement
-  'ggandor/leap.nvim',
+  -- 'ggandor/leap.nvim',
+  { "folke/flash.nvim",
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc="Flash" },
+    }
+  },
   { 'ThePrimeagen/harpoon',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- LSP-y / Language specific stuff
@@ -40,7 +45,8 @@ require('lazy').setup {
 
   require('my_autocomplete'),
 
-  'L3MON4D3/LuaSnip',
+  'SirVer/ultisnips',
+
   'lervag/vimtex',
   { 'iamcco/markdown-preview.nvim', build = ":call mkdp#util#install()" },
   {
@@ -91,7 +97,6 @@ require('lazy').setup {
   'junegunn/vim-easy-align',
   'tpope/vim-repeat',
   'tpope/vim-surround',
-  'anuvyklack/hydra.nvim',
   'folke/which-key.nvim',
 
   -- Git

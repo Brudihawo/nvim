@@ -29,7 +29,7 @@ require('telescope').setup {
     generic_sorter = require 'telescope.sorters'.get_generic_fuzzy_sorter,
     winblend = 0,
     border = {},
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    borderchars = { '─', '', '', '│', '┌', '', '', '│' },
     color_devicons = true,
     use_less = true,
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
@@ -38,10 +38,14 @@ require('telescope').setup {
     qflist_previewer = require 'telescope.previewers'.vim_buffer_qflist.new,
     mappings = {
       n = {
-        ['<C-d>'] = require('telescope.actions').delete_buffer
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
+        ['<C-v>'] = require('telescope.actions').file_vsplit,
+        ['<C-s>'] = require('telescope.actions').file_split,
       },
       i = {
-        ['<C-d>'] = require('telescope.actions').delete_buffer
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
+        ['<C-v>'] = require('telescope.actions').file_vsplit,
+        ['<C-s>'] = require('telescope.actions').file_split,
       }
     }
   },
