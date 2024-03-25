@@ -14,6 +14,9 @@ require('lazy').setup {
   'hoob3rt/lualine.nvim',
   'kyazdani42/nvim-web-devicons',
 
+  -- File Explorer
+  {'stevearc/oil.nvim', dependencies= { "nvim-tree/nvim-web-devicons" }},
+
   -- Colorscheme
   'rktjmp/lush.nvim',
   'savq/melange',
@@ -23,7 +26,6 @@ require('lazy').setup {
   'b3nj5m1n/kommentary',
 
   -- Movement
-  -- 'ggandor/leap.nvim',
   { "folke/flash.nvim",
     keys = {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc="Flash" },
@@ -77,8 +79,6 @@ require('lazy').setup {
   { 'nvim-treesitter/nvim-treesitter',             build = ":TSUpdate" },
   { 'nvim-treesitter/nvim-treesitter-refactor',    dependencies = { 'nvim-treesitter/nvim-treesitter' } },
   { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
-  { 'nvim-treesitter/playground',                  dependencies = { 'nvim-treesitter/nvim-treesitter' } },
-  { 'Badhi/nvim-treesitter-cpp-tools',             dependencies = { "nvim-treesitter/nvim-treesitter" } },
   {
     'danymat/neogen',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },

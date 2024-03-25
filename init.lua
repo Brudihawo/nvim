@@ -140,6 +140,8 @@ require('gitsigns').setup({
   },
 })
 
+require('oil').setup()
+
 require('my_telescope_config')
 require('my_treesitter_config')
 require('my_lsp_config')
