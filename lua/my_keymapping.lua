@@ -187,7 +187,7 @@ require('legendary').setup {
       vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR })
     end },
 
-    { 'Ld', function()
+    { '<leader>d', function()
       vim.diagnostic.open_float(0, { scope = "line" })
     end },
     { 'Lf', function()
