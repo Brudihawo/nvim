@@ -4,12 +4,13 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
   },
   config = function()
     local cmp = require('cmp')
 
     cmp.setup {
-      window = {},
+      -- window = {},
       sources = cmp.config.sources {
         { name = "nvim_lsp" },
         { name = "buffer" },
@@ -27,15 +28,22 @@ return {
       sorting = {
         priority_weight = 4.0
       }
-
     }
-    cmp.setup.cmdline({ ':', '/', '?' }, {
+
+    cmp.setup.cmdline({'/', '?'}, {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = 'buffer' },
+      sources = cmp.config.sources({
+        { name = 'cmdline' },
         { name = 'path' },
-        { name = "cmdline" },
-      }
+      })
+    })
+
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'cmdline' },
+        { name = 'path' },
+      })
     })
   end
 }
