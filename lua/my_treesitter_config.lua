@@ -1,5 +1,5 @@
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "python", "c", "cpp", "bibtex", "json", "lua", "rust", "comment", "latex" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "python", "c", "cpp", "bibtex", "json", "lua", "rust", "comment" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true, -- false will disable the whole extension
@@ -47,6 +47,15 @@ require('nvim-treesitter.configs').setup {
         ["iP"] = "@parameter.inter",
         ["aP"] = "@parameter.outer",
         ["aS"] = "@statement.outer",
+      }
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>s"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>S"] = "@parameter.inner",
       }
     },
     move = {

@@ -9,9 +9,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   "folke/lazy.nvim",
+
   -- UI
   'hoob3rt/lualine.nvim',
   'kyazdani42/nvim-web-devicons',
+
+  -- File Explorer
+  {'stevearc/oil.nvim', dependencies= { "nvim-tree/nvim-web-devicons" }},
 
   -- Colorscheme
   'rktjmp/lush.nvim',
@@ -22,7 +26,11 @@ require('lazy').setup {
   'b3nj5m1n/kommentary',
 
   -- Movement
-  'ggandor/leap.nvim',
+  { "folke/flash.nvim",
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc="Flash" },
+    }
+  },
   { 'ThePrimeagen/harpoon',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- LSP-y / Language specific stuff
@@ -40,7 +48,8 @@ require('lazy').setup {
 
   require('my_autocomplete'),
 
-  'L3MON4D3/LuaSnip',
+  'SirVer/ultisnips',
+
   'lervag/vimtex',
   { 'iamcco/markdown-preview.nvim', build = ":call mkdp#util#install()" },
   {
@@ -70,8 +79,6 @@ require('lazy').setup {
   { 'nvim-treesitter/nvim-treesitter',             build = ":TSUpdate" },
   { 'nvim-treesitter/nvim-treesitter-refactor',    dependencies = { 'nvim-treesitter/nvim-treesitter' } },
   { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
-  { 'nvim-treesitter/playground',                  dependencies = { 'nvim-treesitter/nvim-treesitter' } },
-  { 'Badhi/nvim-treesitter-cpp-tools',             dependencies = { "nvim-treesitter/nvim-treesitter" } },
   {
     'danymat/neogen',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -92,7 +99,6 @@ require('lazy').setup {
   'junegunn/vim-easy-align',
   'tpope/vim-repeat',
   'tpope/vim-surround',
-  'anuvyklack/hydra.nvim',
   'folke/which-key.nvim',
 
   -- Git

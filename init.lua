@@ -42,28 +42,17 @@ vim.o.completeopt = "menuone,noselect"
 require('my_autocommands')
 require('my_keymapping')
 
+vim.api.nvim_create_user_command("Term", function(args)
+  vim.cmd( "split | term "..args["args"])
+end, { nargs='?', complete="shellcmd" })
+
+vim.api.nvim_create_user_command("Py", function(args)
+  vim.cmd( "split | term python " .. args["args"])
+end, { nargs='?', complete="shellcmd" })
+
+
 
 require('harpoon').setup()
-
-local leap = require('leap')
-leap.setup {
-  case_insensitive = true,
-  safe_labels = {},
-}
-leap.opts.safe_labels = {}
-leap.set_default_keymaps()
--- LeapLabelPrimary xxx cterm=nocombine ctermfg=0 ctermbg=9 gui=nocombine guifg=Black guibg=#ccff88
-
-local function leap_all_windows()
-  require 'leap'.leap {
-    ['target-windows'] = vim.tbl_filter(
-      function(win) return vim.api.nvim_win_get_config(win).focusable end,
-      vim.api.nvim_tabpage_list_wins(0)
-    )
-  }
-end
-
-vim.keymap.set('n', 's', leap_all_windows, { silent = true })
 
 -- Kommentary Config
 require('kommentary.config').configure_language('default', {
@@ -113,13 +102,6 @@ require('neogit').setup {
 }
 
 require('gitsigns').setup({
-  signs                        = {
-    add          = { hl = 'GitSignsAdd', text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-    change       = { hl = 'GitSignsChange', text = '', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-    delete       = { hl = 'GitSignsDelete', text = '━', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-    topdelete    = { hl = 'GitSignsDelete', text = '━', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-    changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-  },
   signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -151,6 +133,8 @@ require('gitsigns').setup({
   },
 })
 
+require('oil').setup()
+
 require('my_telescope_config')
 require('my_treesitter_config')
 require('my_lsp_config')
@@ -158,12 +142,6 @@ require('my_vimtex')
 require('my_debugging')
 require('my_ui_visuals')
 require('my_funcs')
-
-require("luasnip").setup {
-  enable_autosnippets = true
-}
-require("luasnip.loaders.from_snipmate").lazy_load()
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/lua" })
 
 -- Neogit Highlighting
 vim.cmd("hi NeogitDiffAdd guibg='#78997a' guifg='#f4f0ed'")

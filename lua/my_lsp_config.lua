@@ -1,6 +1,37 @@
 require('lspconfig').pyright.setup {}
 
-require("lspconfig").rust_analyzer.setup {}
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup {}
+
+lspconfig.rust_analyzer.setup {
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+        allFeatures = true,
+        ["buildScripts.enable"] = true
+      },
+      procMacro = {
+        enable = true,
+      },
+      inlayHints = {
+        ["chainingHints.enable"] = true,
+        auto = true,
+        show_parameter_hints = true,
+        closingBraceHints = {
+          minLines = 4,
+          enable = true
+        },
+        ["typeHints.enable"] = true
+      }
+    }
+  }
+}
 
 require 'lspconfig'.lua_ls.setup {
   settings = {
@@ -51,7 +82,7 @@ texlab_cap.textDocument.completion.completionItem.resolveSupport = {
 }
 texlab_cap.textDocument.publishDiagnostics = nil
 
-require("lspconfig").texlab.setup {
+lspconfig.texlab.setup {
   capabilities = capabilities,
   cmd = { "texlab" },
   filetypes = { "tex", "bib" },
@@ -84,13 +115,13 @@ require("lspconfig").texlab.setup {
   }
 }
 
-require("lspconfig").clangd.setup {
+lspconfig.clangd.setup {
   capabilities = capabilities,
   rootPatterns = { "compile_commands.json", ".git/", ".hg/" },
   filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "h", "hpp", "cuda" },
 }
 
-require("lspconfig").cmake.setup {
+lspconfig.cmake.setup {
   capabilities = capabilities,
 }
 
@@ -115,16 +146,6 @@ vim.g.tex_flavour = 'luatex'
 vim.g.vimtex_compiler_method = 'latexmk'
 vim.g.vimtex_view_method = 'zathura'
 vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
--- vim.g.vimtex_compiler_latexmk_engines = {
---   ['_']                = '',
---   ['pdflatex']         = '-pdf',
---   ['dvipdfex']         = '-pdfdvi',
---   ['lualatex']         = '-lualatex',
---   ['xelatex']          = '-xelatex',
---   ['context (pdftex)'] = '-pdf -pdflatex=texexec',
---   ['context (luatex)'] = '-pdf -pdflatex=context',
---   ['context (xetex)']  = '-pdf -pdflatex=\'\'texexec --xtx\'\'',
--- }
 
 
 vim.g.vimtex_compiler_latexmk = {

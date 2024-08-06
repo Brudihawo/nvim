@@ -1,4 +1,7 @@
-require('telescope').setup {
+t = require('telescope')
+previewers = require('telescope.previewers')
+actions = require('telescope.actions')
+t.setup {
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -29,19 +32,23 @@ require('telescope').setup {
     generic_sorter = require 'telescope.sorters'.get_generic_fuzzy_sorter,
     winblend = 0,
     border = {},
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    borderchars = { '─', '', '', '│', '┌', '', '', '│' },
     color_devicons = true,
     use_less = true,
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-    file_previewer = require 'telescope.previewers'.vim_buffer_cat.new,
-    grep_previewer = require 'telescope.previewers'.vim_buffer_vimgrep.new,
-    qflist_previewer = require 'telescope.previewers'.vim_buffer_qflist.new,
+    file_previewer = previewers.vim_buffer_cat.new,
+    grep_previewer = previewers.vim_buffer_vimgrep.new,
+    qflist_previewer = previewers.vim_buffer_qflist.new,
     mappings = {
       n = {
-        ['<C-d>'] = require('telescope.actions').delete_buffer
+        ['<C-d>'] = actions.delete_buffer,
+        ['<C-v>'] = actions.file_vsplit,
+        ['<C-s>'] = actions.file_split,
       },
       i = {
-        ['<C-d>'] = require('telescope.actions').delete_buffer
+        ['<C-d>'] = actions.delete_buffer,
+        ['<C-v>'] = actions.file_vsplit,
+        ['<C-s>'] = actions.file_split,
       }
     }
   },
