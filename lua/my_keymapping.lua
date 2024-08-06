@@ -160,8 +160,6 @@ require('legendary').setup {
     { 'co', '<cmd>copen<CR>' },
     { 'cd', '<cmd>cclose<CR>' },
 
-    { '<A-t>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
-
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
     { '<leader>r', vim.lsp.buf.rename },
     { '<leader>R', vim.lsp.buf.references },
@@ -187,18 +185,20 @@ require('legendary').setup {
       vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR })
     end },
 
-    { 'Ld', function()
+    { '<leader>d', function()
       vim.diagnostic.open_float(0, { scope = "line" })
     end },
-    { 'Lf', function()
+    { '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end },
 
     { '<C-q>', '<C-x>', desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
     -- Buffer management
-    { '<C-j>', '<cmd>bnext<CR>' },
-    { '<C-k>', '<cmd>bprev<CR>' },
-    { '<C-x>', '<cmd>bdelete<CR>' },
+    { '<leader>j', '<cmd>bnext<CR>' },
+    { '<leader>k', '<cmd>bprev<CR>' },
+    { '<C-x>',     '<cmd>bdelete<CR>' },
+
+    { '<leader>lt', '<cmd>VimtexTocToggle<CR>' },
 
 
 
