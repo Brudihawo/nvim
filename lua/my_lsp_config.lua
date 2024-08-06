@@ -1,74 +1,6 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
+require('lspconfig').pyright.setup {}
 
-require("lspconfig").pylsp.setup {
-  capabilities = capabilities,
-  settings = {
-    pylsp = {
-      configurationSources = { "flake8" },
-      plugins = {
-        pydocstyle = {
-          enabled = true,
-          convention = 'google'
-        },
-        pyls_isort = {
-          enabled = true
-        },
-        jedi_completion = {
-          enabled = true,
-          fuzzy = true,
-          eager = true
-        },
-        black = {
-          enabled = true,
-          args = {
-            '-l', '90'
-          }
-        },
-        flake8 = {
-          enabled = true,
-          args = { "--ignore=E203,W503" },
-        }
-      }
-    }
-  }
-}
-
-require("lspconfig").rust_analyzer.setup {
-  capabilities = capabilities,
-  settings = {
-    ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
-      },
-      cargo = {
-        loadOutDirsFromCheck = true,
-        allFeatures=true,
-        ["buildScripts.enable"] = true
-      },
-      procMacro = {
-        enable = true,
-      },
-      inlayHints = {
-        ["chainingHints.enable"] = true,
-        auto = true,
-        show_parameter_hints = true,
-        closingBraceHints = {
-          minLines = 4,
-          enable = true
-        },
-        ["typeHints.enable"] = true
-      }
-    }
-  }
-}
+require("lspconfig").rust_analyzer.setup {}
 
 require 'lspconfig'.lua_ls.setup {
   settings = {
@@ -95,14 +27,7 @@ require 'lspconfig'.lua_ls.setup {
 }
 
 local arduino_ls_capabilities = vim.lsp.protocol.make_client_capabilities()
-arduino_ls_capabilities.semanticTokensProvider = nil
 
--- arduino_ls_capabilities.textDocument.completion.completionItem.resolveSupport = {
---   properties = {
---     'documentation',
---     'detail',
---   }
--- }
 require 'lspconfig'.arduino_language_server.setup {
   on_attach = function(client)
     client.server_capabilities.semanticTokensProvider = nil

@@ -83,6 +83,7 @@ require('lazy').setup {
   -- libraries
   'nvim-lua/plenary.nvim',
   'nvim-lua/popup.nvim',
+  { 'stevearc/oil.nvim', config=function() require('oil').setup() end},
 
   -- Telescope
   'nvim-telescope/telescope.nvim',

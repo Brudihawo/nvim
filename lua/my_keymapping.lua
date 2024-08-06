@@ -173,7 +173,7 @@ require('legendary').setup {
       require('my_funcs').todos_qflist()
     end },
 
-    { '<leader>r', require('refactoring').select_refactor, mode = 'v', desc = "refactoring" },
+    { '<leader>F',  require('refactoring').select_refactor, mode = 'v', desc = "refactoring" },
 
     -- Create dot / neato Graph
     { '<leader>gd', function() graphviz_graph("dot") end },
@@ -181,19 +181,19 @@ require('legendary').setup {
     { '<leader>gt', function() graphviz_graph("twopi") end },
 
     -- Quickfix / Locallist Open / Close
-    { 'co', '<cmd>copen<CR>' },
-    { 'cd', '<cmd>cclose<CR>' },
+    { 'co',         '<cmd>copen<CR>' },
+    { 'cd',         '<cmd>cclose<CR>' },
 
-    { '<A-t>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
+    { '<A-t>',      '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
 
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
-    { 'Lrn', vim.lsp.buf.rename },
-    { 'Lrr', vim.lsp.buf.references },
-    { 'Lh', vim.lsp.buf.hover },
-    { 'Lv', peek_def }, -- View
-    { 'Lci', vim.lsp.buf.incoming_calls },
-    { 'Lco', vim.lsp.buf.outgoing_calls },
-    { 'Lca', vim.lsp.buf.code_action },
+    { '<leader>r',        vim.lsp.buf.rename },
+    { '<leader>R',        vim.lsp.buf.references },
+    { '<leader>h',         vim.lsp.buf.hover },
+    { '<leader>v',         peek_def }, -- View
+    { 'Lci',        vim.lsp.buf.incoming_calls },
+    { 'Lco',        vim.lsp.buf.outgoing_calls },
+    { '<leader>a',        vim.lsp.buf.code_action },
 
     -- Populate Quickfixlist
     { 'Lpw', function()
@@ -218,7 +218,7 @@ require('legendary').setup {
       vim.lsp.buf.format { async = true }
     end },
 
-    { '<C-q>', '<C-x>', desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
+    { '<C-q>', '<C-x>',                                  desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
     -- Buffer management
     { '<C-j>', '<cmd>bnext<CR>' },
     { '<C-k>', '<cmd>bprev<CR>' },
@@ -232,10 +232,10 @@ require('legendary').setup {
 
 
     -- Extended Fuzzy Finding
-    { 'th', '<cmd>Telescope help_tags<CR>' },
-    { 'to', '<cmd>Telescope buffers<CR>' },
-    { 'tkm', '<cmd>Telescope keymaps<CR>' },
-    { 'ts', '<cmd>Telescope lsp_document_symbols<CR>' },
+    { 'th',    '<cmd>Telescope help_tags<CR>' },
+    { 'to',    '<cmd>Telescope buffers<CR>' },
+    { 'tkm',   '<cmd>Telescope keymaps<CR>' },
+    { 'ts',    '<cmd>Telescope lsp_document_symbols<CR>' },
 
     -- Edit Config
     { 'tee',
@@ -279,7 +279,7 @@ require('legendary').setup {
     { ';', '<cmd>cprev<CR>' },
 
     { 'ü', '<cmd>lnext<CR>' },
-    { 'Ü', '<cmd>lprev<CR>' },
+    { 'ö', '<cmd>lprev<CR>' },
 
 
     -- ga ... for vim-easy-align
