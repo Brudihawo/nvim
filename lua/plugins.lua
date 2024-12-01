@@ -15,7 +15,7 @@ require('lazy').setup {
   'kyazdani42/nvim-web-devicons',
 
   -- File Explorer
-  {'stevearc/oil.nvim', dependencies= { "nvim-tree/nvim-web-devicons" }},
+  { 'stevearc/oil.nvim',    config = function() require('oil').setup() end, dependencies = { "nvim-tree/nvim-web-devicons" } },
 
   -- Colorscheme
   'rktjmp/lush.nvim',
@@ -28,10 +28,10 @@ require('lazy').setup {
   -- Movement
   { "folke/flash.nvim",
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc="Flash" },
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
     }
   },
-  { 'ThePrimeagen/harpoon',    dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'ThePrimeagen/harpoon', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- LSP-y / Language specific stuff
   'neovim/nvim-lspconfig',
@@ -44,7 +44,7 @@ require('lazy').setup {
     }
   },
 
-  { 'inkarkat/vim-SpellCheck', dependencies = { 'inkarkat/vim-ingo-library' } },
+  { 'inkarkat/vim-SpellCheck',      dependencies = { 'inkarkat/vim-ingo-library' } },
 
   require('my_autocomplete'),
 
@@ -55,16 +55,16 @@ require('lazy').setup {
   'mrjones2014/legendary.nvim',
 
   -- Debugging
-  { 'mfussenegger/nvim-dap',        lazy = false },
+  { 'mfussenegger/nvim-dap',                       lazy = false,                                        config = require('config.dap').setup },
   {
     'rcarriga/nvim-dap-ui',
-    dependencies = { "mfussenegger/nvim-dap" },
-    config = true,
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    config = require('config.dapui').setup,
     lazy = false
   },
   { 'theHamsta/nvim-dap-virtual-text',             dependencies = { "mfussenegger/nvim-dap" } },
 
-  { 'nvim-treesitter/nvim-treesitter',             build = ":TSUpdate" },
+  { 'nvim-treesitter/nvim-treesitter',             build = ":TSUpdate", config=require('config.treesitter').config},
   { 'nvim-treesitter/nvim-treesitter-refactor',    dependencies = { 'nvim-treesitter/nvim-treesitter' } },
   { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
   {
@@ -78,7 +78,7 @@ require('lazy').setup {
   -- libraries
   'nvim-lua/plenary.nvim',
   'nvim-lua/popup.nvim',
-  { 'stevearc/oil.nvim', config=function() require('oil').setup() end},
+
 
   -- Telescope
   'nvim-telescope/telescope.nvim',
