@@ -52,18 +52,6 @@ require('lazy').setup {
 
   'lervag/vimtex',
   { 'iamcco/markdown-preview.nvim', build = ":call mkdp#util#install()" },
-  {
-    'nvim-neorg/neorg',
-    build = ":Neorg sync-parsers",
-    config = function()
-      require("neorg").setup({
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {}
-        }
-      })
-    end
-  },
   'mrjones2014/legendary.nvim',
 
   -- Debugging
