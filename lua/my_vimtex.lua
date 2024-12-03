@@ -1,5 +1,5 @@
 vim.g.vimtex_mappings_disable = {
-  n = { '<leader>ls', '<leader>ll', '<leader>lv' },
+  n = { '<leader>ls', '<leader>ll', '<leader>V' },
 }
 
 vim.g.vimtex_quickfix_open_on_warning = false

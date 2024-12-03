@@ -81,14 +81,19 @@ local function preview_def_callback(_, result, ctx, config)
     return nil
   end
 
+  local preview_lines = 15
+
+  local function range_from_loc(loc)
+    loc['range']['start']['character'] = 0
+    loc['range']['end']['character'] = 0
+    loc['range']['end']['line'] = loc['range']['end']['line'] + preview_lines
+    return loc
+  end
 
   if vim.tbl_islist(result) then
-    vim.lsp.util.preview_location(result[1])
-    print(vim.inspect(result[1]))
+    vim.lsp.util.preview_location(range_from_loc(result[1]))
   else
-    print("One found")
-    print(vim.inspect(result))
-    vim.lsp.util.preview_location(result.location)
+    vim.lsp.util.preview_location(range_from_loc(result.location))
   end
 end
 
@@ -130,7 +135,7 @@ require('legendary').setup {
   keymaps = {
     { '<leader>p', '<cmd>diffput<CR>' },
     { '<leader>g', '<cmd>diffget<CR>' },
-    { '<leader>f', function()
+    { '<leader>F', function()
       print(vim.fn.bufname())
     end },
     { '<leader>M', require('my_funcs').man_split },
@@ -160,8 +165,6 @@ require('legendary').setup {
     { 'co', '<cmd>copen<CR>' },
     { 'cd', '<cmd>cclose<CR>' },
 
-    { '<A-t>', '<cmd>VimtexTocToggle<CR>' }, -- Vimtex toggle Table of Contents
-
     -- LSP commands (might move away in future - doesnt really seem to be necessary)
     { '<leader>r', vim.lsp.buf.rename },
     { '<leader>R', vim.lsp.buf.references },
@@ -170,6 +173,8 @@ require('legendary').setup {
     { '<leader>i', vim.lsp.buf.incoming_calls },
     { '<leader>o', vim.lsp.buf.outgoing_calls },
     { '<leader>a', vim.lsp.buf.code_action },
+    { '<leader>d', function() vim.diagnostic.open_float(0, { scope = "line" }) end },
+    { '<leader>f', function() vim.lsp.buf.format { async = true } end },
 
     -- Populate Quickfixlist
     { '<leader>w', function()
@@ -180,25 +185,20 @@ require('legendary').setup {
     end },
 
     -- Populate Locallist
-    { 'Llw', function()
+    { '<leader>lw', function()
       vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.WARN })
     end },
-    { 'Lle', function()
+    { '<leader>le', function()
       vim.diagnostic.setloclist({ severity = vim.diagnostic.severity.ERROR })
-    end },
-
-    { '<leader>d', function()
-      vim.diagnostic.open_float(0, { scope = "line" })
-    end },
-    { 'Lf', function()
-      vim.lsp.buf.format { async = true }
     end },
 
     { '<C-q>', '<C-x>', desc = 'decrement number', opts = { noremap = true } }, -- Decrement Number
     -- Buffer management
-    { '<C-j>', '<cmd>bnext<CR>' },
-    { '<C-k>', '<cmd>bprev<CR>' },
-    { '<C-x>', '<cmd>bdelete<CR>' },
+    { '<leader>j', '<cmd>bnext<CR>' },
+    { '<leader>k', '<cmd>bprev<CR>' },
+    { '<C-x>',     '<cmd>bdelete<CR>' },
+
+    { '<leader>lt', '<cmd>VimtexTocToggle<CR>' },
 
 
 
@@ -212,6 +212,7 @@ require('legendary').setup {
     { 'to', '<cmd>Telescope buffers<CR>' },
     { 'tkm', '<cmd>Telescope keymaps<CR>' },
     { 'ts', '<cmd>Telescope lsp_document_symbols<CR>' },
+
 
     -- Edit Config
     { 'tee',

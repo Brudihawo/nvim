@@ -1,4 +1,5 @@
 vim.g.python3_host_prog = require('local').python3_host_prog
+vim.opt.runtimepath:append(",~/.config/nvim/after/")
 require('plugins')
 
 vim.o.encoding = 'utf-8'
@@ -102,13 +103,6 @@ require('neogit').setup {
 }
 
 require('gitsigns').setup({
-  signs                        = {
-    add          = { hl = 'GitSignsAdd', text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-    change       = { hl = 'GitSignsChange', text = '', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-    delete       = { hl = 'GitSignsDelete', text = '━', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-    topdelete    = { hl = 'GitSignsDelete', text = '━', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-    changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-  },
   signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -156,6 +150,12 @@ vim.cmd("hi NeogitDiffDelete guibg='#7d2a2f' guifg='#f4f0ed'")
 vim.cmd("hi NeogitDiffContextHighlight guibg='#4d453e'")
 
 vim.cmd("hi NeogitHunkHeaderHighlight guibg='#697893'")
+vim.api.nvim_set_hl(0, "@env_cmd.latex", { link = "keyword" })
+vim.api.nvim_set_hl(0, "@section.latex", { link = "keyword" })
+vim.api.nvim_set_hl(0, "@label_name.latex", { link = "@string.special.url" })
+vim.api.nvim_set_hl(0, "@ref.latex", { link = "@string.special.url" })
+vim.api.nvim_set_hl(0, "@citekeys.latex", { link = "@string.special.url" })
+vim.api.nvim_set_hl(0, "@keylabel.latex", { link = "@type" })
 
 -- Zotcite
 vim.cmd [[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]
