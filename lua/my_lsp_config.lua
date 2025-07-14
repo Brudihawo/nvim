@@ -1,6 +1,6 @@
-require('lspconfig').pyright.setup {}
-
 local lspconfig = require('lspconfig')
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 lspconfig.pyright.setup {}
 
 lspconfig.rust_analyzer.setup {
@@ -33,7 +33,9 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
-require 'lspconfig'.lua_ls.setup {
+lspconfig.gopls.setup{}
+
+lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
@@ -57,9 +59,8 @@ require 'lspconfig'.lua_ls.setup {
   },
 }
 
-local arduino_ls_capabilities = vim.lsp.protocol.make_client_capabilities()
 
-require 'lspconfig'.arduino_language_server.setup {
+lspconfig.arduino_language_server.setup {
   on_attach = function(client)
     client.server_capabilities.semanticTokensProvider = nil
   end,
