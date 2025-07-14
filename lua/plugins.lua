@@ -28,10 +28,10 @@ require('lazy').setup {
   -- Movement
   { "folke/flash.nvim",
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc="Flash" },
     }
   },
-  { 'ThePrimeagen/harpoon', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'ThePrimeagen/harpoon',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- LSP-y / Language specific stuff
   'neovim/nvim-lspconfig',
@@ -44,7 +44,7 @@ require('lazy').setup {
     }
   },
 
-  { 'inkarkat/vim-SpellCheck',      dependencies = { 'inkarkat/vim-ingo-library' } },
+  { 'inkarkat/vim-SpellCheck', dependencies = { 'inkarkat/vim-ingo-library' } },
 
   require('my_autocomplete'),
 
@@ -52,7 +52,7 @@ require('lazy').setup {
 
   'lervag/vimtex',
   { 'iamcco/markdown-preview.nvim', build = ":call mkdp#util#install()" },
-  'mrjones2014/legendary.nvim',
+    'mrjones2014/legendary.nvim',
 
   -- Debugging
   { 'mfussenegger/nvim-dap',                       lazy = false,                                        config = require('config.dap').setup },
@@ -79,7 +79,6 @@ require('lazy').setup {
   'nvim-lua/plenary.nvim',
   'nvim-lua/popup.nvim',
 
-
   -- Telescope
   'nvim-telescope/telescope.nvim',
 
@@ -87,10 +86,12 @@ require('lazy').setup {
   'junegunn/vim-easy-align',
   'tpope/vim-repeat',
   'tpope/vim-surround',
-  'folke/which-key.nvim',
 
   -- Git
-  'TimUntersberger/Neogit',
+  { 'TimUntersberger/Neogit', dependencies = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" }, config = function()
+    require('neogit').setup {
+      process_spinner = true,
+    } end },
   'lewis6991/gitsigns.nvim',
   'tpope/vim-git',
   'FabijanZulj/blame.nvim',

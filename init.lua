@@ -44,12 +44,12 @@ require('my_autocommands')
 require('my_keymapping')
 
 vim.api.nvim_create_user_command("Term", function(args)
-  vim.cmd( "split | term "..args["args"])
-end, { nargs='?', complete="shellcmd" })
+  vim.cmd("split | term " .. args["args"])
+end, { nargs = '?', complete = "shellcmd" })
 
 vim.api.nvim_create_user_command("Py", function(args)
-  vim.cmd( "split | term python " .. args["args"])
-end, { nargs='?', complete="shellcmd" })
+  vim.cmd("split | term python " .. args["args"])
+end, { nargs = '?', complete = "shellcmd" })
 
 
 
@@ -63,43 +63,6 @@ require('kommentary.config').configure_language('default', {
 require('blame').setup {
   date_format = "%H:%M %d.%m.%Y",
   virtual_style = "right_align"
-}
-
-require('neogit').setup {
-  disable_signs = true,
-  disable_hint = false,
-  disable_context_highlighting = false,
-  disable_commit_confirmation = false,
-  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
-  -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
-  auto_refresh = true,
-  disable_builtin_notifications = false,
-  use_magit_keybindings = false,
-  commit_popup = {
-    kind = "split",
-  },
-  -- Change the default way of opening neogit
-  kind = "tab",
-  -- customize displayed signs
-  signs = {
-    -- { CLOSED, OPENED }
-    section = { ">", "v" },
-    item = { ">", "v" },
-    hunk = { "", "" },
-  },
-  integrations = {
-    diffview = false
-  },
-  -- Setting any section to `false` will make the section not render at all
-  sections = {
-    untracked = { folded = false },
-    unstaged = { folded = false },
-    staged = { folded = false },
-    stashes = { folded = true },
-    unpulled = { folded = true, hidden = false },
-    unmerged = { folded = false, hidden = false},
-    recent = { folded = true },
-  },
 }
 
 require('gitsigns').setup({
@@ -134,6 +97,35 @@ require('gitsigns').setup({
   },
 })
 
+local oil = require 'oil'
+local function oil_exec_cmd()
+  local entry = oil.get_cursor_entry()
+  if not entry then
+    return
+  end
+
+  local cwd = oil.get_current_dir()
+  local filename = cwd .. entry.name
+  local program = vim.fn.input("> ", "", "shellcmd")
+  local cmd = program .. " '" .. filename .. "'"
+  print("Executing " .. cmd)
+
+  local handle = io.popen("cd '" .. cwd .. "' && " .. cmd)
+  local output = handle:read('*a')
+  handle:close()
+  print(output)
+end
+
+require('oil').setup({
+  columns = { "icon", "mtime", "size" },
+  cleanup_delay_ms = 0,
+  lsp_file_methods = { enabled = false, timeout_ms = 0 },
+  keymaps = {
+    ["gX"] = oil_exec_cmd
+  }
+
+})
+
 require('my_telescope_config')
 require('my_lsp_config')
 require('my_vimtex')
@@ -152,6 +144,10 @@ vim.api.nvim_set_hl(0, "@label_name.latex", { link = "@string.special.url" })
 vim.api.nvim_set_hl(0, "@ref.latex", { link = "@string.special.url" })
 vim.api.nvim_set_hl(0, "@citekeys.latex", { link = "@string.special.url" })
 vim.api.nvim_set_hl(0, "@keylabel.latex", { link = "@type" })
+vim.api.nvim_set_hl(0, "@todo_text.latex", { link = "@comment.todo" })
 
--- Zotcite
-vim.cmd [[let $ZoteroSQLPath = '~/Zotero/zotero.sqlite']]
+vim.api.nvim_set_hl(0, "@author_cmd.latex", { link = "@function.builtin" })
+vim.api.nvim_set_hl(0, "@title_cmd.latex", { link = "@function.builtin" })
+vim.api.nvim_set_hl(0, "@date_cmd.latex", { link = "@function.builtin" })
+vim.api.nvim_set_hl(0, "@math_text.latex", { link = "@variable" })
+vim.api.nvim_set_hl(0, "@vec.latex", { bold = true })

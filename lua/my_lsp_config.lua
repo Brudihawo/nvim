@@ -13,7 +13,7 @@ lspconfig.rust_analyzer.setup {
       },
       cargo = {
         loadOutDirsFromCheck = true,
-        allFeatures = true,
+        -- allFeatures = true,
         ["buildScripts.enable"] = true
       },
       procMacro = {
@@ -125,12 +125,6 @@ lspconfig.cmake.setup {
   capabilities = capabilities,
 }
 
--- Set lsp diagnostic signs
-vim.api.nvim_command("sign define LspDiagnosticsSignError text=\\ ☠")
-vim.api.nvim_command("sign define LspDiagnosticsSignWarning text=⚠")
-vim.api.nvim_command("sign define LspDiagnosticsSignInformation text=ⓘ")
-vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
-
 -- VimTeX
 vim.g.vimtex_mappings_disable = {
   n = { '<leader>ls', '<leader>ll', '<leader>lv' },
@@ -158,6 +152,21 @@ vim.g.vimtex_compiler_latexmk = {
     '-interaction=nonstopmode',
   },
 }
+
+vim.diagnostic.config({
+    virtual_text = false,
+    underline = false,
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = '❌',
+        [vim.diagnostic.severity.WARN] = '⚡',
+        [vim.diagnostic.severity.INFO] = 'ℹ️',
+        [vim.diagnostic.severity.HINT] = '❔',
+      }
+    }
+  },
+  nil
+)
 
 return {
   print_response = function(err, method, result, client_id, bufnr, config)

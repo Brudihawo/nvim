@@ -43,3 +43,58 @@
   (key_value_pair
     key: (text) @keylabel
     value: (value)))
+
+(generic_environment
+  (begin
+    (curly_group_text
+      (text) @name
+      (#not-eq? @name "document"))
+    (brack_group) @env_opts @nospell)
+  )
+
+(generic_command
+  (command_name) @cmd_name
+  (#eq? @cmd_name "\\todo")
+  (curly_group
+    (text) @todo_text)) @todo_cmd
+
+(generic_environment
+  (begin
+    (curly_group_text
+      (text) @env_name
+      (#any-of? @env_name
+         "tabular"
+         "tabularx"
+         "tabulary")))
+  (curly_group (text) @nospell))
+
+(author_declaration
+  _ @author_cmd
+  (curly_group_author_list
+    (author)) @authors)
+
+(title_declaration
+  _ @title_cmd
+  (curly_group
+    (text)) @title)
+
+(generic_command
+  (command_name) @date_cmd
+  (#eq? @date_cmd "\\date")) 
+
+(text_mode
+  (curly_group
+    (text) @math_text))
+
+(generic_command
+  (command_name) @cmd_name
+  (#eq? @cmd_name "\\mathrm")
+  (curly_group
+    (text) @math_text))
+
+(generic_command
+  (command_name) @cmd_name
+  (#eq? @cmd_name "\\vec")
+  (curly_group
+    (text) @vec)
+  )

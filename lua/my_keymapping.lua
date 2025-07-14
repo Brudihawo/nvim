@@ -135,6 +135,7 @@ require('legendary').setup {
   keymaps = {
     { '<leader>p', '<cmd>diffput<CR>' },
     { '<leader>g', '<cmd>diffget<CR>' },
+    { '<leader>G', '<cmd>Neogit<CR>' },
     { '<leader>F', function()
       print(vim.fn.bufname())
     end },
@@ -205,8 +206,6 @@ require('legendary').setup {
     { '<C-x>',     '<cmd>bdelete<CR>' },
 
     { '<leader>lt', '<cmd>VimtexTocToggle<CR>' },
-
-
 
     -- Fuzzy Finding Shortcuts
     { '<C-p>', require("telescope.builtin").find_files },
