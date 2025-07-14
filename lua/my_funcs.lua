@@ -7,6 +7,15 @@ end
 
 M = {}
 
+M.pdfopen = function()
+  local _, srow, scol, _ = unpack(vim.fn.getpos("'<"))
+  local _, erow, ecol, _ = unpack(vim.fn.getpos("'>"))
+  local marked = vim.api.nvim_buf_get_text(0, srow - 1, scol - 1, erow - 1, ecol, {})[1]
+  local cur_file_abspath = vim.fn.expand("%:p")
+  local dir, file = cur_file_abspath:match('(.*/)(.*)')
+  os.execute("okular '" .. dir .. marked .. "' &")
+end
+
 M.new_buf_cmd = function(bufname)
   local command = vim.fn.input("Execute Command: ", "", 'shellcmd')
   bufname = bufname or "command"
@@ -284,5 +293,17 @@ M.clear_registers = function()
     pcall(function() vim.fn.setreg(string.char(i), {}) end)
   end
 end
+
+local ffox_open = function()
+  local brange = vim.fn.getpos("'<")
+  local erange = vim.fn.getpos("'>")
+  if erange[3] == vim.v.maxcol then
+    erange[3] = -1
+  end
+  local highlighted = vim.api.nvim_buf_get_text(brange[1], brange[2] - 1, brange[3] - 1, erange[2] - 1, erange[3], {})
+  local addr = table.concat(highlighted, "\n")
+  os.execute("firefox --new-tab '" .. addr .. "'")
+end
+vim.api.nvim_create_user_command("FFox", ffox_open, {range = true})
 
 return M

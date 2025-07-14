@@ -12,7 +12,7 @@ end
 
 local defaults = {
   python3_host_prog = '/usr/bin/python3',
-  lldb_vscode_path = '/usr/bin/lldb-vscode',
+  lldb_vscode_path = '/usr/bin/lldb-vscode-14',
   vimtex_tex_flavor = 'lualatex',
   vimtex_view_method = 'zathura',
   vimtex_view_zathura_options = '',
