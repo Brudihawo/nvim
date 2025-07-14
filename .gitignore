@@ -1,3 +1,5 @@
 .netrwhist
 plugin
 lua/local_vals.lua
+lazy-lock.json
+*/.luarc.json
