@@ -1,5 +1,6 @@
 vim.g.python3_host_prog = require('local').python3_host_prog
 vim.opt.runtimepath:append(",~/.config/nvim/after/")
+
 require('plugins')
 
 vim.o.encoding = 'utf-8'
@@ -44,16 +45,27 @@ require('my_autocommands')
 require('my_keymapping')
 
 vim.api.nvim_create_user_command("Term", function(args)
-  vim.cmd( "split | term "..args["args"])
-end, { nargs='?', complete="shellcmd" })
+  vim.cmd("split | term " .. args["args"])
+end, { nargs = '?', complete = "shellcmd" })
 
 vim.api.nvim_create_user_command("Py", function(args)
-  vim.cmd( "split | term python " .. args["args"])
-end, { nargs='?', complete="shellcmd" })
+  vim.cmd("split | term python " .. args["args"])
+end, { nargs = '?', complete = "shellcmd" })
 
 require('my_ui_visuals')
 require('my_funcs')
-require('config.lspconfig').config()
+
+vim.lsp.config('*', {
+  root_markers = { '.git' },
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      }
+    }
+  }
+})
+vim.lsp.enable({ "lua_ls", "rust-analyzer", "texlab", "clangd" })
 
 vim.api.nvim_set_hl(0, "@env_cmd.latex", { link = "keyword" })
 vim.api.nvim_set_hl(0, "@section.latex", { link = "keyword" })
@@ -62,3 +74,7 @@ vim.api.nvim_set_hl(0, "@ref.latex", { link = "@string.special.url" })
 vim.api.nvim_set_hl(0, "@citekeys.latex", { link = "@string.special.url" })
 vim.api.nvim_set_hl(0, "@keylabel.latex", { link = "@type" })
 
+vim.api.nvim_command("sign define LspDiagnosticsSignError text=\\ ☠")
+vim.api.nvim_command("sign define LspDiagnosticsSignWarning text=⚠")
+vim.api.nvim_command("sign define LspDiagnosticsSignInformation text=ⓘ")
+vim.api.nvim_command("sign define lspLspDiagnosticsSignHint text=⚐")
