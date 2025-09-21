@@ -15,7 +15,7 @@ require('lazy').setup {
   'kyazdani42/nvim-web-devicons',
 
   -- File Explorer
-  { 'stevearc/oil.nvim',    config = function() require('oil').setup() end, dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { 'stevearc/oil.nvim',    config = function() require("config.oil").setup() end, dependencies = { "nvim-tree/nvim-web-devicons" } },
 
   -- Colorscheme
   'rktjmp/lush.nvim',
@@ -35,10 +35,10 @@ require('lazy').setup {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
     }
   },
-  { 'ThePrimeagen/harpoon', dependencies = { 'nvim-lua/plenary.nvim' },     config = function() require('harpoon').setup() end },
+  { 'ThePrimeagen/harpoon', dependencies = { 'nvim-lua/plenary.nvim' },            config = function() require('harpoon')
+        .setup() end },
 
   -- LSP-y / Language specific stuff
-  'neovim/nvim-lspconfig',
   'vhdirk/vim-cmake',
   {
     'ThePrimeagen/refactoring.nvim',
@@ -123,7 +123,6 @@ require('lazy').setup {
   'junegunn/vim-easy-align',
   'tpope/vim-repeat',
   'tpope/vim-surround',
-  'folke/which-key.nvim',
 
   -- Git
   { 'TimUntersberger/Neogit',        config = require('config.neogit').setup },
