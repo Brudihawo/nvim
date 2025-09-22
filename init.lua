@@ -66,7 +66,7 @@ vim.lsp.config('*', {
     }
   }
 })
-vim.lsp.enable({ "lua_ls", "rust-analyzer", "texlab", "clangd" })
+vim.lsp.enable({ "lua_ls", "rust-analyzer", "texlab", "clangd", "pyright"})
 
 vim.api.nvim_set_hl(0, "@env_cmd.latex", { link = "keyword" })
 vim.api.nvim_set_hl(0, "@section.latex", { link = "keyword" })
