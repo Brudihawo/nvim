@@ -52,6 +52,7 @@ vim.api.nvim_create_user_command("Py", function(args)
   vim.cmd("split | term python " .. args["args"])
 end, { nargs = '?', complete = "shellcmd" })
 
+
 require('my_ui_visuals')
 require('my_funcs')
 

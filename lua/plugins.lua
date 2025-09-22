@@ -15,7 +15,7 @@ require('lazy').setup {
   'kyazdani42/nvim-web-devicons',
 
   -- File Explorer
-  { 'stevearc/oil.nvim',    config = function() require("config.oil").setup() end, dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { 'stevearc/oil.nvim',       config = function() require("config.oil").setup() end, dependencies = { "nvim-tree/nvim-web-devicons" } },
 
   -- Colorscheme
   'rktjmp/lush.nvim',
@@ -35,8 +35,10 @@ require('lazy').setup {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
     }
   },
-  { 'ThePrimeagen/harpoon', dependencies = { 'nvim-lua/plenary.nvim' },            config = function() require('harpoon')
-        .setup() end },
+  { 'ThePrimeagen/harpoon', dependencies = { 'nvim-lua/plenary.nvim' }, config = function()
+    require('harpoon')
+        .setup()
+  end },
 
   -- LSP-y / Language specific stuff
   'vhdirk/vim-cmake',
@@ -48,7 +50,7 @@ require('lazy').setup {
     }
   },
 
-  { 'inkarkat/vim-SpellCheck',      dependencies = { 'inkarkat/vim-ingo-library' } },
+  { 'inkarkat/vim-SpellCheck', dependencies = { 'inkarkat/vim-ingo-library' } },
 
   { "hrsh7th/nvim-cmp",
     dependencies = {
