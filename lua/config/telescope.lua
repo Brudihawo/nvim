@@ -20,7 +20,7 @@ return {
         layout_strategy = "bottom_pane",
         layout_config = {
           bottom_pane = {
-            height = 0.3,
+            height = 0.15,
             prompt_position = "bottom"
           }
         },
@@ -34,13 +34,11 @@ return {
         generic_sorter = require 'telescope.sorters'.get_generic_fuzzy_sorter,
         winblend = 0,
         border = {},
-        borderchars = { '─', '', '', '│', '┌', '', '', '│' },
+        borderchars = { '─', '', '', '', '', '', '', '' },
         color_devicons = true,
         use_less = true,
         set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-        file_previewer = previewers.vim_buffer_cat.new,
-        grep_previewer = previewers.vim_buffer_vimgrep.new,
-        qflist_previewer = previewers.vim_buffer_qflist.new,
+        preview = false,
         mappings = {
           n = {
             ['<C-d>'] = actions.delete_buffer,
