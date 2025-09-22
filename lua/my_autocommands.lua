@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = "*.py",
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "<leader>f", "<cmd>w<CR><cmd>!black %<CR><cmd>!isort %<CR><CR>", {})
+    vim.api.nvim_buf_set_keymap(0, "n", "<leader>f", "<cmd>w<CR><cmd>!isort %<CR><CR><cmd>!black %<CR>", {})
   end
 })
 
